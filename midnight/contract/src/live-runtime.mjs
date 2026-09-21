@@ -5,6 +5,7 @@ import { serialize, deserialize } from 'node:v8';
 import { pathToFileURL } from 'node:url';
 import path from 'node:path';
 import pino from 'pino';
+import { firstValueFrom, filter, timeout } from 'rxjs';
 import { ecMulGenerator } from '@midnight-ntwrk/compact-runtime';
 import { CompiledContract } from '@midnight-ntwrk/midnight-js-protocol/compact-js';
 import { findDeployedContract, deployContract } from '@midnight-ntwrk/midnight-js-contracts';
@@ -15,11 +16,15 @@ import { levelPrivateStateProvider } from '@midnight-ntwrk/midnight-js-level-pri
 import { setNetworkId } from '@midnight-ntwrk/midnight-js-network-id';
 import { Contract, ledger } from './managed/policy/contract/index.js';
 import { scalar, witnesses } from './signing.mjs';
+import { persistentWallet } from './persistent-wallet.mjs';
 
 export const project = process.env.PROOFPASS_PROJECT;
 export const upstream = process.env.PROOFPASS_MIDNIGHT_UPSTREAM;
 assert(project && upstream, 'Use the ProofPass runtime script');
-export const liveDirectory = path.resolve('private/live');
+const { networkProfile } = await import(pathToFileURL(path.join(project, 'src/midnight/network.mjs')));
+export const config = networkProfile(process.env.PROOFPASS_MIDNIGHT_NETWORK ?? 'undeployed');
+export const liveDirectory = path.resolve(config.privateDirectory);
+export const evidenceDirectory = path.join(project, config.evidenceDirectory);
 export const fromHex = hex => new Uint8Array(Buffer.from(hex, 'hex'));
 export const digest = value => new Uint8Array(createHash('sha256').update(value).digest());
 export async function loadPrivate(name) {
@@ -33,11 +38,12 @@ export async function savePrivate(name, data) {
   await rename(file + '.tmp', file);
 }
 async function genesis() {
-  const r = await fetch('http://127.0.0.1:9944', { method: 'POST', headers: { 'content-type': 'application/json' },
+  const r = await fetch(config.node, { method: 'POST', headers: { 'content-type': 'application/json' },
     body: JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'chain_getBlockHash', params: [0] }), signal: AbortSignal.timeout(10000) });
   assert(r.ok);
   const data = await r.json();
   assert.match(data.result, /^0x[0-9a-f]{64}$/);
+  if (config.genesisHash) assert.equal(data.result, config.genesisHash, 'Wrong Midnight network genesis');
   return data.result;
 }
 export async function runtime() {
@@ -48,13 +54,28 @@ export async function runtime() {
   if (!password) { password = 'Aa1!' + randomBytes(32).toString('hex'); await savePrivate('storage-password', password); }
   const api = await import(pathToFileURL(path.join(upstream, 'zkloan-credit-scorer-cli/src/api.ts')));
   api.setLogger(pino({ level: 'warn' }));
-  const config = { networkId: 'undeployed', node: 'http://127.0.0.1:9944', indexer: 'http://127.0.0.1:8088/api/v4/graphql',
-    indexerWS: 'ws://127.0.0.1:8088/api/v4/graphql/ws', proofServer: 'http://127.0.0.1:6300' };
-  setNetworkId('undeployed');
+  setNetworkId(config.networkId);
   const genesisHash = await genesis();
   const prior = await loadPrivate('deployment');
   if (prior) assert.equal(prior.genesisHash, genesisHash, 'Local chain changed; deployment cannot be reused');
-  const wallet = await api.buildWalletFromHexSeed(config, '0'.repeat(63) + '1');
+  const walletSeed = config.allowDevelopmentSeed ? '0'.repeat(63) + '1' : await loadPrivate('wallet-seed');
+  assert(walletSeed, 'Prepare the network-specific wallet first');
+  const wallet = config.allowDevelopmentSeed ? await api.buildWalletFromHexSeed(config, walletSeed)
+    : await persistentWallet({ seed: Buffer.from(walletSeed, 'hex'), config, project, load: loadPrivate, save: savePrivate });
+  if (!config.allowDevelopmentSeed) {
+    try {
+      console.log('Preprod wallet: restored; synchronizing');
+      await api.waitForSync(wallet.wallet);
+      const balance = await api.displayWalletBalances(wallet.wallet);
+      assert(balance.night > 0n, 'Preprod wallet needs faucet funding');
+      const { registerDust } = await import(pathToFileURL(project + '/src/midnight/dust-registration.mjs'));
+      const state = await wallet.wallet.waitForSyncedState();
+      await registerDust({ context: wallet, availableCoins: state.unshielded.availableCoins, dustBalance: state.dust.balance(new Date()),
+        load: loadPrivate, save: savePrivate,
+        waitForDust: () => firstValueFrom(wallet.wallet.state().pipe(filter(s => s.dust.balance(new Date()) > 0n), timeout(180000))) });
+      await wallet.checkpoint();
+    } catch (error) { await wallet.close(); throw error; }
+  }
   const walletProvider = await api.createWalletAndMidnightProvider(wallet);
   const zkPath = path.resolve('src/managed/policy');
   const zkConfigProvider = new NodeZkConfigProvider(zkPath);
@@ -80,7 +101,7 @@ export async function runtime() {
   const compiledContract = CompiledContract.make('ProofPassPolicy', Contract).pipe(
     CompiledContract.withWitnesses(witnesses), CompiledContract.withCompiledFileAssets(zkPath));
   return { providers, compiledContract, secrets, roleKeys: secrets.map(ecMulGenerator), genesisHash, timings,
-    close: () => api.closeWallet(wallet),
+    close: () => config.allowDevelopmentSeed ? api.closeWallet(wallet) : wallet.close(),
     async deploy(policy) {
       assert.equal(await loadPrivate('deployment-started'), null, 'Prior deployment intent needs reconciliation');
       await savePrivate('deployment-started', { policy, roleKeys: secrets.map(ecMulGenerator), genesisHash });

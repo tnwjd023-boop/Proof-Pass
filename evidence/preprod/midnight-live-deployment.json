@@ -1,0 +1,12 @@
+{
+  "status": "deployed",
+  "mode": "preprod-Midnight-live-adapter-policy",
+  "network": "preprod",
+  "contractAddress": "6e16efc04cd792368ac1d858d63f109126fdc48915af76b22353e45b27056b29",
+  "genesis": "0xdf831b09a8baa92badf47762ce5ac439b7e47e3ed3d39600cfdd44fad552361b",
+  "txId": "00f52a255347e4864c84f4bbe093afa1a1ed1a7d0dc712c562e9c35257bd3d1321",
+  "blockHeight": "2644713",
+  "distinctRandomRoleKeys": true,
+  "fullGate1Complete": false,
+  "checkedAt": "2026-09-21T08:55:51.473Z"
+}

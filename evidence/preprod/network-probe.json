@@ -1,0 +1,47 @@
+{
+  "checkedAt": "2026-09-21T03:28:27.620Z",
+  "system_chain": {
+    "status": 200,
+    "body": {
+      "jsonrpc": "2.0",
+      "id": 1,
+      "result": "Midnight Preprod"
+    }
+  },
+  "system_version": {
+    "status": 200,
+    "body": {
+      "jsonrpc": "2.0",
+      "id": 1,
+      "result": "1.0.2-eb71e64e"
+    }
+  },
+  "chain_getBlockHash": {
+    "status": 200,
+    "body": {
+      "jsonrpc": "2.0",
+      "id": 1,
+      "result": "0xdf831b09a8baa92badf47762ce5ac439b7e47e3ed3d39600cfdd44fad552361b"
+    }
+  },
+  "system_health": {
+    "status": 200,
+    "body": {
+      "jsonrpc": "2.0",
+      "id": 1,
+      "result": {
+        "peers": 14,
+        "isSyncing": false,
+        "shouldHavePeers": true
+      }
+    }
+  },
+  "indexer": {
+    "status": 200,
+    "body": {
+      "data": {
+        "__typename": "Query"
+      }
+    }
+  }
+}

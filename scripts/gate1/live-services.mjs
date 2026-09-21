@@ -12,11 +12,13 @@ import { verifyBinding } from '../../src/binding/attestation.mjs';
 import { assessCredential, nextObservation } from '../../src/xrpl/observer.mjs';
 import { loadJson, saveJson, snapshot, lookupCredential, submitStage, recordObservation } from '../../src/xrpl/lifecycle.mjs';
 import { sha256 } from '../../src/protocol.mjs';
+import { networkProfile } from '../../src/midnight/network.mjs';
 
 export { solana, submitIntent, loadJson, saveJson, sha256 };
 export const now = () => Math.floor(Date.now() / 1000);
 export const hex = bytes => Buffer.from(bytes).toString('hex');
-export async function services() {
+export async function services({ network = 'undeployed' } = {}) {
+  const profile = networkProfile(network);
   const project = fileURLToPath(new URL('../../', import.meta.url));
   const root = join(project, '.local/gate1');
   const lockPath = join(root, 'credential-demo.lock');
@@ -52,13 +54,13 @@ export async function services() {
     assert.equal(operatorConfig.relay, solana.hex(relay.publicKey));
     assert.equal(operatorConfig.observer, solana.hex(observer.publicKey));
     assert.equal(operatorConfig.cluster, session.solanaCluster);
-    const runDirectory = join(directory, 'live');
+    const runDirectory = join(directory, profile.intentDirectory);
     await mkdir(runDirectory, { recursive: true });
     const observationPath = join(root, 'observer', sha256(Buffer.from(JSON.stringify(expected))) + '.json');
     const observerKeys = await loadJson(join(root, 'observer/key.json'));
     assert(observerKeys, 'Initialize project observer key before live flow');
     const edObserver = createPrivateKey(observerKeys.private);
-    const journalPath = join(directory, 'credential-journal.json');
+    const journalPath = join(directory, network === 'undeployed' ? 'credential-journal.json' : 'credential-journal-preprod.json');
     let journal = await loadJson(journalPath);
     if (!journal) {
       journal = { binding: expected, expiration: Number(session.expiresAt) - 946684800, steps: {} };
