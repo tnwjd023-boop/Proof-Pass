@@ -1,0 +1,22 @@
+{
+  "status": "passed",
+  "canonicalSha256": "bc601a701d375673fd59c1ec8efea192eef2513fb1d8cb57983e77ac101ab4d7",
+  "compactCommitment": "80879d6026d5cd17c7d0d5e88e948039ae43725562b6316a0ab4f9a36dd7d490",
+  "mapping": "strict typed preimage; hashes intentionally differ",
+  "mutationRejections": [
+    "policyId",
+    "policyVersion",
+    "destinationCluster",
+    "programId",
+    "owner",
+    "agentKey",
+    "vault",
+    "recipient",
+    "assetId",
+    "amountBaseUnits",
+    "requestId",
+    "mandateEpoch",
+    "expiresAt"
+  ],
+  "fixtureOnly": true
+}

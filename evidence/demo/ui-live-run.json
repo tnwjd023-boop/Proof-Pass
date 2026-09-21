@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "trigger": "Actual dashboard button via Edge",
+  "durationMs": 246635,
+  "paymentSignature": "4DfZXZnJpbstGHRkmFJ63YQLc9z2Niwz346kkYt6keUon8pC2P2b6obujzEqreDnBumKsxg8FL5y6xq4WrCVQE6W",
+  "completedAt": "2026-09-21T03:13:01.458Z",
+  "video": "actual-run-unedited.webm",
+  "edited": false,
+  "includesPreviousRecordedEvidenceWhileRunning": true,
+  "pageErrors": [],
+  "checkedAt": "2026-09-21T03:13:14.883Z"
+}

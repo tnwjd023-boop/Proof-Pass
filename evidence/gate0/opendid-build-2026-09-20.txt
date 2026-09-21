@@ -1,0 +1,25 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.13/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+> Task :clean UP-TO-DATE
+
+> Task :compileJava
+Note: /home/tnwjd/proofpass-gate0/did-zkp-sdk-server-d1ba7410f7bebff7b743f94f6547306301e8dce7/source/did-zkp-sdk-server/src/main/java/org/omnione/did/zkp/crypto/util/SignatureUtils.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+
+> Task :processResources NO-SOURCE
+> Task :classes
+> Task :jar
+> Task :assemble
+> Task :compileTestJava NO-SOURCE
+> Task :processTestResources NO-SOURCE
+> Task :testClasses UP-TO-DATE
+> Task :test NO-SOURCE
+> Task :check UP-TO-DATE
+> Task :build
+
+[Incubating] Problems report is available at: file:///home/tnwjd/proofpass-gate0/did-zkp-sdk-server-d1ba7410f7bebff7b743f94f6547306301e8dce7/source/did-zkp-sdk-server/build/reports/problems/problems-report.html
+
+BUILD SUCCESSFUL in 4s
+3 actionable tasks: 2 executed, 1 up-to-date

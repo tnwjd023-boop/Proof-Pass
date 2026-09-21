@@ -1,0 +1,13 @@
+.external/
+.tools/
+.local/
+.env
+.env.*
+!.env.example
+node_modules/
+target/
+dist/
+*.log
+**/private/
+*.pem
+*.key

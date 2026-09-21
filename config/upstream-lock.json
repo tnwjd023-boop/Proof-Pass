@@ -1,0 +1,30 @@
+{
+  "recordedOn": "2026-09-20",
+  "purpose": "Gate 0 pinned sources; execution status is tracked separately in COMPATIBILITY.md",
+  "repositories": [
+    {
+      "name": "example-zkloan",
+      "url": "https://github.com/midnightntwrk/example-zkloan.git",
+      "commit": "eff9030d509f98938914c1b2b721acb88fc1e42c",
+      "path": ".external/example-zkloan"
+    },
+    {
+      "name": "did-zkp-sdk-server",
+      "url": "https://github.com/OmniOneID/did-zkp-sdk-server.git",
+      "commit": "d1ba7410f7bebff7b743f94f6547306301e8dce7",
+      "path": ".external/did-zkp-sdk-server"
+    },
+    {
+      "name": "did-verifier-server",
+      "url": "https://github.com/OmniOneID/did-verifier-server.git",
+      "commit": "bd2e9ac8e0c52c7d0a19efc009f74044f8f1ed7c",
+      "path": ".external/did-verifier-server"
+    },
+    {
+      "name": "did-client-sdk-aos",
+      "url": "https://github.com/OmniOneID/did-client-sdk-aos.git",
+      "commit": "58c5582014908d47f1ce62340ce672727c6a1172",
+      "path": ".external/did-client-sdk-aos"
+    }
+  ]
+}

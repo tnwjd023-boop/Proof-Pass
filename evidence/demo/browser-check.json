@@ -1,0 +1,30 @@
+{
+  "status": "passed",
+  "browser": "Microsoft Edge via Playwright",
+  "results": [
+    {
+      "name": "desktop",
+      "viewport": {
+        "width": 1440,
+        "height": 1080
+      },
+      "fourStages": true,
+      "actualExplorerLinks": 7,
+      "historicalStateClearlyLabeled": true,
+      "horizontalOverflow": false
+    },
+    {
+      "name": "mobile",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fourStages": true,
+      "actualExplorerLinks": 7,
+      "historicalStateClearlyLabeled": true,
+      "horizontalOverflow": false
+    }
+  ],
+  "pageErrors": [],
+  "checkedAt": "2026-09-21T03:19:41.476Z"
+}

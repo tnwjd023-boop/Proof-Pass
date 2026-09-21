@@ -1,0 +1,119 @@
+{
+  "stage": "Actual OpenDID/XRPL/Midnight/Solana flow and local operator demo",
+  "stageStatus": "passed",
+  "fullGate1Complete": true,
+  "nodeTestsPassed": 36,
+  "actualSdkNegativeChecksPassed": 9,
+  "liveBindingPassed": true,
+  "nodeRustBytesMatch": true,
+  "codeReview": {
+    "criticalFindings": 1,
+    "importantFindings": 1,
+    "fixed": 2,
+    "regression": "Both accepted invalid input cases reproduced locally before fix and rejected after fix"
+  },
+  "remaining": [],
+  "artifacts": {
+    "binding.json": {
+      "sha256": "01a181fb14a05388b46f2a83e0b3c872d49f4da2b741087fb62b572748e52170",
+      "bytes": 752
+    },
+    "compact-request-vector.json": {
+      "sha256": "232a8ad0afedaedfe6e20006b2e6bb6e074f3665c5dfd52e1246c407091fdac7",
+      "bytes": 556
+    },
+    "credential-observer.json": {
+      "sha256": "8062c6535d7b01ca7f799586fd2eab6066c8e563f70d73444abadb7362766697",
+      "bytes": 1550
+    },
+    "live-flow.json": {
+      "sha256": "df82021f29612f9a775fe2e89bc06b388ac82c155182d5d749aa13e4c2a5478c",
+      "bytes": 8929
+    },
+    "live-recovery.json": {
+      "sha256": "e332372a81a4dcd643e40e9ebdba76fdc41a7404993f76ff8774d49fe0a2b152",
+      "bytes": 304
+    },
+    "midnight-live-deployment.json": {
+      "sha256": "f0e2122d617b96035fc1c90e51d9cf4bafecb0b0861af2d136d0b07b2e348702",
+      "bytes": 486
+    },
+    "midnight-network.json": {
+      "sha256": "653d96b41ec78310d5ce6bafc4ff56ad2097272290cef8f64287bde2efa3f1c8",
+      "bytes": 1294
+    },
+    "midnight-policy-network.json": {
+      "sha256": "daf70b459b1f8f21b30e1adc7c2732dd187e0c1ed0f9aac840bd8212c870315b",
+      "bytes": 1232
+    },
+    "opendid-binding.json": {
+      "sha256": "35ba368798184b40ce3ca7c0f53d3cfdebce96b73d4bc29b6d68ddba32481dca",
+      "bytes": 487
+    },
+    "protocol-vector.json": {
+      "sha256": "06939dd8226fc461d69002fbdd4ce038830499fd17c8bc73ab31d47f54761fc8",
+      "bytes": 309
+    },
+    "solana-authorization-deployment.json": {
+      "sha256": "cd4ead1b7a9e8425cd806b52a80339e0972d2ff5c7887287f331fd1df87add1c",
+      "bytes": 625
+    },
+    "solana-authorization-local.json": {
+      "sha256": "87f1c0ffe7db5b392531abf43a55ddd4d365acb0c28d36746377f64a0f0800bd",
+      "bytes": 15059
+    },
+    "solana-concurrent-consumption.json": {
+      "sha256": "7c996cc89ace4ca75f667d1adfc44e06bb08fc7cb3856aa531d549a25669155b",
+      "bytes": 677
+    },
+    "solana-config.json": {
+      "sha256": "99fbb9e17643a7fd10789a5cd05ad28bbc5a1b7551151d42f5af6747c1746e13",
+      "bytes": 705
+    },
+    "solana-deployment-preflight.json": {
+      "sha256": "1934431f46ad6c521031abd1cd674975414f9c4e5350b1bbc5d807f8c03bf123",
+      "bytes": 541
+    }
+  },
+  "checkedAt": "2026-09-21T03:19:41.953Z",
+  "xrplCredentialObserverPassed": true,
+  "xrplReview": {
+    "completedReportRecovery": "fixed and regression tested",
+    "expiredCredentialCleanup": "fixed and regression tested; never counted as successful acceptance",
+    "staleProcessLock": "fail closed; documented manual recovery after process termination is verified"
+  },
+  "compactPolicyTestsPassed": 9,
+  "midnightLocalFixturePolicy": "proved, confirmed, exact request mapped; synthetic attestations",
+  "midnightReview": {
+    "findings": 1,
+    "fixed": 1,
+    "regression": "canonical field boundary RED (8/9) -> GREEN (9/9); final source proved on local chain",
+    "practicalForgeryDemonstrated": false
+  },
+  "rustDestinationTestsPassed": 2,
+  "solanaLocalChecksPassed": 50,
+  "solanaDestinationReview": "completed; no actionable findings",
+  "solanaDevnetProgramVerified": true,
+  "productUiComplete": true,
+  "liveIntegrationReview": {
+    "importantFindings": 2,
+    "fixed": 2,
+    "reReview": false,
+    "fixes": [
+      "Actual validated issuer/type/subject bound before source signing",
+      "Durable phases and original receipt deltas; expired binding permits historical recovery only"
+    ]
+  },
+  "dashboardReview": {
+    "importantFindings": 3,
+    "fixed": 3,
+    "reReview": false,
+    "fixes": [
+      "Job-specific binding selection and preparation checkpoint",
+      "Initial/final journal errors retain failed state and release busy flag",
+      "Read-only browser inspection preserves operator journal"
+    ]
+  },
+  "resumeLimit": "Unfinished live phases stop if binding/approval expires; no new approval from expired evidence",
+  "publication": "Local deliverables only; not submitted or publicly deployed"
+}

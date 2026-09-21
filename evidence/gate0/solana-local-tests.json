@@ -1,0 +1,121 @@
+{
+  "mode": "local-validator",
+  "programId": "BvFezGdFzEgKwGKntXK1acyv9tzcKowRJXy5EjFt14i8",
+  "passed": 10,
+  "results": [
+    {
+      "name": "missing-authority-signature",
+      "status": "rejected",
+      "signature": "guNfeZprDZDdZ9YR3eMpwYjRhWp3P8xkYqFWBvLoYJc9X3fsm755Kkb3xATfhSvYJtT64chHbJXkuShRgdoez1Y",
+      "error": {
+        "InstructionError": [
+          0,
+          {
+            "Custom": 3010
+          }
+        ]
+      },
+      "vaultAndRecipientUnchanged": true
+    },
+    {
+      "name": "wrong-authority",
+      "status": "rejected",
+      "signature": "5X2JVpvwuYoZ715JMfTXJ4gPuNe4qeQLha7PipF5GrzC2vDKXSxri59zFggMCTBGEGH5H7XG2io1BzMSLUgeBUff",
+      "error": {
+        "InstructionError": [
+          0,
+          {
+            "Custom": 2006
+          }
+        ]
+      },
+      "vaultAndRecipientUnchanged": true
+    },
+    {
+      "name": "wrong-vault-owner",
+      "status": "rejected",
+      "signature": "jegqSAuMyuGo85wuceeREo8yA4nNB7syfDgFiRCJvxsJnDdgwB413dBuovb22aiftAYvxcQDLECqiVXkBpQu8r3",
+      "error": {
+        "InstructionError": [
+          0,
+          {
+            "Custom": 3007
+          }
+        ]
+      },
+      "vaultAndRecipientUnchanged": true
+    },
+    {
+      "name": "insufficient-balance-and-rent",
+      "status": "rejected",
+      "signature": "5LTtQjoN8wxTEYQfTzZrVYMmhi6zkEsbLbEWc4cQHf2m42HCmna1ca9VQwEMffYvMt2FqRDixyEoctf5iqYwLQ3g",
+      "error": {
+        "InstructionError": [
+          0,
+          {
+            "Custom": 6000
+          }
+        ]
+      },
+      "vaultAndRecipientUnchanged": true
+    },
+    {
+      "name": "zero-amount",
+      "status": "rejected",
+      "signature": "2qXZaSHhL1XDHbJVML4EEEYQ6N6jxPHmD6jd8zzVGdcjNhuhBQ1zngVUTe6G3aA5n9V9DtWH5Rh7C5hPvk8RikLa",
+      "error": {
+        "InstructionError": [
+          0,
+          {
+            "Custom": 6000
+          }
+        ]
+      },
+      "vaultAndRecipientUnchanged": true
+    },
+    {
+      "name": "failed-transaction-is-atomic",
+      "status": "rejected",
+      "signature": "4Fuc5tRAU2zYHtV99Qz6C8iahZh7rf7Qzff9CoqESSVPhNQHmK1XEoT7Y226pzkhRaaZtdpm5NpFvPcCrBQwMKH2",
+      "error": {
+        "InstructionError": [
+          1,
+          {
+            "Custom": 1
+          }
+        ]
+      },
+      "vaultAndRecipientUnchanged": true
+    },
+    {
+      "name": "exact-0.05-sol-program-payout",
+      "status": "passed",
+      "signature": "3pQQxFJdW1gbsJMYBiFCoRQAJ2ZhyZM5ZWGqyLeCEFamhfbzEcDSCd69XFZeuYUE2vdKspvPSZj5ebnNX6LUozXz"
+    },
+    {
+      "name": "identical-signed-transaction-replay",
+      "status": "passed",
+      "note": "Solana tx deduplication only; not product authorization replay protection"
+    },
+    {
+      "name": "rent-floor-preserved",
+      "status": "passed",
+      "rentLamports": 1176240
+    },
+    {
+      "name": "cannot-spend-final-rent",
+      "status": "rejected",
+      "signature": "4FtcMv4paXVYb72zBzDbTMCwrethznD7Yzqq1GcvaHsbmCzwwC52VKhgvTCCXG7YnqjFwtU8WmGHnMBW5RgLbUiK",
+      "error": {
+        "InstructionError": [
+          0,
+          {
+            "Custom": 6000
+          }
+        ]
+      },
+      "vaultAndRecipientUnchanged": true
+    }
+  ],
+  "completedAt": "2026-09-20T15:06:43.194Z"
+}

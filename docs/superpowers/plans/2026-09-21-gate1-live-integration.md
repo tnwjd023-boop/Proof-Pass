@@ -1,0 +1,15 @@
+# Gate 1 live adapter → policy → destination integration
+
+Approved v2 scope, autonomous execution. The component proofs already exist: real OpenDID binding, XRPL lifecycle, real local Midnight proofs and a reviewed Solana authorization consumer deployed to Devnet. This plan connects those actual components.
+
+1. Bootstrap a separate live-policy Midnight deployment with random, distinct role keys. Pin its configuration and local-chain genesis in a private deployment journal. Configure the reviewed Devnet program with project relay/observer keys and fund only test transaction fees.
+2. Create a fresh actual OpenDID/wallet binding using the existing Windows/WSL verifier path. Verify its operator-trusted signature again. Create/accept the matching actual XRPL Testnet credential and keep it active for the flow.
+3. Generate a salted private mandate and have the actual Solana owner sign its commitment, agent, source handle and epoch registration. The mandate adapter must compare the finalized program-owned account against the exact private preimage before signing.
+4. Observe the credential at a fresh validated ledger, persist its existing monotone source epoch, and update Devnet SourceStatus with the trusted observer signer. Produce typed identity/binding/source/mandate/time attestations using separate role keys only after real verification. No synthetic status booleans.
+5. Prove a request on the pinned Midnight contract, verify its actual confirmed record and exact canonical request mapping, recheck live source/mandate/time, then have the configured relay record the authorization and the agent execute 0.05 test SOL. Persist signed Solana intents before submission; ambiguous prior submissions stop for reconciliation.
+6. Demonstrate consumed replay rejection, owner mandate revocation rejection, then renewal with a higher epoch; demonstrate XRPL deletion → observer epoch update → Solana source invalidation → pending approval rejection. Capture receipts and unchanged balances for denied payments.
+7. Final independent integration review, regressions, and precise evidence. Keep `fullGate1Complete` false until this real flow passes. UI/demo packaging follows separately; do not describe the local Midnight network as public testnet.
+
+Privacy: raw OpenDID proofs, role keys, wallet linkage and full mandate limits remain in private storage. Public evidence contains required transaction references and results, with explicit disclosure that transaction timing/references can correlate public activity. The local prover sees private witness material. The relay remains trusted, and cross-chain invalidation is delayed rather than atomic.
+
+Completed 2026-09-21: all seven steps. Actual flow passed repeatedly, including the dashboard-triggered run. Final review found two Important issues (observed source identity and restart reconciliation); both fixed in one regression pass. Actual expired-binding recovery verifies original transaction deltas and confirmed commitments without another payment. Unfinished expired live scenarios intentionally stop. No re-review was performed.

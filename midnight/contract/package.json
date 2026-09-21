@@ -1,0 +1,7 @@
+{
+  "name": "proofpass-midnight-policy",
+  "private": true,
+  "type": "module",
+  "scripts": { "test": "node --test test/*.test.mjs" },
+  "description": "Uses the exact installed dependency lock of the pinned Gate0 Midnight example; build via scripts/gate1/build-midnight-policy.sh"
+}

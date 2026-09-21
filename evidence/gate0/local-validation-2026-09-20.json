@@ -1,0 +1,47 @@
+{
+    "recordedAt":  "2026-09-20T11:11:33.1277231Z",
+    "gate":  "0",
+    "overallStatus":  "incomplete",
+    "environment":  {
+                        "distribution":  "Ubuntu 26.04.1 LTS",
+                        "wslVersion":  2,
+                        "kernel":  "6.18.33.2-microsoft-standard-WSL2",
+                        "java":  "21.0.12",
+                        "node":  "22.23.2",
+                        "npm":  "10.9.8",
+                        "compactCli":  "0.5.0",
+                        "compactCompiler":  "0.31.1"
+                    },
+    "opendid":  {
+                    "commit":  "d1ba7410f7bebff7b743f94f6547306301e8dce7",
+                    "wrapper":  "8.13",
+                    "buildExitCode":  0,
+                    "testTask":  "NO-SOURCE",
+                    "credentialFlowVerified":  false,
+                    "log":  "opendid-build-2026-09-20.txt",
+                    "logSha256":  "5d090ae8183c5983bdee83d4e80e0b91b39735b8b99e86b203e0595ca7d653dc"
+                },
+    "midnight":  {
+                     "commit":  "eff9030d509f98938914c1b2b721acb88fc1e42c",
+                     "commandExitCode":  0,
+                     "compiledCircuits":  8,
+                     "proverKeyFiles":  8,
+                     "verifierKeyFiles":  8,
+                     "testsPassed":  62,
+                     "testsFailed":  0,
+                     "verificationMode":  "local-contract-execution",
+                     "networkProofConfirmed":  false,
+                     "log":  "midnight-build-test-2026-09-20.txt",
+                     "logSha256":  "190acbab1e60e7543f8b8d52d2b3b3157bc329573577fe8f23b23279db179afa"
+                 },
+    "submittedTransactions":  {
+                                  "xrpl":  0,
+                                  "solana":  0,
+                                  "midnight":  0
+                              },
+    "remaining":  [
+                      "OpenDID issue-present-verify harness and negative cases",
+                      "XRPL validated create-accept-delete lifecycle",
+                      "Solana toolchain, program deployment, and vault payout"
+                  ]
+}

@@ -1,0 +1,148 @@
+pragma language_version >= 0.22 && <= 0.23;
+import CompactStandardLibrary;
+import "schnorr" prefix Schnorr_;
+export { Schnorr_SchnorrSignature };
+
+export struct PolicyConfig {
+  scope: Bytes<32>; policyId: Bytes<32>; policyVersion: Uint<32>;
+  issuerPolicyId: Bytes<32>; schemaVersion: Uint<16>; xrplNetwork: Uint<32>;
+  xrplIssuer: Bytes<20>; credentialType: Bytes<32>;
+  destinationCluster: Bytes<32>; programId: Bytes<32>; assetId: Bytes<32>;
+}
+export struct Payment {
+  version: Uint<16>; policyId: Bytes<32>; policyVersion: Uint<32>;
+  destinationCluster: Bytes<32>; programId: Bytes<32>; owner: Bytes<32>;
+  agentKey: Bytes<32>; vault: Bytes<32>; recipient: Bytes<32>; assetId: Bytes<32>;
+  amount: Uint<64>; requestId: Bytes<32>; mandateEpoch: Uint<64>; expiresAt: Uint<64>;
+}
+export struct Identity {
+  version: Uint<16>; subject: Bytes<32>; issuerPolicyId: Bytes<32>; schemaVersion: Uint<16>;
+  predicate: Uint<16>; verificationMode: Uint<8>; checkedAt: Uint<64>; expiresAt: Uint<64>;
+}
+export struct Binding {
+  version: Uint<16>; subject: Bytes<32>; sessionId: Bytes<32>; holderSessionDigest: Bytes<32>;
+  xrplNetwork: Uint<32>; xrplAccount: Bytes<20>; solanaCluster: Bytes<32>; solanaOwner: Bytes<32>;
+  issuedAt: Uint<64>; expiresAt: Uint<64>;
+}
+export struct Source {
+  version: Uint<16>; subject: Bytes<32>; xrplNetwork: Uint<32>; issuer: Bytes<20>; account: Bytes<20>;
+  credentialType: Bytes<32>; credentialId: Bytes<32>; accepted: Boolean;
+  ledgerIndex: Uint<64>; ledgerHash: Bytes<32>; ledgerCloseTime: Uint<64>;
+  observedAt: Uint<64>; validUntil: Uint<64>; sourceEpoch: Uint<64>; sourceHandle: Bytes<32>;
+}
+export struct Mandate {
+  version: Uint<16>; subject: Bytes<32>; owner: Bytes<32>; agentKey: Bytes<32>;
+  destinationCluster: Bytes<32>; programId: Bytes<32>; vault: Bytes<32>; recipient: Bytes<32>;
+  assetId: Bytes<32>; maxPerTx: Uint<64>; mandateEpoch: Uint<64>;
+  notBefore: Uint<64>; expiresAt: Uint<64>; salt: Bytes<32>;
+}
+export struct TrustedTime {
+  version: Uint<16>; requestCommitment: Bytes<32>; now: Uint<64>; expiresAt: Uint<64>;
+}
+export struct Authorization {
+  destinationCluster: Bytes<32>; programId: Bytes<32>; mandateCommitment: Bytes<32>;
+  mandateEpoch: Uint<64>; sourceHandle: Bytes<32>; sourceEpoch: Uint<64>; expiresAt: Uint<64>;
+}
+
+export ledger configuration: PolicyConfig;
+// 0 adapter (identity + binding), 1 XRPL observer, 2 mandate adapter, 3 clock.
+export ledger roleKeys: Vector<4, JubjubPoint>;
+export ledger authorizations: Map<Bytes<32>, Authorization>;
+
+constructor(config: PolicyConfig, keys: Vector<4, JubjubPoint>) {
+  assert(config.policyVersion == 1, "Unsupported policy version");
+  assert(config.xrplNetwork == 1, "Only XRPL Testnet is enabled");
+  for (const i of 0..4) {
+    assert(jubjubPointX(keys[i]) != 0, "Identity key forbidden");
+    for (const j of 0..4) {
+      if (i != j) {
+        assert(jubjubPointX(keys[i]) != jubjubPointX(keys[j]) || jubjubPointY(keys[i]) != jubjubPointY(keys[j]), "Role keys must differ");
+      }
+    }
+  }
+  configuration = disclose(config);
+  roleKeys = disclose(keys);
+}
+
+witness getPayment(): Payment;
+witness getIdentity(): Identity;
+witness getBinding(): Binding;
+witness getSource(): Source;
+witness getMandate(): Mandate;
+witness getClock(): TrustedTime;
+witness getSignatures(): Vector<5, Schnorr_SchnorrSignature>;
+
+// These are Compact persistent commitments, NOT the SHA-256 wire request hash.
+// The relay must map them to the exact strict canonical request preimage.
+export pure circuit paymentCommitment(value: Payment): Bytes<32> {
+  return persistentHash<[Bytes<28>, Payment]>(["PROOFPASS:PAYMENT:COMPACT:V1", value]);
+}
+export pure circuit mandateCommitment(value: Mandate): Bytes<32> {
+  return persistentHash<[Bytes<28>, Mandate]>(["PROOFPASS:MANDATE:COMPACT:V1", value]);
+}
+export pure circuit identityMessage(c: PolicyConfig, value: Identity): Vector<4, Field> {
+  return [1, transientHash<PolicyConfig>(c), transientHash<Identity>(value), 1];
+}
+export pure circuit bindingMessage(c: PolicyConfig, value: Binding): Vector<4, Field> {
+  return [2, transientHash<PolicyConfig>(c), transientHash<Binding>(value), 1];
+}
+export pure circuit sourceMessage(c: PolicyConfig, value: Source): Vector<4, Field> {
+  return [3, transientHash<PolicyConfig>(c), transientHash<Source>(value), 1];
+}
+export pure circuit mandateMessage(c: PolicyConfig, value: Mandate): Vector<4, Field> {
+  return [4, transientHash<PolicyConfig>(c), transientHash<Mandate>(value), 1];
+}
+export pure circuit clockMessage(c: PolicyConfig, value: TrustedTime): Vector<4, Field> {
+  return [5, transientHash<PolicyConfig>(c), transientHash<TrustedTime>(value), 1];
+}
+export pure circuit schnorrChallenge(ax: Field, ay: Field, px: Field, py: Field, message: Vector<4, Field>): Field {
+  return Schnorr_schnorrChallenge(ax, ay, px, py, message);
+}
+export pure circuit reduceSchnorrChallenge(hash: Field, q: Uint<7>, r: Uint<248>): Field {
+  return Schnorr_reducedChallenge(hash, q, r);
+}
+
+export circuit authorize(): [] {
+  const p = getPayment();
+  const i = getIdentity();
+  const b = getBinding();
+  const s = getSource();
+  const m = getMandate();
+  const t = getClock();
+  const sig = getSignatures();
+  const c = configuration;
+  Schnorr_schnorrVerify<4>(identityMessage(c, i), sig[0], roleKeys[0]);
+  Schnorr_schnorrVerify<4>(bindingMessage(c, b), sig[1], roleKeys[0]);
+  Schnorr_schnorrVerify<4>(sourceMessage(c, s), sig[2], roleKeys[1]);
+  Schnorr_schnorrVerify<4>(mandateMessage(c, m), sig[3], roleKeys[2]);
+  Schnorr_schnorrVerify<4>(clockMessage(c, t), sig[4], roleKeys[3]);
+
+  assert(p.version == 1 && i.version == 1 && b.version == 1 && s.version == 1 && m.version == 1 && t.version == 1, "Unsupported payload version");
+  assert(p.policyId == c.policyId && p.policyVersion == c.policyVersion, "Wrong policy");
+  assert(i.issuerPolicyId == c.issuerPolicyId && i.schemaVersion == c.schemaVersion && i.predicate == 19 && i.verificationMode == 1, "Wrong identity policy");
+  assert(i.subject == b.subject && b.subject == s.subject && s.subject == m.subject, "Subject mismatch");
+  assert(b.xrplNetwork == c.xrplNetwork && s.xrplNetwork == c.xrplNetwork, "Wrong source network");
+  assert(b.xrplAccount == s.account && s.issuer == c.xrplIssuer && s.credentialType == c.credentialType, "Wrong credential");
+  assert(s.accepted && s.sourceEpoch > 0 && s.ledgerIndex > 0, "Source inactive");
+  assert(b.solanaOwner == p.owner && b.solanaCluster == p.destinationCluster, "Binding destination mismatch");
+  assert(p.destinationCluster == c.destinationCluster && p.programId == c.programId && p.assetId == c.assetId, "Wrong destination policy");
+  assert(m.owner == p.owner && m.agentKey == p.agentKey && m.destinationCluster == p.destinationCluster && m.programId == p.programId, "Mandate authority mismatch");
+  assert(m.vault == p.vault && m.recipient == p.recipient && m.assetId == p.assetId && m.mandateEpoch == p.mandateEpoch, "Mandate destination mismatch");
+  assert(p.amount > 0 && p.amount <= m.maxPerTx && p.mandateEpoch > 0, "Amount or epoch invalid");
+
+  const request = paymentCommitment(p);
+  assert(t.requestCommitment == request, "Clock request mismatch");
+  assert(t.now < p.expiresAt && p.expiresAt <= t.expiresAt && t.expiresAt <= t.now + 60, "Clock lease invalid");
+  assert(i.checkedAt <= t.now && b.issuedAt <= t.now && m.notBefore <= t.now, "Not yet valid");
+  assert(p.expiresAt <= i.expiresAt && p.expiresAt <= b.expiresAt && p.expiresAt <= m.expiresAt, "Expired attestation");
+  assert(s.ledgerCloseTime <= s.observedAt && s.observedAt <= s.ledgerCloseTime + 30 && s.observedAt <= t.now, "Stale or future source");
+  assert(p.expiresAt <= s.validUntil && s.validUntil <= s.observedAt + 60, "Source lease invalid");
+
+  const disclosedRequest = disclose(request);
+  assert(!authorizations.member(disclosedRequest), "Request already authorized");
+  authorizations.insert(disclosedRequest, disclose(Authorization {
+    destinationCluster: p.destinationCluster, programId: p.programId,
+    mandateCommitment: mandateCommitment(m), mandateEpoch: m.mandateEpoch,
+    sourceHandle: s.sourceHandle, sourceEpoch: s.sourceEpoch, expiresAt: p.expiresAt
+  }));
+}

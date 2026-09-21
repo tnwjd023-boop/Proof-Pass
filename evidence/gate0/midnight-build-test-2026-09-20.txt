@@ -1,0 +1,103 @@
+2026-09-20T11:04:32+00:00
+v22.23.2
+10.9.8
+compact 0.5.0
+compact: x86_64-unknown-linux-musl -- 0.31.1 -- installed
+compact: x86_64-unknown-linux-musl -- 0.31.1 -- default.
+0.31.1
+npm warn deprecated formidable@1.2.6: Please upgrade to latest, formidable@v2 or formidable@v3! Check these notes: https://bit.ly/2ZEqIau
+npm warn deprecated node-domexception@1.0.0: Use your platform's native DOMException instead
+npm warn deprecated glob@10.5.0: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+npm warn deprecated @substrate/connect@0.8.11: versions below 1.x are no longer maintained
+
+added 848 packages in 15s
+npm notice
+npm notice New major version of npm available! 10.9.8 -> 12.0.2
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.0.2
+npm notice To update run: npm install -g npm@12.0.2
+npm notice
+
+> zkloan-credit-scorer-contract@0.1.0 compact
+> compact compile src/zkloan-credit-scorer.compact src/managed/zkloan-credit-scorer
+
+Compiling 8 circuits:
+
+> zkloan-credit-scorer-contract@0.1.0 build
+> rm -rf dist && tsc --project tsconfig.build.json && cp -Rf ./src/managed ./dist/managed && cp ./src/zkloan-credit-scorer.compact ./src/schnorr.compact ./dist
+
+
+> zkloan-credit-scorer-contract@0.1.0 test
+> vitest run --reporter=verbose
+
+
+ RUN  v4.1.10 /home/tnwjd/proofpass-gate0/example-zkloan-eff9030d509f98938914c1b2b721acb88fc1e42c/contract
+
+Sourcemap for "/home/tnwjd/proofpass-gate0/example-zkloan-eff9030d509f98938914c1b2b721acb88fc1e42c/contract/src/managed/zkloan-credit-scorer/contract/index.js" points to missing source files
+ ✓ src/test/zkloan-credit-scorer.test.ts > ZKLoanCreditScorer smart contract > generates initial ledger state deterministically 39ms
+ ✓ src/test/zkloan-credit-scorer.test.ts > ZKLoanCreditScorer smart contract > approves a Tier 1 loan and caps at the max amount 24ms
+ ✓ src/test/zkloan-credit-scorer.test.ts > ZKLoanCreditScorer smart contract > approves a Tier 2 loan and gives the requested amount 22ms
+ ✓ src/test/zkloan-credit-scorer.test.ts > ZKLoanCreditScorer smart contract > proposes a Tier 3 loan when amount exceeds limit 20ms
+ ✓ src/test/zkloan-credit-scorer.test.ts > ZKLoanCreditScorer smart contract > rejects a loan for a non-eligible applicant 21ms
+ ✓ src/test/zkloan-credit-scorer.test.ts > ZKLoanCreditScorer smart contract > creates multiple loans for the same user with incrementing IDs 42ms
+ ✓ src/test/zkloan-credit-scorer.test.ts > ZKLoanCreditScorer smart contract > throws an error if the user is blacklisted 14ms
+ ✓ src/test/zkloan-credit-scorer.test.ts > ZKLoanCreditScorer smart contract > allows admin to blacklist and remove a user 15ms
+ ✓ src/test/zkloan-credit-scorer.test.ts > ZKLoanCreditScorer smart contract > migrates a small number of loans (1 batch) and cleans up 74ms
+ ✓ src/test/zkloan-credit-scorer.test.ts > ZKLoanCreditScorer smart contract > migrates multiple batches of loans (7 loans) correctly 131ms
+ ✓ src/test/zkloan-credit-scorer.test.ts > ZKLoanCreditScorer smart contract > throws an error if user tries to requestLoan during migration 101ms
+ ✓ src/test/zkloan-credit-scorer.test.ts > ZKLoanCreditScorer smart contract > migrates loans to a new PIN that already has loans 137ms
+ ✓ src/test/zkloan-credit-scorer.test.ts > ZKLoanCreditScorer smart contract > throws when requesting loan with zero amount 9ms
+ ✓ src/test/zkloan-credit-scorer.test.ts > ZKLoanCreditScorer smart contract > throws when blacklisted user tries to change PIN 23ms
+ ✓ src/test/zkloan-credit-scorer.test.ts > ZKLoanCreditScorer smart contract > throws when changing PIN to the same value 18ms
+ ✓ src/test/zkloan-credit-scorer.test.ts > ZKLoanCreditScorer smart contract > allows admin to rotate admin role to a new derived public key 11ms
+ ✓ src/test/zkloan-credit-scorer.test.ts > ZKLoanCreditScorer smart contract > approves exactly at Tier 1 boundary when amount within limit (score=700, income=2000, tenure=24) 20ms
+ ✓ src/test/zkloan-credit-scorer.test.ts > ZKLoanCreditScorer smart contract > proposes Tier 2 when just below Tier 1 threshold (score=699) 20ms
+ ✓ src/test/zkloan-credit-scorer.test.ts > ZKLoanCreditScorer smart contract > proposes at Tier 2 boundary when amount exceeds limit (score=600, income=1500) 20ms
+ ✓ src/test/zkloan-credit-scorer.test.ts > ZKLoanCreditScorer smart contract > proposes Tier 3 when just below Tier 2 threshold (score=599) 19ms
+ ✓ src/test/zkloan-credit-scorer.test.ts > ZKLoanCreditScorer smart contract > proposes at Tier 3 boundary when amount exceeds limit (score=580) 18ms
+ ✓ src/test/zkloan-credit-scorer.test.ts > ZKLoanCreditScorer smart contract > rejects when just below Tier 3 threshold (score=579) 19ms
+ ✓ src/test/zkloan-credit-scorer.test.ts > ZKLoanCreditScorer smart contract > proposes Tier 2 when Tier 1 income requirement not met 19ms
+ ✓ src/test/zkloan-credit-scorer.test.ts > ZKLoanCreditScorer smart contract > proposes Tier 2 when Tier 1 tenure requirement not met 19ms
+ ✓ src/test/zkloan-credit-scorer.test.ts > ZKLoanCreditScorer smart contract > throws when non-admin tries to blacklist a user 11ms
+ ✓ src/test/zkloan-credit-scorer.test.ts > ZKLoanCreditScorer smart contract > throws when non-admin tries to remove from blacklist 12ms
+ ✓ src/test/zkloan-credit-scorer.test.ts > ZKLoanCreditScorer smart contract > throws when non-admin tries to rotate admin 11ms
+ ✓ src/test/zkloan-credit-scorer.test.ts > ZKLoanCreditScorer smart contract > generates same public key for same user and PIN (determinism) 9ms
+ ✓ src/test/zkloan-credit-scorer.test.ts > ZKLoanCreditScorer smart contract > generates different public key for same user with different PIN 9ms
+ ✓ src/test/zkloan-credit-scorer.test.ts > ZKLoanCreditScorer smart contract > generates different public key for different users with same PIN 9ms
+ ✓ src/test/zkloan-credit-scorer.test.ts > ZKLoanCreditScorer smart contract > blacklisting an already blacklisted user is idempotent 13ms
+ ✓ src/test/zkloan-credit-scorer.test.ts > ZKLoanCreditScorer smart contract > removing a non-blacklisted user from blacklist does not throw 11ms
+ ✓ src/test/zkloan-credit-scorer.test.ts > ZKLoanCreditScorer smart contract > same user with different PINs has separate loan records 33ms
+ ✓ src/test/zkloan-credit-scorer.test.ts > ZKLoanCreditScorer smart contract > blacklisting a different Zswap key does not affect the caller 21ms
+ ✓ src/test/zkloan-credit-scorer.test.ts > ZKLoanCreditScorer smart contract > new admin can perform admin operations after rotation 13ms
+ ✓ src/test/zkloan-credit-scorer.test.ts > ZKLoanCreditScorer smart contract > old admin cannot perform admin operations after rotation 13ms
+ ✓ src/test/zkloan-credit-scorer.test.ts > ZKLoanCreditScorer smart contract > can chain multiple admin rotations 11ms
+ ✓ src/test/zkloan-credit-scorer.test.ts > ZKLoanCreditScorer smart contract > creates Proposed loan when requested amount exceeds tier limit 20ms
+ ✓ src/test/zkloan-credit-scorer.test.ts > ZKLoanCreditScorer smart contract > creates Approved loan when requested amount is within tier limit 22ms
+ ✓ src/test/zkloan-credit-scorer.test.ts > ZKLoanCreditScorer smart contract > creates Approved loan when requested amount is less than tier limit 21ms
+ ✓ src/test/zkloan-credit-scorer.test.ts > ZKLoanCreditScorer smart contract > respondToLoan with accept=true changes Proposed to Approved 30ms
+ ✓ src/test/zkloan-credit-scorer.test.ts > ZKLoanCreditScorer smart contract > respondToLoan with accept=false changes Proposed to NotAccepted with zero amount 26ms
+ ✓ src/test/zkloan-credit-scorer.test.ts > ZKLoanCreditScorer smart contract > throws when respondToLoan is called on non-Proposed loan 24ms
+ ✓ src/test/zkloan-credit-scorer.test.ts > ZKLoanCreditScorer smart contract > throws when respondToLoan is called on already accepted loan 27ms
+ ✓ src/test/zkloan-credit-scorer.test.ts > ZKLoanCreditScorer smart contract > throws when respondToLoan is called with non-existent loan ID 24ms
+ ✓ src/test/zkloan-credit-scorer.test.ts > ZKLoanCreditScorer smart contract > throws when respondToLoan is called by user with no loans 12ms
+ ✓ src/test/zkloan-credit-scorer.test.ts > ZKLoanCreditScorer smart contract > throws when blacklisted user tries to respondToLoan 24ms
+ ✓ src/test/zkloan-credit-scorer.test.ts > ZKLoanCreditScorer smart contract > creates Proposed loan for Tier 2 user exceeding limit 20ms
+ ✓ src/test/zkloan-credit-scorer.test.ts > ZKLoanCreditScorer smart contract > creates Proposed loan for Tier 3 user exceeding limit 21ms
+ ✓ src/test/zkloan-credit-scorer.test.ts > ZKLoanCreditScorer smart contract > rejected applicant still gets Rejected status (not Proposed) 21ms
+ ✓ src/test/zkloan-credit-scorer.test.ts > ZKLoanCreditScorer smart contract > can have multiple Proposed loans and respond to each independently 54ms
+ ✓ src/test/zkloan-credit-scorer.test.ts > ZKLoanCreditScorer smart contract > rejects loan with invalid attestation signature 17ms
+ ✓ src/test/zkloan-credit-scorer.test.ts > ZKLoanCreditScorer smart contract > rejects loan with unregistered provider 13ms
+ ✓ src/test/zkloan-credit-scorer.test.ts > ZKLoanCreditScorer smart contract > rejects loan after provider is removed 26ms
+ ✓ src/test/zkloan-credit-scorer.test.ts > ZKLoanCreditScorer smart contract > user binding prevents replay (signature for user A cannot be used by user B) 17ms
+ ✓ src/test/zkloan-credit-scorer.test.ts > ZKLoanCreditScorer smart contract > rejects a forged attestation that exploits an unconstrained challenge quotient 17ms
+ ✓ src/test/zkloan-credit-scorer.test.ts > ZKLoanCreditScorer smart contract > throws when non-admin tries to register provider 13ms
+ ✓ src/test/zkloan-credit-scorer.test.ts > ZKLoanCreditScorer smart contract > throws when non-admin tries to remove provider 12ms
+ ✓ src/test/zkloan-credit-scorer.test.ts > ZKLoanCreditScorer smart contract > throws when removing a non-existent provider 12ms
+ ✓ src/test/zkloan-credit-scorer.test.ts > ZKLoanCreditScorer smart contract > multiple providers can both be used for attestation 36ms
+ ✓ src/test/zkloan-credit-scorer.test.ts > ZKLoanCreditScorer smart contract > provider registry shows up in ledger state 12ms
+ ✓ src/test/zkloan-credit-scorer.test.ts > ZKLoanCreditScorer smart contract > attestation with tampered credit data fails signature verification 19ms
+
+ Test Files  1 passed (1)
+      Tests  62 passed (62)
+   Start at  20:05:14
+   Duration  1.84s (transform 107ms, setup 0ms, import 167ms, tests 1.57s, environment 0ms)
+

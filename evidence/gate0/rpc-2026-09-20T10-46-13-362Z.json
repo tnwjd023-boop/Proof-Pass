@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "kind": "gate0-read-only-rpc-probe",
+  "gate0Complete": false,
+  "transactionsSubmitted": 0,
+  "runtime": "v22.23.2",
+  "results": [
+    {
+      "name": "xrpl-testnet-server-info",
+      "endpoint": "https://s.altnet.rippletest.net:51234/",
+      "method": "server_info",
+      "observedAt": "2026-09-20T10:46:12.471Z",
+      "status": "pass",
+      "durationMs": 889,
+      "result": {
+        "buildVersion": "3.4.0",
+        "networkId": 1,
+        "serverState": "full",
+        "validatedLedger": {
+          "age": 3,
+          "base_fee_xrp": 0.00001,
+          "hash": "E2AF19D382D6D4177CC4EF7131A9CA980984ADA41B123D4720EBA108E906EBCC",
+          "reserve_base_xrp": 1,
+          "reserve_inc_xrp": 0.2,
+          "seq": 20908088
+        }
+      }
+    },
+    {
+      "name": "solana-devnet-genesis",
+      "endpoint": "https://api.devnet.solana.com",
+      "method": "getGenesisHash",
+      "observedAt": "2026-09-20T10:46:12.647Z",
+      "status": "pass",
+      "durationMs": 382,
+      "result": {
+        "genesisHash": "EtWTRABZaYq6iMfeYKouRu166VU2xqa1wcaWoxPkrZBG"
+      }
+    },
+    {
+      "name": "solana-devnet-version",
+      "endpoint": "https://api.devnet.solana.com",
+      "method": "getVersion",
+      "observedAt": "2026-09-20T10:46:12.648Z",
+      "status": "pass",
+      "durationMs": 381,
+      "result": {
+        "feature-set": 2409014235,
+        "solana-core": "4.3.0-rc.0"
+      }
+    }
+  ]
+}

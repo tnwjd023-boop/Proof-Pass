@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 1,
+  "kind": "gate0-xrpl-lifecycle",
+  "network": "XRPL Testnet",
+  "networkId": 1,
+  "endpoint": "wss://s.altnet.rippletest.net:51233",
+  "sdkVersion": "5.3.0",
+  "credentialType": "PROOFPASS_ELIGIBLE_V1",
+  "binding": {
+    "issuer": "rQJjt1J4PuUzgAsCXuCKfRaynEeEJ1kMd",
+    "subject": "rrpsKg223NBFnvYS7gyH69cTEgRoVYwTUk",
+    "type": "50524F4F46504153535F454C494749424C455F5631"
+  },
+  "preflight": {
+    "ledger": {
+      "index": 20908671,
+      "hash": "C5596AC9F1A9E6A0F839E6B0D2AF1B722B680CF7E17C8B4BA14E8A5B6E1E3672",
+      "closeTime": 843218240,
+      "closeTimeIso": "2026-09-20T11:17:20.000Z"
+    },
+    "amendment": "1CB67D082CF7D9102412D34258CEDB400E659352D3B207348889297A6D90F5EF",
+    "enabled": true
+  },
+  "fundedAccounts": {
+    "issuer": {
+      "address": "rQJjt1J4PuUzgAsCXuCKfRaynEeEJ1kMd",
+      "balanceDrops": "99999976"
+    },
+    "subject": {
+      "address": "rrpsKg223NBFnvYS7gyH69cTEgRoVYwTUk",
+      "balanceDrops": "99999988"
+    }
+  },
+  "stages": {
+    "created": {
+      "hash": "709B36DD68CB322D2FE77FF7E1779F491F783C87F148063E1F6E016889549817",
+      "ledgerIndex": 20908734,
+      "result": "tesSUCCESS",
+      "ledger": {
+        "index": 20908734,
+        "hash": "FC927EF5351F05C2A1048A44FCED7985EBD4F2367556858800EC309DAC8A6C2D",
+        "closeTime": 843218441,
+        "closeTimeIso": "2026-09-20T11:20:41.000Z"
+      },
+      "observedAt": "2026-09-20T11:23:00.576Z",
+      "credentialExists": true,
+      "accepted": false,
+      "credential": {
+        "CredentialType": "50524F4F46504153535F454C494749424C455F5631",
+        "Flags": 0,
+        "Issuer": "rQJjt1J4PuUzgAsCXuCKfRaynEeEJ1kMd",
+        "IssuerNode": "0",
+        "LedgerEntryType": "Credential",
+        "PreviousTxnID": "709B36DD68CB322D2FE77FF7E1779F491F783C87F148063E1F6E016889549817",
+        "PreviousTxnLgrSeq": 20908734,
+        "Subject": "rrpsKg223NBFnvYS7gyH69cTEgRoVYwTUk",
+        "SubjectNode": "0",
+        "index": "5629EEEE65BC6CB5B5FB8B4EE7B1D48B6D67929F8EA5F42F5BB156601F481936"
+      },
+      "explorer": "https://testnet.xrpl.org/transactions/709B36DD68CB322D2FE77FF7E1779F491F783C87F148063E1F6E016889549817"
+    },
+    "accepted": {
+      "hash": "85C9944CF8C02C3761697AC9B1370041FAF4EB75FD3F19EC160A9ADE72DAB74D",
+      "ledgerIndex": 20908736,
+      "result": "tesSUCCESS",
+      "ledger": {
+        "index": 20908736,
+        "hash": "064FEB8F51695EA1309F6DAD2F1FCAF1C8580EBD4CBF0D7F1BF745BB58C351F8",
+        "closeTime": 843218450,
+        "closeTimeIso": "2026-09-20T11:20:50.000Z"
+      },
+      "observedAt": "2026-09-20T11:23:01.109Z",
+      "credentialExists": true,
+      "accepted": true,
+      "credential": {
+        "CredentialType": "50524F4F46504153535F454C494749424C455F5631",
+        "Flags": 65536,
+        "Issuer": "rQJjt1J4PuUzgAsCXuCKfRaynEeEJ1kMd",
+        "IssuerNode": "0",
+        "LedgerEntryType": "Credential",
+        "PreviousTxnID": "85C9944CF8C02C3761697AC9B1370041FAF4EB75FD3F19EC160A9ADE72DAB74D",
+        "PreviousTxnLgrSeq": 20908736,
+        "Subject": "rrpsKg223NBFnvYS7gyH69cTEgRoVYwTUk",
+        "SubjectNode": "0",
+        "index": "5629EEEE65BC6CB5B5FB8B4EE7B1D48B6D67929F8EA5F42F5BB156601F481936"
+      },
+      "explorer": "https://testnet.xrpl.org/transactions/85C9944CF8C02C3761697AC9B1370041FAF4EB75FD3F19EC160A9ADE72DAB74D"
+    },
+    "deleted": {
+      "hash": "B86105A95DEBA1046F8CC60F657FFD88077866A7654B13D2AE3D0A9FB3DC87E0",
+      "ledgerIndex": 20908738,
+      "result": "tesSUCCESS",
+      "ledger": {
+        "index": 20908738,
+        "hash": "875BC01DB2F12D85010C4B8779EA62746D7DC043ADE050185E9A92EBCBB9CCD9",
+        "closeTime": 843218452,
+        "closeTimeIso": "2026-09-20T11:20:52.000Z"
+      },
+      "observedAt": "2026-09-20T11:23:01.641Z",
+      "credentialExists": false,
+      "accepted": null,
+      "credential": null,
+      "explorer": "https://testnet.xrpl.org/transactions/B86105A95DEBA1046F8CC60F657FFD88077866A7654B13D2AE3D0A9FB3DC87E0"
+    }
+  },
+  "status": "passed",
+  "finalObservation": {
+    "ledger": {
+      "index": 20908776,
+      "hash": "3F522A9A1B17A8F2ADFEF1BBE2E8369D47379AC8F81E2881B806B23EE5A79529",
+      "closeTime": 843218580,
+      "closeTimeIso": "2026-09-20T11:23:00.000Z"
+    },
+    "credentialExists": false
+  },
+  "completedAt": "2026-09-20T11:23:01.907Z"
+}

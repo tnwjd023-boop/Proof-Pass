@@ -1,0 +1,15 @@
+{
+  "mode": "actual-sdk-separate-issuer-and-verifier-processes",
+  "normal": "accepted",
+  "changedNonce": "rejected",
+  "tamperedProof": "rejected",
+  "callerDefinitionInjection": "rejected",
+  "changedPolicy": "rejected",
+  "credentialFreeProof": "rejected",
+  "weakerAgePredicate": "rejected",
+  "missingAgeMapping": "rejected",
+  "missingAgeProof": "rejected",
+  "untrustedIdentifier": "rejected",
+  "privateArtifacts": "not-published",
+  "completedAt": "2026-09-20T16:12:45.176Z"
+}

@@ -1,0 +1,25 @@
+Devnet payer 2ERjBJoGRjmbYVmN9Uduwy3X7tcw984NmizZhswRFfZu, balance 0 lamports
+node.exe : Server responded with 429 Too Many Requests.  Retrying after 500ms delay...
+At line:2 char:1
++ & './.tools/node-v22.23.2-win-x64/node.exe' scripts/gate0/solana-fund ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Server responde... 500ms delay...:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+Server responded with 429 Too Many Requests.  Retrying after 1000ms delay...
+Server responded with 429 Too Many Requests.  Retrying after 2000ms delay...
+Server responded with 429 Too Many Requests.  Retrying after 4000ms delay...
+C:\Users\tnwjd\OneDrive\Desktop\project\ProofPass\node_modules\@solana\web3.js\lib\index.cjs.js:5081
+        callback(new Error(`${res.status} ${res.statusText}: ${text}`));
+                 ^
+
+Error: 429 Too Many Requests:  {"jsonrpc":"2.0","error":{"code": 429, "message":"You've either reached your airdrop lim
+it today or the airdrop faucet has run dry. Please visit https://faucet.solana.com for alternate sources of test SOL"},
+ "id": "1322087b-0da2-4160-85b3-2ef425a11053" } 
+
+
+    at ClientBrowser.callServer (C:\Users\tnwjd\OneDrive\Desktop\project\ProofPass\node_modules\@solana\web3.js\lib\ind
+ex.cjs.js:5081:18)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+
+Node.js v22.23.2

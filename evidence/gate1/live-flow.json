@@ -1,0 +1,267 @@
+{
+  "status": "passed",
+  "mode": "actual-OpenDID-ZKP-XRPL-Testnet-Midnight-local-Solana-Devnet",
+  "syntheticIdentityIssuer": true,
+  "liveAdapters": true,
+  "midnightNetwork": "undeployed-local",
+  "midnightContract": "d8c19344047782f811cc8bbd4827fb4c575065e2b7728158c2a66d0a206566d2",
+  "solanaProgram": "3983maEGpsg2M5tTqBqMtLm5rRmZsYKTDDUZAnrPuBAJ",
+  "xrpl": {
+    "create": {
+      "hash": "BC9185451D7ECB892845305170A07E0815A1F28B33D743484A5CE5EB19D4A5BB",
+      "ledgerIndex": 20925915,
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/BC9185451D7ECB892845305170A07E0815A1F28B33D743484A5CE5EB19D4A5BB"
+    },
+    "accept": {
+      "hash": "5022DA23A02CE79EBB8E7558723C04DF7DD705766229CD71561C5963FB541A78",
+      "ledgerIndex": 20925917,
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/5022DA23A02CE79EBB8E7558723C04DF7DD705766229CD71561C5963FB541A78"
+    },
+    "delete": {
+      "hash": "B2D9911DA222D9CB9ACAB6D526BF64F3188F675355FF79A987943CAA77B6EFDB",
+      "ledgerIndex": 20925963,
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/B2D9911DA222D9CB9ACAB6D526BF64F3188F675355FF79A987943CAA77B6EFDB"
+    }
+  },
+  "midnight": [
+    {
+      "name": "payment",
+      "txId": "0047e35609acf86cda27c5673f080487d8145d4403f1954fc833c51c099b4a6b59",
+      "blockHeight": "6231"
+    },
+    {
+      "name": "pending-mandate",
+      "txId": "009e8a0685754aa42f8f133e8477c7a63a16fb7dda23be7f1833de6a753eb96ea1",
+      "blockHeight": "6238"
+    },
+    {
+      "name": "pending-source",
+      "txId": "00e680ccd7aba2f02f3e7506e2750710b4c164e44a34ed72f6fc53e3d90da11085",
+      "blockHeight": "6247"
+    }
+  ],
+  "solana": [
+    {
+      "name": "initial-mandate",
+      "signature": "5F9mSZ1QYKjNGXgGZmTY39dFi91UdNU63SN98up8RGJwps8L3gpoLn54sunErqgjRERLDtxzccSdTPGayYZzYtas",
+      "error": null,
+      "finalized": true
+    },
+    {
+      "name": "fund-vault",
+      "signature": "5obMKTdfrFyhMe1SyCoeF3dYqjL8nQnvdedFYrbaqSraa6q9JTwQgKkmxywz7oXKUWs5RYg4yxmDZqTgGK3zvwZR",
+      "error": null,
+      "finalized": true
+    },
+    {
+      "name": "payment-source",
+      "signature": "4Mvxvy5trR259MCiRiXHBa2LJeKWS1DX9jyQxnboaPAx6NRQNnmHqtNEkXSPwoERKbfLauEB6S5DCV4kK9nwA9mD",
+      "error": null,
+      "finalized": true
+    },
+    {
+      "name": "payment-relay-source",
+      "signature": "4Jjd2qFrypCKcJFQdMo6JnparP5sPD8m4tZocVuyS7WQvqcTB1xKMDemYWkhLCezAFPYWKjjL5d1V9iKeJkm3ZuQ",
+      "error": null,
+      "finalized": true
+    },
+    {
+      "name": "payment-record",
+      "signature": "ZYhaGFZKGrRakyog287WByhu9Caak76jNvMXbNtkt7a7hTHAoCh4rNHUyDvuss7bkbdLWwyY637RWnrDB5ZFRRF",
+      "error": null,
+      "finalized": true
+    },
+    {
+      "name": "execute-payment",
+      "signature": "4DfZXZnJpbstGHRkmFJ63YQLc9z2Niwz346kkYt6keUon8pC2P2b6obujzEqreDnBumKsxg8FL5y6xq4WrCVQE6W",
+      "error": null,
+      "finalized": true
+    },
+    {
+      "name": "consumed-replay",
+      "signature": "494LyNPyKCjdgJwKH8BxfMiQmsusYNZXArTpvKNSohxnTZWwNzJiqTRAcogW3H5ez4naakB96YAicoYSXyXkwV6S",
+      "error": {
+        "InstructionError": [
+          0,
+          {
+            "Custom": 6007
+          }
+        ]
+      },
+      "finalized": true
+    },
+    {
+      "name": "pending-mandate-source",
+      "signature": "4zcgek9Fp36YZxaXjsAMUYffWsJt5VFsdJvWZu8KL4EH3GiceSDCLMZV17nth9CLmtFVsuCfG4NqcL1PDZPYMV6Z",
+      "error": null,
+      "finalized": true
+    },
+    {
+      "name": "pending-mandate-relay-source",
+      "signature": "2GzPeCjzLBakGVVTurbmyLcEeaEVno3zZ8HJMA5medEaANtLrx94829MyA5jAFcjjT49v6jf7AWANxHWPzapTNYm",
+      "error": null,
+      "finalized": true
+    },
+    {
+      "name": "pending-mandate-record",
+      "signature": "3kwFq2Xi4mh6MUhe7i4n7M3H9Dx6f27JzFecubKboJXh5k1tKFBtPUdf38Yw5fNh6DaLC5nwuuyJWAQmpR2L8kCV",
+      "error": null,
+      "finalized": true
+    },
+    {
+      "name": "revoke-mandate",
+      "signature": "2SbMfACBd79qonjQK78DrW4a6XAaj2iDp7xnVAG6DHQwKMEti4ajecXFtEDPFFfyrzYEQ7Jq1ytgbsvtjpHeamxg",
+      "error": null,
+      "finalized": true
+    },
+    {
+      "name": "mandate-revoked",
+      "signature": "2KrdyC99DWDvGzZY3YJLNUv44kAPoadUD9dL7LWxeXj71K5BW2TqPCQXpnLhbx7FmrGE6eGtB4yUhHgDpHNMQNML",
+      "error": {
+        "InstructionError": [
+          0,
+          {
+            "Custom": 6001
+          }
+        ]
+      },
+      "finalized": true
+    },
+    {
+      "name": "renewed-mandate",
+      "signature": "5XBb1LbsV1S6ujVD5TVPJNm3kzghCnw2wzJ1gXDJUaAwSgpV4cVjJnqGm41xgbPgLtipmrWFKL2rkHxfJBxrGTMG",
+      "error": null,
+      "finalized": true
+    },
+    {
+      "name": "pending-source-source",
+      "signature": "NLMYrBMoH9UbWV68zFzPNR4khFFAMwXfsic3SVwk1QcAdTfWTXdwrGEzQxwNCcMxP36evRVPqPoTgWGBTuxvevW",
+      "error": null,
+      "finalized": true
+    },
+    {
+      "name": "pending-source-relay-source",
+      "signature": "5y9k4UTak9ScFMdDDqz6qdqChBUTvJEDzeoJFQasEdYjC8oJpW8MAgWexUeH5Lkug2kwjFbGYPhdjkFjjwoQR6gF",
+      "error": null,
+      "finalized": true
+    },
+    {
+      "name": "pending-source-record",
+      "signature": "5XRUt8RFgr3bamLARtYicsmCesBPWeAuMeUE6L84afyeo86mACmgXZAw2VfSdTUf6pBzoQAZuwKoLDArqaSdygas",
+      "error": null,
+      "finalized": true
+    },
+    {
+      "name": "deleted-source",
+      "signature": "3yZB1jrv1FZYYRTjw4pycRDDpwehJwXTX4E4NTKCReneD5WC4URYFJkWUHzcoztAWuG6Nzpuwve1PiXU2HcJaaSe",
+      "error": null,
+      "finalized": true
+    },
+    {
+      "name": "source-deleted",
+      "signature": "2xYMFMMbYA5ExaPTtHCK1EUiTWQKSTFn1rCafKJM1ABsKRyG9Uzdqi3As5PQk6zwe8LyEVtE8gaZSBNt5eNdtW2U",
+      "error": {
+        "InstructionError": [
+          0,
+          {
+            "Custom": 6003
+          }
+        ]
+      },
+      "finalized": true
+    }
+  ],
+  "payment": {
+    "lamports": 50000000,
+    "signature": "4DfZXZnJpbstGHRkmFJ63YQLc9z2Niwz346kkYt6keUon8pC2P2b6obujzEqreDnBumKsxg8FL5y6xq4WrCVQE6W",
+    "vaultDelta": -50000000,
+    "recipientDelta": 50000000,
+    "consumed": true
+  },
+  "rejectedPayments": [
+    {
+      "name": "consumed-replay",
+      "liveAtAttempt": true,
+      "attemptedAt": "2026-09-21T03:11:08.402Z",
+      "remainingLeaseMs": 19598,
+      "balancesUnchanged": true,
+      "signature": "494LyNPyKCjdgJwKH8BxfMiQmsusYNZXArTpvKNSohxnTZWwNzJiqTRAcogW3H5ez4naakB96YAicoYSXyXkwV6S",
+      "programError": 6007
+    },
+    {
+      "name": "mandate-revoked",
+      "liveAtAttempt": true,
+      "attemptedAt": "2026-09-21T03:11:49.402Z",
+      "remainingLeaseMs": 25598,
+      "balancesUnchanged": true,
+      "signature": "2KrdyC99DWDvGzZY3YJLNUv44kAPoadUD9dL7LWxeXj71K5BW2TqPCQXpnLhbx7FmrGE6eGtB4yUhHgDpHNMQNML",
+      "programError": 6001
+    },
+    {
+      "name": "source-deleted",
+      "liveAtAttempt": true,
+      "attemptedAt": "2026-09-21T03:12:52.836Z",
+      "remainingLeaseMs": 13164,
+      "balancesUnchanged": true,
+      "signature": "2xYMFMMbYA5ExaPTtHCK1EUiTWQKSTFn1rCafKJM1ABsKRyG9Uzdqi3As5PQk6zwe8LyEVtE8gaZSBNt5eNdtW2U",
+      "programError": 6003
+    }
+  ],
+  "newRequestAfterDelete": "rejected-before-proof",
+  "overLimit": {
+    "result": "approval-generation-rejected",
+    "reason": "amount-over-limit",
+    "noSubmission": true,
+    "onChainFailureProof": false
+  },
+  "metrics": {
+    "authorizations": {
+      "payment": {
+        "contractProofMs": 8840,
+        "proofAndConfirmationMs": 28661,
+        "submissionToConfirmationMs": 18870,
+        "confirmedAt": "2026-09-21T03:11:02.932Z",
+        "endToEndAuthorizationMs": 34799
+      },
+      "pending-mandate": {
+        "contractProofMs": 5687,
+        "proofAndConfirmationMs": 24105,
+        "submissionToConfirmationMs": 17814,
+        "confirmedAt": "2026-09-21T03:11:44.249Z",
+        "endToEndAuthorizationMs": 29950
+      },
+      "pending-source": {
+        "contractProofMs": 6988,
+        "proofAndConfirmationMs": 25794,
+        "submissionToConfirmationMs": 18169,
+        "confirmedAt": "2026-09-21T03:12:38.912Z",
+        "endToEndAuthorizationMs": 36242
+      }
+    },
+    "destinationExecutionMs": 1756,
+    "deleteSubmittedAt": "2026-09-21T03:12:42.775Z",
+    "deleteValidatedAt": "2026-09-21T03:12:50.727Z",
+    "sourceInvalidationConfirmedAt": "2026-09-21T03:12:52.835Z",
+    "deletionToDestinationInvalidationMs": 2109,
+    "deleteSubmissionToInvalidationMs": 10061,
+    "identityBindingMs": 3766,
+    "flowMsExcludingWalletStartup": 184138
+  },
+  "lastSourceObservation": {
+    "status": "absent",
+    "active": false,
+    "observedAt": 1789960371,
+    "ledgerIndex": 20925963
+  },
+  "successfulPayments": 1,
+  "duplicatePayments": 0,
+  "invalidatedSourceEpoch": 19,
+  "disclosure": "Local prover and trusted adapters/relay handle private inputs. Public transaction references/timing may correlate activity. Cross-chain revocation is delayed, not atomic.",
+  "fullGate1Complete": true,
+  "productUiComplete": false,
+  "startedAt": "2026-09-21T03:09:57.319Z",
+  "completedAt": "2026-09-21T03:13:01.458Z"
+}

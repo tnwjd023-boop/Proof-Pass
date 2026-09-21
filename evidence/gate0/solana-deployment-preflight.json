@@ -1,0 +1,12 @@
+{
+  "network": "Solana Devnet",
+  "programId": "BvFezGdFzEgKwGKntXK1acyv9tzcKowRJXy5EjFt14i8",
+  "payer": "2ERjBJoGRjmbYVmN9Uduwy3X7tcw984NmizZhswRFfZu",
+  "programExists": false,
+  "payerLamports": 5000000000,
+  "conservativeRequiredLamports": 2213912560,
+  "binaryBytes": 202968,
+  "binarySha256": "97904c1bda12c39b1dabcb234837c70b8311be714e184534269e192f6493a73a",
+  "programDataRentLamports": 1031956280,
+  "observedAt": "2026-09-20T15:28:23.676Z"
+}

@@ -1,0 +1,27 @@
+{
+  "status": "passed",
+  "mode": "real-local-chain-with-synthetic-attestation-fixtures",
+  "artifacts": {
+    "src/policy.compact": "077acc1d443b4ee374a01ab990150d8219965c2f7d83b02182fef4c7df53d18c",
+    "src/schnorr.compact": "f39386f2ef246f7b9a5febc0d56326e14a5ebd15a77793e7849869c1c14d3f13",
+    "src/managed/policy/contract/index.js": "894b4f79cf816955f1ae4b6a7c87100492adcba070d7a0dc87369d845811f547"
+  },
+  "network": "undeployed",
+  "contractAddress": "8222779675a3915171851fc9ef03855ef34b2350b08e9d6b6a1d3aee85d1036b",
+  "deployment": {
+    "txId": "00387025464da6362700a39ac1fc698c8f98b34f0ada10c660899f7fcd3cde4a14",
+    "blockHeight": 5321
+  },
+  "authorization": {
+    "txId": "00736c4a0e619bc592e3cf24c015873756a71b1f5db0e0ec1f3b102886c2116c51",
+    "blockHeight": 5325
+  },
+  "confirmedStateRead": true,
+  "exactRequestMapping": true,
+  "leaseLiveAtRead": true,
+  "requestHash": "ab7650c02c02b4a74b01ca8406b3512a62bfe11bf266b04deedc642986e2075c",
+  "compactCommitment": "076f49bb8a072277a92226fdb662d3708012a43d630fa130c668fd9f48cbc2a9",
+  "sourceOfAttestations": "synthetic-test-fixtures; not live adapters or a registered Solana mandate",
+  "fullGate1Complete": false,
+  "completedAt": "2026-09-21T01:40:27.036Z"
+}

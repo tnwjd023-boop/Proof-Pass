@@ -1,0 +1,150 @@
+
+running 3 tests
+test tests::transfers_exact_amount_and_preserves_rent ... ok
+test tests::overflow_cannot_credit_or_debit_either_side ... ok
+test tests::rejects_spending_rent_and_zero ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Compiling proc-macro2 v1.0.107
+   Compiling unicode-ident v1.0.26
+   Compiling quote v1.0.47
+   Compiling version_check v0.9.5
+   Compiling serde_core v1.0.229
+   Compiling serde v1.0.229
+   Compiling syn v1.0.109
+   Compiling typenum v1.20.1
+   Compiling equivalent v1.0.2
+   Compiling hashbrown v0.17.1
+   Compiling zmij v1.0.23
+   Compiling cfg-if v1.0.5
+   Compiling winnow v1.0.4
+   Compiling zerocopy v0.8.57
+   Compiling five8_core v0.1.2
+   Compiling autocfg v1.5.1
+   Compiling toml_datetime v1.1.1+spec-1.1.0
+   Compiling generic-array v0.14.7
+   Compiling indexmap v2.14.2
+   Compiling ahash v0.8.12
+   Compiling cfg_aliases v0.2.2
+   Compiling once_cell v1.21.4
+   Compiling serde_json v1.0.151
+   Compiling syn v3.0.6
+   Compiling num-traits v0.2.19
+   Compiling block-buffer v0.10.4
+   Compiling toml_parser v1.1.3+spec-1.1.0
+   Compiling crypto-common v0.1.7
+   Compiling solana-define-syscall v2.3.0
+   Compiling digest v0.10.7
+   Compiling borsh v1.8.1
+   Compiling five8 v0.2.1
+   Compiling solana-atomic-u64 v2.2.1
+   Compiling solana-sanitize v2.2.1
+   Compiling sha2 v0.10.9
+   Compiling toml_edit v0.25.15+spec-1.1.0
+   Compiling five8_const v0.1.4
+   Compiling solana-decode-error v2.3.0
+   Compiling syn v2.0.119
+   Compiling bs58 v0.5.1
+   Compiling proc-macro-crate v3.5.0
+   Compiling memchr v2.8.3
+   Compiling itoa v1.0.18
+   Compiling anyhow v1.0.104
+   Compiling thiserror v1.0.69
+   Compiling cpufeatures v0.2.17
+   Compiling unicode-segmentation v1.13.3
+   Compiling heck v0.3.3
+   Compiling solana-msg v2.2.1
+   Compiling solana-program-memory v2.3.1
+   Compiling feature-probe v0.1.1
+   Compiling log v0.4.34
+   Compiling bv v0.11.1
+   Compiling borsh-derive-internal v0.10.4
+   Compiling borsh-schema-derive-internal v0.10.4
+   Compiling hashbrown v0.13.2
+   Compiling serde_bytes v0.11.19
+   Compiling lazy_static v1.5.0
+   Compiling solana-program-option v2.2.1
+   Compiling base64 v0.21.7
+   Compiling serde_derive v1.0.229
+   Compiling bytemuck_derive v1.12.1
+   Compiling borsh-derive v1.8.1
+   Compiling thiserror-impl v1.0.69
+   Compiling solana-sdk-macro v2.2.1
+   Compiling anchor-derive-space v0.32.2
+   Compiling bytemuck v1.25.2
+   Compiling solana-hash v2.3.0
+   Compiling bincode v1.3.3
+   Compiling solana-fee-calculator v2.2.1
+   Compiling toml v0.5.11
+   Compiling anchor-syn v0.32.2
+   Compiling anchor-lang-idl-spec v0.1.0
+   Compiling solana-sha256-hasher v2.3.0
+   Compiling anchor-lang-idl v0.1.4
+   Compiling proc-macro-crate v0.1.5
+   Compiling borsh-derive v0.10.4
+   Compiling borsh v0.10.4
+   Compiling solana-pubkey v2.4.0
+   Compiling solana-sdk-ids v2.2.1
+   Compiling solana-instruction v2.3.3
+   Compiling solana-sysvar-id v2.2.1
+   Compiling solana-feature-gate-interface v2.2.2
+   Compiling solana-clock v2.2.3
+   Compiling solana-slot-history v2.2.1
+   Compiling solana-slot-hashes v2.2.1
+   Compiling solana-epoch-schedule v2.2.1
+   Compiling solana-last-restart-slot v2.2.1
+   Compiling solana-program-error v2.2.2
+   Compiling solana-stable-layout v2.2.1
+   Compiling solana-system-interface v1.0.0
+   Compiling solana-serialize-utils v2.2.1
+   Compiling solana-rent v2.2.1
+   Compiling solana-account-info v2.3.0
+   Compiling solana-epoch-rewards v2.2.1
+   Compiling solana-program-pack v2.2.1
+   Compiling solana-cpi v2.2.1
+   Compiling solana-program-entrypoint v2.3.0
+   Compiling solana-instructions-sysvar v2.2.2
+   Compiling solana-invoke v0.4.0
+   Compiling solana-stake-interface v1.2.1
+   Compiling solana-loader-v3-interface v3.0.0
+   Compiling solana-sysvar v2.3.0
+   Compiling anchor-derive-serde v0.32.2
+   Compiling anchor-attribute-error v0.32.2
+   Compiling anchor-derive-accounts v0.32.2
+   Compiling anchor-attribute-constant v0.32.2
+   Compiling anchor-attribute-account v0.32.2
+   Compiling anchor-attribute-access-control v0.32.2
+   Compiling anchor-attribute-event v0.32.2
+   Compiling anchor-attribute-program v0.32.2
+   Compiling anchor-lang v0.32.1
+   Compiling gate0-vault v0.1.0 (/home/tnwjd/proofpass-gate0/solana-vault/programs/gate0-vault)
+    Finished `release` profile [optimized] target(s) in 45.38s
++ wget https://github.com/Snaipe/Criterion/releases/download/v2.3.3/criterion-v2.3.3-linux-x86_64.tar.bz2 -O criterion-v2.3.3-linux-x86_64.tar.bz2 --progress=dot:giga --retry-connrefused --read-timeout=30
+--2026-09-21 00:04:28--  https://github.com/Snaipe/Criterion/releases/download/v2.3.3/criterion-v2.3.3-linux-x86_64.tar.bz2
+Resolving github.com (github.com)... 20.200.245.247
+Connecting to github.com (github.com)|20.200.245.247|:443... connected.
+HTTP request sent, awaiting response... 302 Found
+Location: https://release-assets.githubusercontent.com/github-production-release-asset/30111969/98b27400-e1f1-11e8-8f10-e43f4ef84b92?sp=r&sv=2018-11-09&sr=b&spr=https&se=2026-09-20T15%3A59%3A07Z&rscd=attachment%3B+filename%3Dcriterion-v2.3.3-linux-x86_64.tar.bz2&rsct=application%2Foctet-stream&skoid=96c2d410-5711-43a1-aedd-ab1947aa7ab0&sktid=398a6654-997b-47e9-b12b-9515b896b4de&skt=2026-09-20T14%3A58%3A46Z&ske=2026-09-20T15%3A59%3A07Z&sks=b&skv=2018-11-09&sig=Y0YfNs14nXdpJuaAbvI1xZ%2BzEQq2jf5D50f%2B3sZYoXk%3D&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmVsZWFzZS1hc3NldHMuZ2l0aHVidXNlcmNvbnRlbnQuY29tIiwia2V5Ijoia2V5MSIsImV4cCI6MTc4OTkxNjk2NiwibmJmIjoxNzg5OTE2NjY2LCJwYXRoIjoicmVsZWFzZWFzc2V0cHJvZHVjdGlvbi5ibG9iLmNvcmUud2luZG93cy5uZXQifQ.TDRF0FpGotWICicdIdiCesmp2R7EuEXzATRVl4mRy9o&response-content-disposition=attachment%3B%20filename%3Dcriterion-v2.3.3-linux-x86_64.tar.bz2&response-content-type=application%2Foctet-stream [following]
+--2026-09-21 00:04:28--  https://release-assets.githubusercontent.com/github-production-release-asset/30111969/98b27400-e1f1-11e8-8f10-e43f4ef84b92?sp=r&sv=2018-11-09&sr=b&spr=https&se=2026-09-20T15%3A59%3A07Z&rscd=attachment%3B+filename%3Dcriterion-v2.3.3-linux-x86_64.tar.bz2&rsct=application%2Foctet-stream&skoid=96c2d410-5711-43a1-aedd-ab1947aa7ab0&sktid=398a6654-997b-47e9-b12b-9515b896b4de&skt=2026-09-20T14%3A58%3A46Z&ske=2026-09-20T15%3A59%3A07Z&sks=b&skv=2018-11-09&sig=Y0YfNs14nXdpJuaAbvI1xZ%2BzEQq2jf5D50f%2B3sZYoXk%3D&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmVsZWFzZS1hc3NldHMuZ2l0aHVidXNlcmNvbnRlbnQuY29tIiwia2V5Ijoia2V5MSIsImV4cCI6MTc4OTkxNjk2NiwibmJmIjoxNzg5OTE2NjY2LCJwYXRoIjoicmVsZWFzZWFzc2V0cHJvZHVjdGlvbi5ibG9iLmNvcmUud2luZG93cy5uZXQifQ.TDRF0FpGotWICicdIdiCesmp2R7EuEXzATRVl4mRy9o&response-content-disposition=attachment%3B%20filename%3Dcriterion-v2.3.3-linux-x86_64.tar.bz2&response-content-type=application%2Foctet-stream
+Resolving release-assets.githubusercontent.com (release-assets.githubusercontent.com)... 185.199.110.133, 185.199.109.133, 185.199.108.133, ...
+Connecting to release-assets.githubusercontent.com (release-assets.githubusercontent.com)|185.199.110.133|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 677858 (662K) [application/octet-stream]
+Saving to: ‘criterion-v2.3.3-linux-x86_64.tar.bz2’
+
+     0K                                    100% 27.4M=0.02s
+
+2026-09-21 00:04:28 (27.4 MB/s) - ‘criterion-v2.3.3-linux-x86_64.tar.bz2’ saved [677858/677858]
+
++ tar --strip-components 1 -jxf criterion-v2.3.3-linux-x86_64.tar.bz2
++ ./platform-tools/rust/bin/rustc --version
++ ./platform-tools/rust/bin/rustc --print sysroot
++ set +e
++ rustup toolchain uninstall solana
+info: uninstalling toolchain 'solana'
+info: toolchain 'solana' uninstalled
++ set -e
++ rustup toolchain link solana platform-tools/rust
++ exit 0
+97904c1bda12c39b1dabcb234837c70b8311be714e184534269e192f6493a73a  target/deploy/gate0_vault.so

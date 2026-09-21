@@ -1,0 +1,21 @@
+{
+  "stage": "Gate1 protocol and session binding",
+  "status": "passed",
+  "mode": "actual-opendid-zkp-and-wallet-signatures-with-live-xrpl-account-state",
+  "issuer": "synthetic-test-issuer",
+  "xrplNetwork": "Testnet",
+  "solanaNetwork": "Devnet",
+  "checks": {
+    "presentationBoundToTranscriptNonce": true,
+    "xrplMasterKeyAuthority": true,
+    "solanaOwnerSignature": true,
+    "substitutedSolanaSignature": "rejected",
+    "consumedSessionReplay": "rejected",
+    "adapterAttestationSigned": true
+  },
+  "disclosure": "Proof, private keys, commitment, transcript and linked wallet addresses remain in .local only",
+  "newOnChainTransactions": 0,
+  "elapsedMs": 3766,
+  "completedAt": "2026-09-21T03:09:13.435Z",
+  "fullGate1Complete": false
+}

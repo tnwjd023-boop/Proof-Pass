@@ -1,0 +1,102 @@
+{
+  "recordedAt": "2026-09-20T15:31:55.599Z",
+  "gate": 0,
+  "overallStatus": "passed",
+  "scope": "Component feasibility; no full product or cross-chain payment demo",
+  "opendid": {
+    "status": "passed-local-real-sdk",
+    "normal": "accepted",
+    "negativeCases": [
+      "rejected",
+      "rejected",
+      "rejected"
+    ],
+    "policyDate": "2026-09-20"
+  },
+  "midnight": {
+    "status": "passed-local-contract",
+    "compiledCircuits": 8,
+    "testsPassed": 62,
+    "networkProofConfirmed": false
+  },
+  "xrpl": {
+    "status": "passed",
+    "network": "Testnet",
+    "validatedTransactions": 3,
+    "resumeVerified": true
+  },
+  "solana": {
+    "localTestsPassed": 10,
+    "arithmeticTestsPassed": 3,
+    "localPayout": "passed",
+    "localWorkflowFinalizedTransactions": 3,
+    "localResumeVerified": true,
+    "devnetProgramDeployed": true,
+    "devnetPayoutExecuted": true,
+    "devnetPayerLamports": 3865312080,
+    "conservativeFundingRequiredLamports": 2213912560,
+    "payer": "2ERjBJoGRjmbYVmN9Uduwy3X7tcw984NmizZhswRFfZu",
+    "devnetResumeVerified": true,
+    "devnetDeploymentSignature": "5ymoMFa81i1BC4LWYFvoPuype9U1J1mA2L1V4sgfhrZ4VxSoYP412xqJvQAjqRh1K92FhZNXRxxzkRtW3XwyLHPT",
+    "devnetPayoutSignature": "3rHSwvuMdq6LH719CXoSdsfNi4KFU1GU8srDXnLdYcNWj5MtvURvHtSkZTUNHdvkC9ii6KwrHNM8PwkGkF6UKqxr",
+    "devnetVaultLamports": 50858520,
+    "devnetVaultRentLamports": 858520,
+    "deployedBinaryMatchesTestedArtifact": true
+  },
+  "nodeRegressionTests": {
+    "passed": 5,
+    "failed": 0
+  },
+  "remaining": [],
+  "review": {
+    "criticalFindings": 0,
+    "importantFindings": 1,
+    "resolution": "Fixed deployment absence check to stop on RPC failure; reconciles prior faucet signature; documented stale locks"
+  },
+  "artifacts": {
+    "opendid-roundtrip.json": {
+      "sha256": "f0fc15016050c765b9585a81b77d138a2636cd04a1a954819da9b69a24b26ce6",
+      "bytes": 590
+    },
+    "opendid-roundtrip-build.txt": {
+      "sha256": "94b5bea5a792fe7d95820f947070924131da7eb7ed91237f178c073b7313e830",
+      "bytes": 1137
+    },
+    "midnight-build-test-2026-09-20.txt": {
+      "sha256": "190acbab1e60e7543f8b8d52d2b3b3157bc329573577fe8f23b23279db179afa",
+      "bytes": 10763
+    },
+    "xrpl-lifecycle.json": {
+      "sha256": "75ca4571fb840272af46e9c663aae9971ced0433f80fe39ea228c26fa00fb0b0",
+      "bytes": 4319
+    },
+    "solana-local-tests.json": {
+      "sha256": "c04c5b197c4f67046cb93c821ed122ed9bb1bdb157d4590bb1fd3d06a7336d48",
+      "bytes": 3192
+    },
+    "solana-local-workflow.json": {
+      "sha256": "c99dd65f248645169d6b905efac956d66b40b13b28fedcde999103f39b0f0491",
+      "bytes": 2236
+    },
+    "solana-deployment-preflight.json": {
+      "sha256": "96ddff46b2dfb1bcd9e1d6b3f3cb41a1cf4fe088eb535a28fc85338eb372e3ed",
+      "bytes": 454
+    },
+    "solana-vault-build.txt": {
+      "sha256": "5727ddd246ccfe1e013669746d5754eca20f943adac84061099adb8334ca3ce8",
+      "bytes": 7891
+    },
+    "solana-faucet-attempt.txt": {
+      "sha256": "b5ebe0efea0b0d8d4fd7a26274b51e40c76eadb50dda91fbe3eaeedfbc358c7b",
+      "bytes": 1469
+    },
+    "solana-devnet-deployment.json": {
+      "sha256": "fce38eb8ef299920ea45409bebb53e9b484487ba45dfc53ad9bfc6dbed2593e6",
+      "bytes": 928
+    },
+    "solana-devnet-payout.json": {
+      "sha256": "0818567a6546038eece88a19b467e7a29ac7526843af5373011f8627a02b8818",
+      "bytes": 2237
+    }
+  }
+}

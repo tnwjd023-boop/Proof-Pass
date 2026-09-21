@@ -1,0 +1,19 @@
+{
+  "network": "Solana Devnet",
+  "genesis": "EtWTRABZaYq6iMfeYKouRu166VU2xqa1wcaWoxPkrZBG",
+  "status": "passed",
+  "programId": "BvFezGdFzEgKwGKntXK1acyv9tzcKowRJXy5EjFt14i8",
+  "executable": true,
+  "owner": "BPFLoaderUpgradeab1e11111111111111111111111",
+  "signature": "5ymoMFa81i1BC4LWYFvoPuype9U1J1mA2L1V4sgfhrZ4VxSoYP412xqJvQAjqRh1K92FhZNXRxxzkRtW3XwyLHPT",
+  "finalized": true,
+  "slot": 501445846,
+  "blockTime": 1789918108,
+  "finalDeploymentTransactionFeeLamports": 10000,
+  "feeNote": "Final deployment transaction only; buffer creation and writes have separate fees",
+  "binaryBytes": 202968,
+  "deployedBinarySha256": "97904c1bda12c39b1dabcb234837c70b8311be714e184534269e192f6493a73a",
+  "matchesTestedBinary": true,
+  "explorer": "https://explorer.solana.com/tx/5ymoMFa81i1BC4LWYFvoPuype9U1J1mA2L1V4sgfhrZ4VxSoYP412xqJvQAjqRh1K92FhZNXRxxzkRtW3XwyLHPT?cluster=devnet",
+  "verifiedAt": "2026-09-20T15:30:05.717Z"
+}

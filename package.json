@@ -1,0 +1,24 @@
+{
+  "name": "proofpass",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.23.2"
+  },
+  "scripts": {
+    "test": "node --test test/*.test.mjs",
+    "gate0:xrpl": "node scripts/gate0/xrpl-lifecycle.mjs",
+    "demo": "node scripts/demo.mjs"
+  },
+  "dependencies": {
+    "@solana/web3.js": "1.98.4",
+    "bs58": "4.0.1",
+    "ripple-address-codec": "5.0.1",
+    "ripple-keypairs": "3.1.0",
+    "xrpl": "5.3.0"
+  },
+  "devDependencies": {
+    "playwright": "1.56.1"
+  }
+}

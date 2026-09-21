@@ -1,0 +1,12 @@
+{
+  "status": "deployed",
+  "mode": "local-Midnight-live-adapter-policy",
+  "network": "undeployed",
+  "contractAddress": "d8c19344047782f811cc8bbd4827fb4c575065e2b7728158c2a66d0a206566d2",
+  "genesis": "0xe72f7a21a0397844563b4206f887b779ffa0d937c2d1b2339441faa1f08b9846",
+  "txId": "00bbef095aee531bfc1ab78c793bb87cb1a457b0b5fdc8e09ac8313ef05614e459",
+  "blockHeight": "5637",
+  "distinctRandomRoleKeys": true,
+  "fullGate1Complete": false,
+  "checkedAt": "2026-09-21T02:11:38.593Z"
+}

@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "paymentSignature": "4DfZXZnJpbstGHRkmFJ63YQLc9z2Niwz346kkYt6keUon8pC2P2b6obujzEqreDnBumKsxg8FL5y6xq4WrCVQE6W",
+  "newPayments": 0,
+  "verifiedSolanaReceipts": 18,
+  "verifiedMidnightAuthorizations": 3,
+  "bindingWasExpired": true,
+  "recoveredAt": "2026-09-21T03:17:31.017Z"
+}

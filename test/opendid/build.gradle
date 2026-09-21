@@ -1,0 +1,16 @@
+plugins { id 'application' }
+repositories { mavenCentral() }
+def proofpassRoot = System.getenv('PROOFPASS_ROOT')
+def issuerRoot = System.getenv('PROOFPASS_ISSUER_ROOT')
+dependencies {
+    implementation files("${issuerRoot}/build/libs/did-zkp-sdk-server-2.0.0.jar")
+    implementation fileTree(dir: "${issuerRoot}/libs", include: ['*.jar'])
+    implementation files("${proofpassRoot}/.external/did-client-sdk-aos/source/release/did-wallet-sdk-aos-V2.0.1.jar")
+    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation 'org.bouncycastle:bcprov-jdk18on:1.78.1'
+    implementation 'org.hibernate:hibernate-validator:7.0.0.Final'
+    implementation 'com.madgag.spongycastle:core:1.54.0.0'
+    implementation 'com.madgag.spongycastle:prov:1.54.0.0'
+}
+java { sourceCompatibility = JavaVersion.VERSION_21; targetCompatibility = JavaVersion.VERSION_21 }
+application { mainClass = 'OpenDidRoundTrip' }

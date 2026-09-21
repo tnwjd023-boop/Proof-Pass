@@ -1,0 +1,534 @@
+{
+  "status": "passed",
+  "mode": "real-local-validator-with-trusted-relay-fixtures",
+  "programId": "3983maEGpsg2M5tTqBqMtLm5rRmZsYKTDDUZAnrPuBAJ",
+  "clusterGenesis": "GMwqohiJB2djXwjyxWMzakFNKxUAAEqyxojWHwiAC5fv",
+  "assertions": 50,
+  "results": [
+    {
+      "name": "unauthorized-bootstrap",
+      "status": "rejected",
+      "signature": "3csFaNGjHtUy75LEPXpatme5XLN6C7MyF95iu8Mwirpg1AUMHcExjU6zXTc8r7wgimktUHjjA3Rz1wupTqjyS3r5",
+      "balancesUnchanged": true,
+      "error": {
+        "InstructionError": [
+          0,
+          {
+            "Custom": 2012
+          }
+        ]
+      }
+    },
+    {
+      "name": "initialize-config",
+      "status": "passed",
+      "signature": "2i4T5aSYvGrnh4UQNbnpczEdyDyZP8M6WYYnhVsyc9GpDNhQovrvtJHFZuY41beeYqJ8PVa8eZRzkzGrfvFoGGMj"
+    },
+    {
+      "name": "owner-registers-mandate",
+      "status": "passed",
+      "signature": "55AfdLMKsAhFDVd4oUK6o9918PutBh1t2xrQpBYCBUj9GkCyWshyPWW2yJkm3oincJwzZHUYGMjdpSYbefsBszs5"
+    },
+    {
+      "name": "owner-funds-vault",
+      "status": "passed",
+      "signature": "333B3r3PUGq5C5hGyokzWsCQnfMvP65cqc4ixzD7fbLV9LREyC4vx6kGb1TisAiHeNGhh231dmwfcgcEZc7vJVxf"
+    },
+    {
+      "name": "cannot-reinitialize-mandate",
+      "status": "rejected",
+      "signature": "4zEDiv4wyJEUeQ4ywRn7ZvqKvzg9ciWZL4YRLkz939MU4f6opwrz4myqpFBCGkqmnFKg8UewNQMCaGwBT1mVjPYZ",
+      "balancesUnchanged": true,
+      "error": {
+        "InstructionError": [
+          0,
+          {
+            "Custom": 0
+          }
+        ]
+      }
+    },
+    {
+      "name": "wrong-observer",
+      "status": "rejected",
+      "signature": "4M86Rm3oKq3fR8dwxhZnw136sWkAKD8Y3HneLFkxFwTtKMXjhGHXuEwnTy8ybnSpnEGBjErdTXVija4JV5gu7Jzr",
+      "balancesUnchanged": true,
+      "error": {
+        "InstructionError": [
+          0,
+          {
+            "Custom": 2001
+          }
+        ]
+      }
+    },
+    {
+      "name": "refresh-current-source",
+      "status": "passed",
+      "signature": "3vW9aWdiMDJhf6SBynREk6WBNUk5iKwH6bnePrEiRsgxCSPaZ1VYttEmzBDtp7YBqV1D7yTGbYU67oLQau8UbGYD"
+    },
+    {
+      "name": "source-lease-over-60-seconds",
+      "status": "rejected",
+      "signature": "5sv4ApKySiSyanSwvmFNPfvL3zQ1G7SiaY1G5e9jpc3QJhfVYecEfVXKz85oPG1mGyiQdrHiXYDJwU5yxhWA7Snq",
+      "balancesUnchanged": true,
+      "error": {
+        "InstructionError": [
+          0,
+          {
+            "Custom": 6002
+          }
+        ]
+      }
+    },
+    {
+      "name": "source-ledger-rollback",
+      "status": "rejected",
+      "signature": "dvfFdsyYwnCYmNXWDiothLRRvvTx2w816CBfyBx3XdfCixHXLzeSU29VxUSTmSi31A5V65ZuMEAG51SPg6cqk2o",
+      "balancesUnchanged": true,
+      "error": {
+        "InstructionError": [
+          0,
+          {
+            "Custom": 6004
+          }
+        ]
+      }
+    },
+    {
+      "name": "source-conflicting-ledger-hash",
+      "status": "rejected",
+      "signature": "cxWqyLFr2g4iEo485PD6rraUku3anDfBFGFJ9rEe67tus2wXQxJ74HHu5AksMWTRS8Qj6qjVepuL7mvKMsX7cY2",
+      "balancesUnchanged": true,
+      "error": {
+        "InstructionError": [
+          0,
+          {
+            "Custom": 6004
+          }
+        ]
+      }
+    },
+    {
+      "name": "same-epoch-status-change",
+      "status": "rejected",
+      "signature": "r8S8zx3v5E1ssRhGJTrY8vzPcMFkjSokmfTWGpxe9Ag4YifBX98h2KXMHHYaHkr5Vg9pd1PkUHRcybZrLayikvw",
+      "balancesUnchanged": true,
+      "error": {
+        "InstructionError": [
+          0,
+          {
+            "Custom": 6004
+          }
+        ]
+      }
+    },
+    {
+      "name": "wrong-relay",
+      "status": "rejected",
+      "signature": "3iXfyo9QbmKtJRYRVC8sb1YmrPrWSxBH9LByoTgbKf22ec1dF8kp58gxM7kSo4CzhS1QGn3ZsBUT82x7qm9eZ6Xv",
+      "balancesUnchanged": true,
+      "error": {
+        "InstructionError": [
+          0,
+          {
+            "Custom": 2001
+          }
+        ]
+      }
+    },
+    {
+      "name": "record-wrong-destinationCluster",
+      "status": "rejected",
+      "signature": "4HUfRAMEaUT4ymR5VyiYMmLmYYCMeu8q1zJsp4XBtRdGwvL1iaREFqnExXWKryx7MndMPjcftBbP1z1k7ZvXDCCX",
+      "balancesUnchanged": true,
+      "error": {
+        "InstructionError": [
+          0,
+          {
+            "Custom": 6005
+          }
+        ]
+      }
+    },
+    {
+      "name": "record-wrong-programId",
+      "status": "rejected",
+      "signature": "4KFhE51f9c3oXFqLraUY3mwpGR1VmrSQsjzpTFePq3Myh6XFLDzEPVXBVYRg1DRnpkQpJVKeEbdAy9NjvfFoUmcK",
+      "balancesUnchanged": true,
+      "error": {
+        "InstructionError": [
+          0,
+          {
+            "Custom": 6005
+          }
+        ]
+      }
+    },
+    {
+      "name": "record-wrong-policyId",
+      "status": "rejected",
+      "signature": "57ELXcag8UTCrfiWG8hCZktxhjSo7d8AztgvgV59NXdsDZEPBEBL1sX6PVLzSWeSxmcswFYhrrgPbN2MX5EuvRP3",
+      "balancesUnchanged": true,
+      "error": {
+        "InstructionError": [
+          0,
+          {
+            "Custom": 6005
+          }
+        ]
+      }
+    },
+    {
+      "name": "record-wrong-assetId",
+      "status": "rejected",
+      "signature": "41x9FaqhtBgvRddd9ejtiQgnDpSULfGm6XWbUHUHNihyDBXhUjuUvnMeFPMZkWEpiiyYdGcachqze6QxtP8R49MA",
+      "balancesUnchanged": true,
+      "error": {
+        "InstructionError": [
+          0,
+          {
+            "Custom": 6005
+          }
+        ]
+      }
+    },
+    {
+      "name": "record-wrong-expiresAt",
+      "status": "rejected",
+      "signature": "5UmsUKNNWebiSe7tFeYp67W7tNUgfaYoQSQmodgMdLTUTJXb8j6PUL6TWn5oQc7wWytSRGanoDnQcJjekPhJsMdk",
+      "balancesUnchanged": true,
+      "error": {
+        "InstructionError": [
+          0,
+          {
+            "Custom": 6002
+          }
+        ]
+      }
+    },
+    {
+      "name": "refresh-current-source",
+      "status": "passed",
+      "signature": "2QzfB32HU1xo3xA4k6xhqkjUyggeSJPndg4EvQ5cx4n4ex9KFojKEMS83LEy4tY8fnx379PjLdFpE7hL47bvQq5z"
+    },
+    {
+      "name": "trusted-relay-records-request",
+      "status": "passed",
+      "signature": "27PwdTtTQ21ES9pbTmpSHvdEnuGU1iNg6TPQLCPuPTjVarpfsdtffmCgc6xj7K3kwnYdY1Bf1XoC8ybRrPHT5sbD"
+    },
+    {
+      "name": "missing-agent-signature",
+      "status": "rejected",
+      "signature": "2mkwtte63z8bEVZVD9t7A6i3oB4qmw6ErT7J4Sz8vTsAbwB5iPy5sBvnPakVf6MtkyGktdJyzYNWSbgiYVDpTR8D",
+      "balancesUnchanged": true,
+      "error": {
+        "InstructionError": [
+          0,
+          {
+            "Custom": 3010
+          }
+        ]
+      }
+    },
+    {
+      "name": "wrong-agent",
+      "status": "rejected",
+      "signature": "2yECpsbopViUc6N7Fn6ULohvyFnRLr4opEnD8Hb8U1i68k4pf7bmHHVdkUtggiL6MRJnbzsk97UHmMLUf15tqarR",
+      "balancesUnchanged": true,
+      "error": {
+        "InstructionError": [
+          0,
+          {
+            "Custom": 6000
+          }
+        ]
+      }
+    },
+    {
+      "name": "recipient-account-substitution",
+      "status": "rejected",
+      "signature": "2fSyAGKuTzzp4qGVNmoLR6gHLYvfGT7BCpFeUecj47HopkrRUMgYDQhDpYfXJ7i3wq38SYK27NDjz2UwuL98Z9fP",
+      "balancesUnchanged": true,
+      "error": {
+        "InstructionError": [
+          0,
+          {
+            "Custom": 6008
+          }
+        ]
+      }
+    },
+    {
+      "name": "wrong-vault-owner",
+      "status": "rejected",
+      "signature": "sx47jk2JC3JKtRphMB7Rf29s2QRcVevaR4nifYxwD2b6eazqiYWGoToYkBAPkqnJqikxqNgJhRAavmjtTK3HMrx",
+      "balancesUnchanged": true,
+      "error": {
+        "InstructionError": [
+          0,
+          {
+            "Custom": 3007
+          }
+        ]
+      }
+    },
+    {
+      "name": "amount-substitution",
+      "status": "rejected",
+      "signature": "3iFwJwzBfRynAP9efnsR9vP64LqmtqdYRXkbPYX9E7feeMFWbEqMVn72ZgMpSr5aEk8XUCDjFfRaJAaz6ddLB1wG",
+      "balancesUnchanged": true,
+      "error": {
+        "InstructionError": [
+          0,
+          {
+            "Custom": 6006
+          }
+        ]
+      }
+    },
+    {
+      "name": "network-substitution",
+      "status": "rejected",
+      "signature": "629nYPyTGv2tpnwi49oTP4XGuSXbfUZFziM5UwEYtmvVk9y5AP3Z1Ms5jeK2wbgQYWEw2cEVUczPs661UpiNDDwK",
+      "balancesUnchanged": true,
+      "error": {
+        "InstructionError": [
+          0,
+          {
+            "Custom": 6006
+          }
+        ]
+      }
+    },
+    {
+      "name": "reissued-request-id-with-new-amount",
+      "status": "rejected",
+      "signature": "2eScXEPu8o8V2kR58Zr4EoG3c7DxayCvguSeqJQq79Hn8KYKyLUJs4Jt6rfnnrA3cBtaAfcHrafzUpv3Rj9nFy42",
+      "balancesUnchanged": true,
+      "error": {
+        "InstructionError": [
+          0,
+          {
+            "Custom": 0
+          }
+        ]
+      }
+    },
+    {
+      "name": "transaction-rollback-does-not-consume",
+      "status": "rejected",
+      "signature": "46uaW38rcYDfhUWsnEUdxcbXjQNEBefavbk2QE34oQ7PmGUZpEg6VcQ7G1N9BoRRMsRF2AU9TDhJbxg7pZYeNwkv",
+      "balancesUnchanged": true,
+      "error": {
+        "InstructionError": [
+          1,
+          {
+            "Custom": 1
+          }
+        ]
+      }
+    },
+    {
+      "name": "exact-0.05-SOL-authorized-payment",
+      "status": "passed",
+      "signature": "5GTwTgj2uQyQeqJSNE97tzNK9dXVuVPTZsJipUz8C9T7fjS9StQv1H6PjGfYmKPenKGKUbcFzBmFYyTrNXnh15Sk"
+    },
+    {
+      "name": "consumed-authorization-replay",
+      "status": "rejected",
+      "signature": "3pfjiks4KrzYSr7HRPGVavRMyYswG2kK8i4j3j8RBix38cJv1xCumpP2N6zqM1xjkv8N5ZwRFT9pP16fhRvzA2bV",
+      "balancesUnchanged": true,
+      "error": {
+        "InstructionError": [
+          0,
+          {
+            "Custom": 6007
+          }
+        ]
+      }
+    },
+    {
+      "name": "consumed-authorization-recreation",
+      "status": "rejected",
+      "signature": "6QmeGzpt7EERJYN6W9WbTc3DVXxDijQbQjtUQeeRa8GZKVXnkN8nSsUXj5irwDJcwwrndd9SUJhVnWahJReBhnW",
+      "balancesUnchanged": true,
+      "error": {
+        "InstructionError": [
+          0,
+          {
+            "Custom": 0
+          }
+        ]
+      }
+    },
+    {
+      "name": "refresh-current-source",
+      "status": "passed",
+      "signature": "ayPV2qSrDzdwKgyeG3xawtDTB8hUF4FvDWCmzSvADr8wqR1DtccStubCKRNioXjafDjw5bKqj8Ww8o4tC72auRA"
+    },
+    {
+      "name": "trusted-relay-records-request",
+      "status": "passed",
+      "signature": "4CvVQbiV9C1SECXAbB1z8NMfPoPyQvj3abpdHNzZAQpHsip2yUgbuGB694BTRBa1DWvGppumnpuuWca3pj6DCedQ"
+    },
+    {
+      "name": "source-invalidation",
+      "status": "passed",
+      "signature": "5w4HM8Rma7LB1bD3BfmyJTHy5iF7RNgptQebabxxeyFHXUeu9Xfr8BkafUaE5wUDri1uT9TELSPRgRWYnzGf2A1Z"
+    },
+    {
+      "name": "deleted-source-blocks-pending-authorization",
+      "status": "rejected",
+      "signature": "4SPhFf6XPbR55ZM7c8LfYnAvukrp1JHjLwtrwx4nyXe8fYYVz3cBFyaigwpUxD6HnrP1d2p8zyLS8VPv9juzHyqq",
+      "balancesUnchanged": true,
+      "error": {
+        "InstructionError": [
+          0,
+          {
+            "Custom": 6003
+          }
+        ]
+      }
+    },
+    {
+      "name": "refresh-current-source",
+      "status": "passed",
+      "signature": "5dD36DnJ3x7JFS3g9d3k1SqyzYQw6K92mxy2LSFYYzvaegGbyLPhaanXEqFvZx4Y6PYrJAXt7iHckhiYiS6M5hCn"
+    },
+    {
+      "name": "reissued-source-does-not-revive-old-authorization",
+      "status": "rejected",
+      "signature": "3bXqkqMLzcb1U7LZHFZZFdTyfV4ZAJwEYLScG67PcmHAF8Jhu73uPuXUgSfxFP8D4UfcCZ2ZscXkG2kGTikBvnf9",
+      "balancesUnchanged": true,
+      "error": {
+        "InstructionError": [
+          0,
+          {
+            "Custom": 6003
+          }
+        ]
+      }
+    },
+    {
+      "name": "refresh-current-source",
+      "status": "passed",
+      "signature": "5biHTNDa3ZySWq7rkpCELT3ZnqmZeit5XsD22zNz6pWBXUUQzPML1GdvqDqBKyv15Bmq9BB1nggzGd9xu2FXghLe"
+    },
+    {
+      "name": "trusted-relay-records-request",
+      "status": "passed",
+      "signature": "2wxggeYP3hYgqgiEr6mgru7EQPdB7w5qemg7hswJ6PKq5uKfdyzgN5dPQDEDufrZZtosbhjcDMmvSWQYgA95xcVn"
+    },
+    {
+      "name": "owner-revokes-mandate",
+      "status": "passed",
+      "signature": "4X1Gk9TUHUQXdDmHf29iEmxMb3o7DgUogmJqZZiY4JeUpocdahP6g2mMaRTGkjNMnWraiSXRszuJsWvAJNtzJtuw"
+    },
+    {
+      "name": "revoked-mandate-blocks-pending-authorization",
+      "status": "rejected",
+      "signature": "29zFMhtzSCiAEY2eu5j1s6EnoTYERDbXCTtL7ydd5P5RduL4KcvHYqD6gmEsBinjgaU9jBqHT14TvrjrPms74icy",
+      "balancesUnchanged": true,
+      "error": {
+        "InstructionError": [
+          0,
+          {
+            "Custom": 6001
+          }
+        ]
+      }
+    },
+    {
+      "name": "owner-renews-mandate-with-higher-epoch",
+      "status": "passed",
+      "signature": "so4Xs9Vipe2tTXFxuQtcBUeeTF53ARbFoAfnHFfFx2rQfEweuctJD6DyvccYChyPqRohdTCv8KR6cVKtTxDoNbL"
+    },
+    {
+      "name": "renewed-mandate-does-not-revive-old-authorization",
+      "status": "rejected",
+      "signature": "HJiBK2NnP4nzd4ZDqRi8EFtzb6P8qkGqtUyyeZ2J9h3RYYQkbm8jVM8z3UPRUukeGyLKw3yrGBZq3n4hxdDG1pG",
+      "balancesUnchanged": true,
+      "error": {
+        "InstructionError": [
+          0,
+          {
+            "Custom": 6001
+          }
+        ]
+      }
+    },
+    {
+      "name": "refresh-current-source",
+      "status": "passed",
+      "signature": "4RgZVXAvWBGCWBDMMVpdYZjqBycb8niBdLdT2swj8EVUMKscJVE1cz9uH6U7kAMbuFXZomVgUaYAfSTS6T7DraYp"
+    },
+    {
+      "name": "trusted-relay-records-request",
+      "status": "passed",
+      "signature": "2n3VXQYr1JQuXbsDEGz6MfWaFpCxzcfJzpmy2TmFXN3b5xKPNBfowEU9DRGjfo4ETKhXYoTgUjLxnyeBtYKn9f61"
+    },
+    {
+      "name": "rent-preserved-on-insufficient-funds",
+      "status": "rejected",
+      "signature": "5exvTd2DyTnaQp8VCmPKQun8wcUDfHuE872NXb87HcxL7JASkzzXNChAA9cyNrNAiF6RvwfxdUmSq2srTDvvC6UE",
+      "balancesUnchanged": true,
+      "error": {
+        "InstructionError": [
+          0,
+          {
+            "Custom": 6009
+          }
+        ]
+      }
+    },
+    {
+      "name": "refresh-current-source",
+      "status": "passed",
+      "signature": "2qxqwF5BWNQFGuSYKHi2D7Dk4kr5NJS7gKDv1oguidzBJMSaGtCW9YBDFeL5FHDDRNPC186zAcLMghjGucUkrYWg"
+    },
+    {
+      "name": "trusted-relay-records-request",
+      "status": "passed",
+      "signature": "4fqWXW24drUUSy5hZ1AarZXweynjGXWb98v2sw6rWRXhdxuCS1W5EJrcA9hS4w3mwPfEZr8jqnwrVmygnx1qyCGT"
+    },
+    {
+      "name": "execution-clock-rejects-expired-authorization",
+      "status": "rejected",
+      "signature": "4GCTARzG3DYSLA7gdA63afKuKPH7cpsV1fgD2Njq1ta9TbPnrgvTKHnPNHhx9pL74pT5xt3muuKa1M5n4nzUs25W",
+      "balancesUnchanged": true,
+      "error": {
+        "InstructionError": [
+          0,
+          {
+            "Custom": 6002
+          }
+        ]
+      }
+    },
+    {
+      "name": "separate-owner-withdrawal",
+      "status": "passed",
+      "signature": "2irxjuYLvxvWDp1ZBYBYnRDrZMCxMtRiYEdvc25a7HPPNLrTqLjcbUWEuiSdX32RoeX2ha1uGfbpGuSQjjzaw2UZ"
+    },
+    {
+      "name": "owner-withdrawal-cannot-spend-rent",
+      "status": "rejected",
+      "signature": "2NQA26wgGmnSciCvbJeS2wqCZs8Q1RWy96mSuF53wb3BsQajCigYnrbn1ga4p9d49B3dtispCZQqZxvuzePKNmz5",
+      "balancesUnchanged": true,
+      "error": {
+        "InstructionError": [
+          0,
+          {
+            "Custom": 6009
+          }
+        ]
+      }
+    }
+  ],
+  "exactPaymentLamports": 50000000,
+  "finalRentLamports": 1398960,
+  "liveMidnightRelayConnected": false,
+  "fullGate1Complete": false,
+  "completedAt": "2026-09-21T02:02:33.012Z"
+}

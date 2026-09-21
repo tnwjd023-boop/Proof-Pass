@@ -1,0 +1,14 @@
+{
+  "status": "passed",
+  "network": "Solana Devnet",
+  "programId": "3983maEGpsg2M5tTqBqMtLm5rRmZsYKTDDUZAnrPuBAJ",
+  "signature": "6wYosy1mxe379UwBNEHXqaMVSEMfViRh8WPgbYXQfpNZGTyLNFzozk8sBdhAp2zNJZGw9MkQVJYS5QKE4w2d8BN",
+  "finalized": true,
+  "slot": 501676707,
+  "executable": true,
+  "binaryBytes": 342656,
+  "binarySha256": "c6ee3a512d978667a300b0f459a5427ed6c89dd78fff04d2a2f0613589716bf9",
+  "matchesTestedBinary": true,
+  "explorer": "https://explorer.solana.com/tx/6wYosy1mxe379UwBNEHXqaMVSEMfViRh8WPgbYXQfpNZGTyLNFzozk8sBdhAp2zNJZGw9MkQVJYS5QKE4w2d8BN?cluster=devnet",
+  "verifiedAt": "2026-09-21T02:06:20.813Z"
+}

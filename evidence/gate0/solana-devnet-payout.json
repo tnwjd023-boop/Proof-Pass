@@ -1,0 +1,75 @@
+{
+  "mode": "Solana Devnet",
+  "genesis": "EtWTRABZaYq6iMfeYKouRu166VU2xqa1wcaWoxPkrZBG",
+  "programId": "BvFezGdFzEgKwGKntXK1acyv9tzcKowRJXy5EjFt14i8",
+  "payer": "2ERjBJoGRjmbYVmN9Uduwy3X7tcw984NmizZhswRFfZu",
+  "recipient": "5cLFdbhkCQPR3BfRVPfWBFeZxb54LjxP6ovijGvmoUrV",
+  "vault": "5Xtm87KPFxnaPxFFeVce5Qh7t9FW1kePW6cf4FjaRAev",
+  "payerBalanceLamports": 3865312080,
+  "programExecutable": true,
+  "observedAt": "2026-09-20T15:30:05.364Z",
+  "status": "passed",
+  "receipts": {
+    "initialize": {
+      "signature": "2MPUjNJgCV9Y3Y8xCm5b51hLidGvb8cCgUfsa1cPsDi5e9Uvms8BzcNNFagnw6DeQBBpGeRjfw3woQzJ4oL4RsYe",
+      "finalized": true,
+      "slot": 501446012,
+      "blockTime": 1789918136,
+      "feeLamports": 5000,
+      "vault": {
+        "before": 0,
+        "after": 858520,
+        "change": 858520
+      },
+      "payer": {
+        "before": 3966185600,
+        "after": 3965322080,
+        "change": -863520
+      }
+    },
+    "deposit": {
+      "signature": "3NnSbdUYkPPn4kVzTk52xwYKf46XsVFgRTmqXAWZmze2JctauYhUQNXznBo5aHNQmKmBmRAkyHiDmbzqYukskPy3",
+      "finalized": true,
+      "slot": 501446052,
+      "blockTime": 1789918142,
+      "feeLamports": 5000,
+      "vault": {
+        "before": 858520,
+        "after": 100858520,
+        "change": 100000000
+      },
+      "payer": {
+        "before": 3965322080,
+        "after": 3865317080,
+        "change": -100005000
+      }
+    },
+    "payout": {
+      "signature": "3rHSwvuMdq6LH719CXoSdsfNi4KFU1GU8srDXnLdYcNWj5MtvURvHtSkZTUNHdvkC9ii6KwrHNM8PwkGkF6UKqxr",
+      "finalized": true,
+      "slot": 501446092,
+      "blockTime": 1789918149,
+      "feeLamports": 5000,
+      "vault": {
+        "before": 100858520,
+        "after": 50858520,
+        "change": -50000000
+      },
+      "payer": {
+        "before": 3865317080,
+        "after": 3865312080,
+        "change": -5000
+      },
+      "recipient": {
+        "before": 0,
+        "after": 50000000,
+        "change": 50000000
+      }
+    }
+  },
+  "vaultOwner": "BvFezGdFzEgKwGKntXK1acyv9tzcKowRJXy5EjFt14i8",
+  "finalVaultLamports": 50858520,
+  "rentLamports": 858520,
+  "note": "Gate 0 user-signed program payout only; cross-chain authorization is not implemented",
+  "completedAt": "2026-09-20T15:30:06.227Z"
+}

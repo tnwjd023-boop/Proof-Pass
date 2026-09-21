@@ -1,0 +1,16 @@
+{
+  "issuanceAndHolderSignature": "passed",
+  "validPresentation": "accepted",
+  "verificationMs": 216,
+  "nonceChanged": "rejected",
+  "proofChanged": "rejected",
+  "issuerMismatch": "rejected",
+  "policyDate": "2026-09-20",
+  "minimumAge": 19,
+  "totalMs": 685,
+  "mode": "real-sdk-local-zkp-roundtrip-synthetic-identity",
+  "issuerCommit": "d1ba7410f7bebff7b743f94f6547306301e8dce7",
+  "holderCommit": "58c5582014908d47f1ce62340ce672727c6a1172",
+  "holderJarSha256": "4617d96a13d16693e957dd279d79a425938132edf1718e5b88f5f754d54495cd",
+  "completedAt": "2026-09-20T15:13:11.473677531Z"
+}
