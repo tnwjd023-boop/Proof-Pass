@@ -4,6 +4,8 @@ export async function registerDust({ context, availableCoins, dustBalance, load,
   const coins = availableCoins.filter(coin => !coin.meta.registeredForDustGeneration);
   if (!coins.length && dustBalance > 0n) return;
   const prior = await load('dust-registration');
+  // Receiving additional NIGHT does not invalidate an already usable fee wallet.
+  if (dustBalance > 0n && (!prior || ['ready', 'confirmed'].includes(prior.status))) return;
   assert(!prior, 'Prior DUST registration requires reconciliation; retain journal');
   assert(coins.length, 'No unregistered NIGHT coins available; check pending transactions');
   const journal = { status: 'preparing', startedAt: new Date().toISOString() };

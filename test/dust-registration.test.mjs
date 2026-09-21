@@ -19,3 +19,13 @@ test('DUST registration persists exact finalized transaction before broadcast an
 test('confirmed DUST state does not generate another registration', async () => {
   await registerDust({ availableCoins: [{ meta: { registeredForDustGeneration: true } }], dustBalance: 1n });
 });
+
+test('a faucet top-up does not block a wallet with a completed registration and usable DUST', async () => {
+  const journal = { status: 'ready', txId: 'confirmed-registration' };
+  await registerDust({ availableCoins: [
+    { meta: { registeredForDustGeneration: true } }, { meta: { registeredForDustGeneration: false } }
+  ], dustBalance: 100n, load: async () => journal,
+  save: async () => { assert.fail('Completed journal must be preserved'); },
+  context: { wallet: { registerNightUtxosForDustGeneration: async () => { assert.fail('No new registration needed'); } } } });
+  assert.deepEqual(journal, { status: 'ready', txId: 'confirmed-registration' });
+});

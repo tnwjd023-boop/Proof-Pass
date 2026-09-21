@@ -6,7 +6,7 @@ Design: retain the tested local path and add a strictly selected Preprod profile
 
 - [x] Verify official compatibility and live RPC/indexer/proof endpoints; derive an isolated wallet and obtain test funds.
 - [x] RED/GREEN profile isolation and wrong-network rejection; adapt runtime, deployment and evidence paths without modifying local results.
-- [ ] Deploy policy to Preprod with durable intent; confirm configuration, roles and genesis.
+- [x] Deploy policy to Preprod with durable intent; confirm configuration, roles and genesis.
 - [ ] Re-run the actual OpenDID/XRPL/Solana flow with Preprod authorization, including payment/replay/revocation and receipt-only recovery.
 - [ ] Update dashboard/evidence for the verified network, review once, fix Important findings in one regression pass, push the feature branch.
 
@@ -23,3 +23,9 @@ RPC diagnosis: SDK PolkadotNodeClient.make → disconnect → getGenesis reconne
 ## Review Focus
 
 Check uncertain RPC submission and restart preserve intents; cold wallet restoration precedes fresh identity; local and Preprod wallet/evidence/intent paths cannot mix; runtime pins both query and submission genesis; the unchanged 60-second source/approval lease fails closed on public network delays. Distinguish dashboard-rendering evidence from completed on-chain execution. Shared XRPL/Solana actors still require the existing project flow lock.
+
+Final code review (083a20a..d9d8164): one Important finding, no Critical or Minor findings. Final: fixed completed DUST registration wrongly blocking a later faucet top-up — `a faucet top-up does not block a wallet with a completed registration and usable DUST` RED→GREEN; full suite 45/45 passed. No re-review requested.
+
+Final: Ruling: actual Preprod integration was set aside by the code reviewer — keep it as a separate acceptance gate; deployment now confirmed at block 2644713, whole flow still pending — cost if not verified: code review alone cannot establish public-network demo success.
+Final: Ruling: installed SDK internals were not inspected by the reviewer because WSL read access was denied — retain pinned dependencies and direct executor SDK inspection plus actual RPC/DUST/deployment verification — cost if wrong: unexercised SDK behavior may remain.
+Final: Ruling: production wallet hardening and broader cross-chain trust redesign remain outside the approved hackathon prototype — preserve the documented adapter/relay trust and test-wallet boundary — cost if ignored: this prototype is not suitable as an audited production wallet.
