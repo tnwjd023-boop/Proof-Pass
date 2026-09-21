@@ -7,8 +7,8 @@ Design: retain the tested local path and add a strictly selected Preprod profile
 - [x] Verify official compatibility and live RPC/indexer/proof endpoints; derive an isolated wallet and obtain test funds.
 - [x] RED/GREEN profile isolation and wrong-network rejection; adapt runtime, deployment and evidence paths without modifying local results.
 - [x] Deploy policy to Preprod with durable intent; confirm configuration, roles and genesis.
-- [ ] Re-run the actual OpenDID/XRPL/Solana flow with Preprod authorization, including payment/replay/revocation and receipt-only recovery.
-- [ ] Update dashboard/evidence for the verified network, review once, fix Important findings in one regression pass, push the feature branch.
+- [x] Re-run the actual OpenDID/XRPL/Solana flow with Preprod authorization, including payment/replay/revocation and receipt-only recovery.
+- [x] Update dashboard/evidence for the verified network, review once, fix Important findings in one regression pass, push the feature branch.
 
 Faucet funding may require direct user browser interaction. Never expose seed material. A wallet address and faucet link are sufficient. Existing local and public-testnet journals must not be overwritten by the new network. No mainnet operations.
 
@@ -26,6 +26,8 @@ Check uncertain RPC submission and restart preserve intents; cold wallet restora
 
 Final code review (083a20a..d9d8164): one Important finding, no Critical or Minor findings. Final: fixed completed DUST registration wrongly blocking a later faucet top-up — `a faucet top-up does not block a wallet with a completed registration and usable DUST` RED→GREEN; full suite 45/45 passed. No re-review requested.
 
-Final: Ruling: actual Preprod integration was set aside by the code reviewer — keep it as a separate acceptance gate; deployment now confirmed at block 2644713, whole flow still pending — cost if not verified: code review alone cannot establish public-network demo success.
+Final: Ruling: actual Preprod integration was set aside by the code reviewer — keep it as a separate acceptance gate; deployment confirmed at block 2644713, whole flow passed 09:04:08Z and expired-binding receipt-only recovery passed 09:08:21Z with 18 Solana receipts, 3 Midnight authorizations and no new payments — cost if not verified: code review alone cannot establish public-network demo success.
 Final: Ruling: installed SDK internals were not inspected by the reviewer because WSL read access was denied — retain pinned dependencies and direct executor SDK inspection plus actual RPC/DUST/deployment verification — cost if wrong: unexercised SDK behavior may remain.
 Final: Ruling: production wallet hardening and broader cross-chain trust redesign remain outside the approved hackathon prototype — preserve the documented adapter/relay trust and test-wallet boundary — cost if ignored: this prototype is not suitable as an audited production wallet.
+
+Acceptance: real Preprod dashboard API run passed all payment/replay/mandate-revocation/source-revocation checks. Payment `4SnYCGG7QwaR4sdCcypVoytk3agMHbY7dteMSoNQ3P67iMxnZ2xrmRMtf24xbruhZLd2ZXDAZL7TvGV9A61oVpia`. All three authorizations registered in ~42 seconds without extending the 60-second lease. Browser desktop/mobile passed with actual completed evidence. User requested README care; README now leads with verified Preprod behavior, wallet model, setup requirements, measured timings and scoped trust assumptions. Keep the baseline and feature branch history when fast-forwarding main under the user's autonomous-completion instruction.

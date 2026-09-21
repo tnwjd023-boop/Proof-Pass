@@ -2,7 +2,7 @@
   "status": "passed",
   "checkScope": "dashboard-rendering",
   "network": "preprod",
-  "completedChainRunPresent": false,
+  "completedChainRunPresent": true,
   "browser": "Microsoft Edge via Playwright",
   "results": [
     {
@@ -12,7 +12,7 @@
         "height": 1080
       },
       "fourStages": true,
-      "actualExplorerLinks": 0,
+      "actualExplorerLinks": 7,
       "historicalStateClearlyLabeled": true,
       "horizontalOverflow": false
     },
@@ -23,11 +23,11 @@
         "height": 844
       },
       "fourStages": true,
-      "actualExplorerLinks": 0,
+      "actualExplorerLinks": 7,
       "historicalStateClearlyLabeled": true,
       "horizontalOverflow": false
     }
   ],
   "pageErrors": [],
-  "checkedAt": "2026-09-21T04:58:00.892Z"
+  "checkedAt": "2026-09-21T09:05:03.817Z"
 }
