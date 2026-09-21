@@ -1,0 +1,565 @@
+{
+  "status": "passed",
+  "packagedAt": "2026-09-21T09:10:04.658Z",
+  "codeCommit": "35a6d5d157624a2878a5c9c1501fc97d5ffe7f89",
+  "networks": {
+    "identity": "Synthetic issuer, actual OpenDID SDK cryptography",
+    "xrpl": "Testnet",
+    "midnight": "Preprod",
+    "solana": "Devnet"
+  },
+  "deployment": {
+    "status": "deployed",
+    "mode": "preprod-Midnight-live-adapter-policy",
+    "network": "preprod",
+    "contractAddress": "6e16efc04cd792368ac1d858d63f109126fdc48915af76b22353e45b27056b29",
+    "genesis": "0xdf831b09a8baa92badf47762ce5ac439b7e47e3ed3d39600cfdd44fad552361b",
+    "txId": "00f52a255347e4864c84f4bbe093afa1a1ed1a7d0dc712c562e9c35257bd3d1321",
+    "blockHeight": "2644713",
+    "distinctRandomRoleKeys": true,
+    "fullGate1Complete": false,
+    "checkedAt": "2026-09-21T08:55:51.473Z"
+  },
+  "payment": {
+    "lamports": 50000000,
+    "signature": "4SnYCGG7QwaR4sdCcypVoytk3agMHbY7dteMSoNQ3P67iMxnZ2xrmRMtf24xbruhZLd2ZXDAZL7TvGV9A61oVpia",
+    "vaultDelta": -50000000,
+    "recipientDelta": 50000000,
+    "consumed": true
+  },
+  "metrics": {
+    "authorizations": {
+      "payment": {
+        "contractProofMs": 7738,
+        "proofAndConfirmationMs": 31133,
+        "submissionToConfirmationMs": 21024,
+        "confirmedAt": "2026-09-21T09:01:52.687Z",
+        "endToEndAuthorizationMs": 42283
+      },
+      "pending-mandate": {
+        "contractProofMs": 5396,
+        "proofAndConfirmationMs": 34168,
+        "submissionToConfirmationMs": 26564,
+        "confirmedAt": "2026-09-21T09:02:46.097Z",
+        "endToEndAuthorizationMs": 42769
+      },
+      "pending-source": {
+        "contractProofMs": 5109,
+        "proofAndConfirmationMs": 31249,
+        "submissionToConfirmationMs": 23896,
+        "confirmedAt": "2026-09-21T09:03:47.202Z",
+        "endToEndAuthorizationMs": 42580
+      }
+    },
+    "destinationExecutionMs": 1748,
+    "deleteSubmittedAt": "2026-09-21T09:03:52.060Z",
+    "deleteValidatedAt": "2026-09-21T09:03:59.806Z",
+    "sourceInvalidationConfirmedAt": "2026-09-21T09:04:01.954Z",
+    "deletionToDestinationInvalidationMs": 2148,
+    "deleteSubmissionToInvalidationMs": 9894,
+    "identityBindingMs": 4645,
+    "flowMsExcludingWalletStartup": 221699
+  },
+  "recovery": {
+    "status": "passed",
+    "paymentSignature": "4SnYCGG7QwaR4sdCcypVoytk3agMHbY7dteMSoNQ3P67iMxnZ2xrmRMtf24xbruhZLd2ZXDAZL7TvGV9A61oVpia",
+    "newPayments": 0,
+    "verifiedSolanaReceipts": 18,
+    "verifiedMidnightAuthorizations": 3,
+    "bindingWasExpired": true,
+    "recoveredAt": "2026-09-21T09:08:21.808Z"
+  },
+  "tests": {
+    "node": 45,
+    "browserViewports": [
+      "desktop",
+      "mobile"
+    ]
+  },
+  "review": {
+    "important": 1,
+    "fixed": 1,
+    "critical": 0,
+    "minor": 0
+  },
+  "limitations": [
+    "Project-held headless test wallets; no browser-wallet connection",
+    "Trusted adapters, clock and relay; not a trustless bridge",
+    "Local prover processes private witnesses",
+    "Cross-chain revocation is delayed, not atomic",
+    "Public timing and references can correlate activity",
+    "Expired unfinished phases fail closed and need reconciliation",
+    "Solana upgrade authority retained by operator",
+    "No production wallet/security audit"
+  ],
+  "sourceManifest": {
+    "config/upstream-lock.json": {
+      "sha256": "b2f5b8ea11c8b34304fa89fd598d36b5c4fd6443e93ec17a4c246e07a63ebdc8",
+      "bytes": 1038
+    },
+    "midnight/README.md": {
+      "sha256": "fabef7b6616bf8123273a7ac723e23aa8b4147410284ecbe4d2a7f0313070f8b",
+      "bytes": 3315
+    },
+    "midnight/UPSTREAM-LICENSE": {
+      "sha256": "1eb85fc97224598dad1852b5d6483bbcf0aa8608790dcc657a5a2a761ae9c8c6",
+      "bytes": 11558
+    },
+    "midnight/compose.yml": {
+      "sha256": "20677367522fa0c39fcbd30402d2aa23580fb605f4c3da6d6f6ac36a8d5ede09",
+      "bytes": 1441
+    },
+    "midnight/contract/package.json": {
+      "sha256": "782afe6d49a6452f71b276bf3a21b069a54df723a8f28bed0fb4c24ca65b9c9b",
+      "bytes": 285
+    },
+    "midnight/contract/src/live-flow.mjs": {
+      "sha256": "46c675c960cce3f42658f46da174023fd1b3bf16739d8fcb79e709504f51ff18",
+      "bytes": 23685
+    },
+    "midnight/contract/src/live-runtime.mjs": {
+      "sha256": "0705dd61162bbbe8b804c8eb7cd61eaf30171f2753964fe83f9230e530b10a54",
+      "bytes": 8143
+    },
+    "midnight/contract/src/live-setup.mjs": {
+      "sha256": "6cc7af75f774ba79a8f38d008ba7b067b7b9bb54dd70adbdae8d3b7a56acc79d",
+      "bytes": 2335
+    },
+    "midnight/contract/src/persistent-wallet.mjs": {
+      "sha256": "1576997b4ffbbafeb0de129aaaf100ce80d40c837d4ac6fbe36bd7f4c77169a6",
+      "bytes": 4502
+    },
+    "midnight/contract/src/policy.compact": {
+      "sha256": "077acc1d443b4ee374a01ab990150d8219965c2f7d83b02182fef4c7df53d18c",
+      "bytes": 8173
+    },
+    "midnight/contract/src/preprod-audit.mjs": {
+      "sha256": "7ec422e8dfc082741388ab1b24b667ab9fcaec917057de6d0958c8e482651440",
+      "bytes": 1674
+    },
+    "midnight/contract/src/preprod-status.mjs": {
+      "sha256": "ea8738dcbc32139a500bbfabbd94c5f64a4c55d107a7aa62bd3fa6cb07f5e34a",
+      "bytes": 1335
+    },
+    "midnight/contract/src/preprod-submission.mjs": {
+      "sha256": "b5eca465b0599013aeaaf5100a120ca0e92228c3f99f90f1f5481f0c640223d8",
+      "bytes": 1765
+    },
+    "midnight/contract/src/preprod-wallet.mjs": {
+      "sha256": "64bc95add9c5190ff286fbd2b0e5af8d811419148a3840d145cf65c76f7a51a0",
+      "bytes": 2723
+    },
+    "midnight/contract/src/schnorr.compact": {
+      "sha256": "f39386f2ef246f7b9a5febc0d56326e14a5ebd15a77793e7849869c1c14d3f13",
+      "bytes": 4262
+    },
+    "midnight/contract/src/signing.mjs": {
+      "sha256": "ed140d1bd43b2752961ed1ae5a77b38163143727ab630059b17b7784f35e0fbd",
+      "bytes": 1345
+    },
+    "midnight/contract/test/fixture.mjs": {
+      "sha256": "4357e5e4d4742daee508b83406a6816f3dd222c2d1f82bc38be98d7f02a8137e",
+      "bytes": 2985
+    },
+    "midnight/contract/test/network.mjs": {
+      "sha256": "b17cd689c92d40258f6c1b820fee446c73d04822fc0b831043c3587914b7136a",
+      "bytes": 6931
+    },
+    "midnight/contract/test/policy.test.mjs": {
+      "sha256": "2a65e3942a0b343f17682023a60ad78a581ccf3017a7cc327eb1fd93e120fa29",
+      "bytes": 4524
+    },
+    "midnight/contract/test/request-vector.test.mjs": {
+      "sha256": "794c262ee59d654a6f70209c750cf5daa39a9a1e1104eaa48f2e7f129c8c9e29",
+      "bytes": 2361
+    },
+    "scripts/check-demo-browser.mjs": {
+      "sha256": "bb189287eeb52484bf1f3ba51a159047b2613a851c2b7270a1b9b9cfed235445",
+      "bytes": 3114
+    },
+    "scripts/check-demo-resume.mjs": {
+      "sha256": "ece08cedef23604d8a90a64373b7521f18541f33ce8a59ca839c4a9978ed74b2",
+      "bytes": 1748
+    },
+    "scripts/check-demo-video.mjs": {
+      "sha256": "0657cced9271be15a09d339d0e47d43c0cc329db082f7be75b0f12d9a301e366",
+      "bytes": 1528
+    },
+    "scripts/demo.mjs": {
+      "sha256": "5219b9a35c4ce482345e35ff33d72cc6c53f775f693d0b26dd1ebcb03a2ea3ee",
+      "bytes": 3166
+    },
+    "scripts/gate0/build-midnight-upstream.sh": {
+      "sha256": "57d42f3d4270da9d5a7a7bc71e645df5bc0a04350758a5e8232818c1c7f879b0",
+      "bytes": 1082
+    },
+    "scripts/gate0/build-opendid-upstream.sh": {
+      "sha256": "facd9a31e2a9a464fe396d569c3458a41abc9fd98c0d3cbe6601697554be8302",
+      "bytes": 937
+    },
+    "scripts/gate0/build-solana-vault.sh": {
+      "sha256": "51eacbd73f21f0173977f6be805de73ac64da5794dd5aad2c78d7da7f84c8723",
+      "bytes": 1142
+    },
+    "scripts/gate0/check-rpc.mjs": {
+      "sha256": "3e379a442947921258b89035c0fe11d98e98b11a598cf25ee6dc1aca0ee8b8b8",
+      "bytes": 2982
+    },
+    "scripts/gate0/deploy-solana-vault.sh": {
+      "sha256": "80bb9d889f895f6cef2cd2715b7a8b7152474c388319fee5d79e3878d576c5a7",
+      "bytes": 1492
+    },
+    "scripts/gate0/setup-linux-tools.sh": {
+      "sha256": "e4d559a9b25c770a7d6b94a005ae5a01d4ba6435b3d8c4967d74ad70e049ee64",
+      "bytes": 1172
+    },
+    "scripts/gate0/setup-sbf-tools.sh": {
+      "sha256": "95dc53f6414a527570f26a95a6069fd9b3943ecd59012e84e06578b8b3e7cc8a",
+      "bytes": 619
+    },
+    "scripts/gate0/setup-solana-tools.sh": {
+      "sha256": "5a2d8d9ca84b75bd094a9a75c2952179f037046a8abf52bfa71494104584869d",
+      "bytes": 1573
+    },
+    "scripts/gate0/solana-client.mjs": {
+      "sha256": "39e9aabb03f4102a16613194e3050cb69d78a8daa8953038981ccaf669754876",
+      "bytes": 2473
+    },
+    "scripts/gate0/solana-deployment-check.mjs": {
+      "sha256": "522e352a2afa71f57ca3de3b5673c0cedae382f881fe14d092d5a4609cc27f3c",
+      "bytes": 1632
+    },
+    "scripts/gate0/solana-fund.mjs": {
+      "sha256": "b3c65c56a0f7a9c928a4857858b7c122b0a74697bbe675dd57e77183c28316c5",
+      "bytes": 1668
+    },
+    "scripts/gate0/solana-keys.mjs": {
+      "sha256": "0d20c75da7f5320d21dd5d3169e6fc4f816ae9957edb550803e2991af41d0c9b",
+      "bytes": 708
+    },
+    "scripts/gate0/solana-payout.mjs": {
+      "sha256": "c919f5f3781e3c92daf9114d5c22515d7cde2bc3418bc2806bf24dd2c399076d",
+      "bytes": 7439
+    },
+    "scripts/gate0/test-opendid-roundtrip.sh": {
+      "sha256": "4483979ac17993e959ee313d6a12ff60a462dab2eb60e67a63b3ea92f2192da2",
+      "bytes": 707
+    },
+    "scripts/gate0/verify-solana-deployment.mjs": {
+      "sha256": "d8e5e47164bcdd2393081f8cc7e5702e533fea0c833a090a6f5fe9d8763f91d2",
+      "bytes": 2682
+    },
+    "scripts/gate0/xrpl-lifecycle.mjs": {
+      "sha256": "02ebd494c8ccdae16cd3aa12d2cdd3a50f6d5f4a7e3d099be307069aaf8c379b",
+      "bytes": 9258
+    },
+    "scripts/gate0/xrpl-validation.mjs": {
+      "sha256": "915ee899c5e3bc3e7f8b175d359676f1a1b8add14f8c1d880efb67cc3f8540ac",
+      "bytes": 1606
+    },
+    "scripts/gate1/binding-demo.mjs": {
+      "sha256": "a18c926115f39e847ff47848880c00d823d824797585882aaf15f3c43a4b8fe4",
+      "bytes": 4714
+    },
+    "scripts/gate1/build-midnight-policy.sh": {
+      "sha256": "9847473142d02967eb2c9714c24080b887951705621a879b88718fedb8fe83b5",
+      "bytes": 1049
+    },
+    "scripts/gate1/build-solana-authorization.sh": {
+      "sha256": "10b9e6960ff70dfbe95a3e991faf6896aa7a216df72eebffaa3a56d8d4a1e58b",
+      "bytes": 1046
+    },
+    "scripts/gate1/check-midnight-network.mjs": {
+      "sha256": "294b994a49a367faefecc372c9abf1db6f46f5644a6de8a9e1943a62ce9cf6c5",
+      "bytes": 2013
+    },
+    "scripts/gate1/check-midnight-network.sh": {
+      "sha256": "9095e51cbd3a80d1b37c9f59b344a4a4a3546929d3778f5a8d2cf782ecf148be",
+      "bytes": 250
+    },
+    "scripts/gate1/check-protocol.mjs": {
+      "sha256": "1664ef636f87cdea864a780ec63cd4f82173aa1fc109f1149de5c24142e2b4d8",
+      "bytes": 845
+    },
+    "scripts/gate1/check-protocol.sh": {
+      "sha256": "c431743a6dbadc4c235d428d521c4ee2fd25ef47915ac2582faf56486c592918",
+      "bytes": 552
+    },
+    "scripts/gate1/check-solana-deployment.sh": {
+      "sha256": "86e6ef77a1e39f6e0d1324fffb128c6837f7b1fb7ba35300c105e9548165e36f",
+      "bytes": 338
+    },
+    "scripts/gate1/credential-demo.mjs": {
+      "sha256": "b71636ea0d41b82c4c065bba10fa851151c9d06884117c5b44ed3cbe7af33106",
+      "bytes": 7786
+    },
+    "scripts/gate1/deploy-solana-authorization.sh": {
+      "sha256": "192ea1e281712966ecf08f54b5878cb3c1a9a75f55483d1b589d8ce4e47a2ba0",
+      "bytes": 1504
+    },
+    "scripts/gate1/live-services.mjs": {
+      "sha256": "0a2dc4102ac897c4827ea9cd3a041008df1ac404ce6d821224dd2a19892275f3",
+      "bytes": 9532
+    },
+    "scripts/gate1/opendid-binding.sh": {
+      "sha256": "efe3a9a2df57ddc50f9ed24895d6e2d090bcde312b972de6f8a65c341b98eeef",
+      "bytes": 934
+    },
+    "scripts/gate1/record-xrpl-stage.mjs": {
+      "sha256": "c2c447e0da40e76e34b7fa5fd65e8129b5926b43a0eb768b1d8a34b98868c6e6",
+      "bytes": 2188
+    },
+    "scripts/gate1/run-live-midnight.sh": {
+      "sha256": "bd18b75b6bda0473073996633f140a3c9c703d80e14c4feb40ea3c0ca6bc1912",
+      "bytes": 1562
+    },
+    "scripts/gate1/run-midnight-network.sh": {
+      "sha256": "454d5065d04a040da8f979507776e4100c4975c6c8e43e1f1090d22db6db2aa7",
+      "bytes": 720
+    },
+    "scripts/gate1/run-preprod-midnight.sh": {
+      "sha256": "4dce87861dc79b4b00e3def087e7677c8702c44496073dc787b3627430d6757c",
+      "bytes": 152
+    },
+    "scripts/gate1/run-solana-validator.sh": {
+      "sha256": "337a104cd39923b4c81799f542ca1c9453fc32a6fc8b434344e51142eb12a684",
+      "bytes": 804
+    },
+    "scripts/gate1/setup-solana-config.mjs": {
+      "sha256": "87e7d5b5c1f480691403513302f48a1fb09564000c3d24f38a4328c20c93176a",
+      "bytes": 2908
+    },
+    "scripts/gate1/solana-client.mjs": {
+      "sha256": "bc31beeb2e454a1c2f9cb9dbbe1c45e9b17c05f3897297705bf8bb57cc5b48bc",
+      "bytes": 7340
+    },
+    "scripts/gate1/solana-deployment-preflight.mjs": {
+      "sha256": "8a22639411ee363aed4223e5767bb0b674461ecc4c579a54e3b2dfb011fa767c",
+      "bytes": 1631
+    },
+    "scripts/gate1/solana-keys.mjs": {
+      "sha256": "193851b7c4b66aadc8612fd4d0f5fcffaefc1d73b8e4a03bf8f1b584308dbd8c",
+      "bytes": 827
+    },
+    "scripts/gate1/test-midnight-policy-network.sh": {
+      "sha256": "9a4c3df9d2249f9917e5391c9c4e69438799580c791fa6a18d305f66a86d97a8",
+      "bytes": 505
+    },
+    "scripts/gate1/test-solana-request.sh": {
+      "sha256": "439df91c4c1916749907d7ea49174f5fa9f3889edb63b1c2ff4f6799d40f0125",
+      "bytes": 567
+    },
+    "scripts/gate1/verify-solana-deployment.mjs": {
+      "sha256": "b13e60669ccdbba02fd9e09691e42246b2ed474576e6b06128569201a978f90b",
+      "bytes": 3123
+    },
+    "scripts/package-evidence.mjs": {
+      "sha256": "6ddc71eedaefa209ffbcaae8a0138d697faef9e13b6e7e2572a98259d13814cf",
+      "bytes": 7047
+    },
+    "scripts/record-demo.mjs": {
+      "sha256": "538a170bf8b5c0c04ca40a5ba87d10e243f39efdfd34421f489611f7404212e1",
+      "bytes": 2642
+    },
+    "scripts/setup-wsl.ps1": {
+      "sha256": "38b04d1cf60a6f4c56f1f7d82b9205f8a6884e29fe04407ce482d2e279e34036",
+      "bytes": 1999
+    },
+    "src/binding/attestation.mjs": {
+      "sha256": "b0d4688bd059546dc48e098d743ac1014a774e76df80c0ec3295f50f7ab4d387",
+      "bytes": 1454
+    },
+    "src/binding/opendid.mjs": {
+      "sha256": "fae05867eb1e6d63cc33889ce3edba62f94e85e94a938cd497f4e5b5d8e24264",
+      "bytes": 1962
+    },
+    "src/binding/sessions.mjs": {
+      "sha256": "758d9a317c815ef6b704609ed64a579a47a96c2612450451ba26eeb893ef996b",
+      "bytes": 4963
+    },
+    "src/binding/wallets.mjs": {
+      "sha256": "b5454244df2bd8f49c1b6da5cd714f5add294618322bb5bc709d7b8b92036a2a",
+      "bytes": 1730
+    },
+    "src/binding/xrpl-state.mjs": {
+      "sha256": "2b0d743e4ebcd679110c85651ffd5d13c6de10db6b70758022e00a8d05420841",
+      "bytes": 1417
+    },
+    "src/demo-binding.mjs": {
+      "sha256": "0e14da0ef72ae52bcab63f05017e1deef07b160fb380217dbffb5bac64fba8b9",
+      "bytes": 1277
+    },
+    "src/demo-server.mjs": {
+      "sha256": "3dc86728a221ead88ec593b241f65a446c113cdd8ea1cce7ff12a3c566c1dd57",
+      "bytes": 6497
+    },
+    "src/flow-recovery.mjs": {
+      "sha256": "f98f438aab793081bcdcfd6531ecda047ea175be2982286466ee059b1b227b0a",
+      "bytes": 1306
+    },
+    "src/midnight/dust-registration.mjs": {
+      "sha256": "56cf31793e69060f798f4146c63de64458c332f8dadba903639f3d8c3958ea45",
+      "bytes": 1683
+    },
+    "src/midnight/fresh-submission.mjs": {
+      "sha256": "316f3b3138b3e2e1df3f8842f06c021f130b536253f5839540bd7abdeb5e45d2",
+      "bytes": 680
+    },
+    "src/midnight/mandate-adapter.mjs": {
+      "sha256": "dea593ed57271055a9b77860f18e291ab5d246308925efcae3373f41f200c84d",
+      "bytes": 1386
+    },
+    "src/midnight/network.mjs": {
+      "sha256": "ec5cee0e99e4a3d96abc7bd911ac982b0eeb718f9a6fab1053605460a4e12a7c",
+      "bytes": 1109
+    },
+    "src/midnight/request.mjs": {
+      "sha256": "8b3b40946a1bad48d1773fd4b5cae16314c470eafe59938e8a235ec288e28cca",
+      "bytes": 2826
+    },
+    "src/midnight/source-adapter.mjs": {
+      "sha256": "9144bee2d436ddf5386ca70fcdfbe16893d4075cc81807840a38252afbefd823",
+      "bytes": 1287
+    },
+    "src/midnight/wallet-snapshot.mjs": {
+      "sha256": "0bf4ff8906598b38a27da49bb7cb899075b771db8b0a3eb981dddaf2ff361d3c",
+      "bytes": 535
+    },
+    "src/protocol.mjs": {
+      "sha256": "799fd77187c61c885b4ecc5dff14ad678dc505399b0032b0b4736a80a11a74c8",
+      "bytes": 2608
+    },
+    "src/solana/intents.mjs": {
+      "sha256": "1bdb33bb28aa7b514fa4e54c485754c85ee59cce96777180d797c3aa4c40b4d6",
+      "bytes": 2733
+    },
+    "src/xrpl/lifecycle.mjs": {
+      "sha256": "467ba010fd06a66afbe34bfe5da0e96f2595a575b7240d0c394a9ff456133417",
+      "bytes": 4573
+    },
+    "src/xrpl/observer.mjs": {
+      "sha256": "81ca6aeb914105d4ebeeee20bf66bfe4c76c15d2525f863cc07963c2e1b402e0",
+      "bytes": 2293
+    },
+    "test/binding.test.mjs": {
+      "sha256": "88f901b1602fdc12669c4f5cb0671aea46d9c0b7f10c9ca80576521ebc90936a",
+      "bytes": 6315
+    },
+    "test/credential-policy.test.mjs": {
+      "sha256": "3aa1e60545c66f7fbfb61caa875675d882470dd5ec83b3831141dc6d62334d8d",
+      "bytes": 6428
+    },
+    "test/demo-network.test.mjs": {
+      "sha256": "603bea50cf75f65c955c9395f2ed1c23d3a7af4ce06744895479492b8f1d0395",
+      "bytes": 3694
+    },
+    "test/demo-recovery.test.mjs": {
+      "sha256": "4e82128737bb38114709032e6d6bf98d72025ca6bec22febe605e6cbcbcdafeb",
+      "bytes": 3431
+    },
+    "test/demo-server.test.mjs": {
+      "sha256": "475de62729df33bfd55325dc4143c7725741f1c1fa4c3298974ee4778d62b658",
+      "bytes": 2248
+    },
+    "test/demo-warmup.test.mjs": {
+      "sha256": "654108b2162ae120bf81dd288569fc06941f5ceb28d6b9a9f46008cfed82f500",
+      "bytes": 962
+    },
+    "test/dust-registration.test.mjs": {
+      "sha256": "4ad5b1ae3d4cd0439aeb98a13175f763e1d06ad6189337c634558c40365581f9",
+      "bytes": 2070
+    },
+    "test/fixtures/payment-v1.json": {
+      "sha256": "e9926e3dbb840daafe520d7946dff0c823428bb844a90bf82338ee1264c88297",
+      "bytes": 870
+    },
+    "test/flow-recovery.test.mjs": {
+      "sha256": "b2d2d91738b5b7c13a483ea36f8c77a1d8931425dbcbcabf3580d0358cd64061",
+      "bytes": 2256
+    },
+    "test/fresh-submission.test.mjs": {
+      "sha256": "d70ca31b4a99f7f3e5335dd4740546bbf59c0ecea050309631f352e309f575f4",
+      "bytes": 1106
+    },
+    "test/mandate-adapter.test.mjs": {
+      "sha256": "3d8dc220428938c7dd094e5767c23c424dcd19bcfdd40b449c36775710ff3d8a",
+      "bytes": 1596
+    },
+    "test/midnight-network.test.mjs": {
+      "sha256": "f4317fc9e32eb8567847561f74782ed184dcd6e62ac0fde4701e2cf5d2059666",
+      "bytes": 1051
+    },
+    "test/midnight-request.test.mjs": {
+      "sha256": "ecec7efe81b970c59dddddd40957e0205f1f5a636f64ab89b462eab1fb7e8040",
+      "bytes": 2104
+    },
+    "test/opendid-binding.integration.mjs": {
+      "sha256": "499de67083f9862f1e14273f3b1aa12ade922484a76cc539cacf12c25b779dbb",
+      "bytes": 4205
+    },
+    "test/opendid/build.gradle": {
+      "sha256": "00598e0ad1ef48b16d30ba3583dd3d51ad18137d3600b4c7cc660ea36a20630b",
+      "bytes": 908
+    },
+    "test/opendid/settings.gradle": {
+      "sha256": "e2dc6fa2adec59c6579d67d80ef0d57e868a1a6d6c7d278c59b74a7e05b04c24",
+      "bytes": 51
+    },
+    "test/opendid/src/main/java/OpenDidBinding.java": {
+      "sha256": "05b258fb1a63e236dd13963133027df70ccbd4c45e4b343bf087e080b43cd212",
+      "bytes": 5762
+    },
+    "test/opendid/src/main/java/OpenDidRoundTrip.java": {
+      "sha256": "e6231e0c0d59dc29a2a06b174f527658c602d9059d42f5550e7f99b6d0b77745",
+      "bytes": 10538
+    },
+    "test/protocol-vector.rs": {
+      "sha256": "4dc0f7a2cffb4d16f8752cb4a1e096f0456fd14f37d1d5fd882325a9ee3e0fe0",
+      "bytes": 508
+    },
+    "test/protocol.test.mjs": {
+      "sha256": "b2aa3f34d6a76a08d8f0df107d464cfabbc10b47fbfdba497113796b7adad654",
+      "bytes": 3027
+    },
+    "test/solana-authorization.integration.mjs": {
+      "sha256": "27362f65d1f3d723426503bc496650270b3ecd10909e3707123e50a1ca6f6277",
+      "bytes": 9430
+    },
+    "test/solana-concurrency.integration.mjs": {
+      "sha256": "e8de257b748c406568873490d22d978aeaa2cf2fa6ad412caf70ddbb3096f8d7",
+      "bytes": 3878
+    },
+    "test/solana-intents.test.mjs": {
+      "sha256": "4f9a7cda8bec90fe7e841b8dda6b42f54d8aa23c09295754eef22c938b89c196",
+      "bytes": 2757
+    },
+    "test/solana-vault.integration.mjs": {
+      "sha256": "7b583c363e8610f29aa210951b82f1201d5500e562825c7d081ff50c75c58373",
+      "bytes": 4157
+    },
+    "test/source-adapter.test.mjs": {
+      "sha256": "567bde5efa294c65147f3f534817a86790356f3b7b0e24cb5fd4c102c8be55d7",
+      "bytes": 1306
+    },
+    "test/wallet-snapshot.test.mjs": {
+      "sha256": "5050f33728ef39a175651d69a1c0a4fb0d5c546d8a61d93a349196483ba6634c",
+      "bytes": 940
+    },
+    "test/xrpl-validation.test.mjs": {
+      "sha256": "7daaf5c1902c4e27921246749842898d269dbbd831ff06f665404c5cb54dbe83",
+      "bytes": 2332
+    },
+    "web/app.js": {
+      "sha256": "bfa58805ff7b8c0329a7652033b4397affdc3d2a832454939e392c7b136e24d7",
+      "bytes": 8162
+    },
+    "web/index.html": {
+      "sha256": "ceab8e814b37e94945034beb40effd46cbc61bfc302cc6f9c58a6b3adf2f9b66",
+      "bytes": 6193
+    },
+    "web/style.css": {
+      "sha256": "d00f9c82be483813bd3ab0508caa9e7ba4fd96a8d2810a5de337b6cdcefe204f",
+      "bytes": 7335
+    }
+  }
+}
