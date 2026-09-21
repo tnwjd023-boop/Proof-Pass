@@ -1,8 +1,8 @@
 import assert from 'node:assert/strict';
 import { randomBytes } from 'node:crypto';
-import { writeFile } from 'node:fs/promises';
+import { mkdir, writeFile } from 'node:fs/promises';
 import { pathToFileURL } from 'node:url';
-import { runtime, project, loadPrivate, savePrivate, digest, fromHex } from './live-runtime.mjs';
+import { runtime, project, loadPrivate, savePrivate, digest, fromHex, config, evidenceDirectory } from './live-runtime.mjs';
 
 const { Connection, SystemProgram } = await import(pathToFileURL(project + '/node_modules/@solana/web3.js/lib/index.cjs.js')).then(m => m.default ?? m);
 const solana = await import(pathToFileURL(project + '/scripts/gate1/solana-client.mjs'));
@@ -25,10 +25,11 @@ try {
   const saved = await loadPrivate('deployment');
   if (saved) await rt.join(); else await rt.deploy(policy);
   const deployment = await loadPrivate('deployment');
-  const report = { status: 'deployed', mode: 'local-Midnight-live-adapter-policy',
-    network: 'undeployed', contractAddress: deployment.address, genesis: deployment.genesisHash,
+  const report = { status: 'deployed', mode: config.networkId + '-Midnight-live-adapter-policy',
+    network: config.networkId, contractAddress: deployment.address, genesis: deployment.genesisHash,
     txId: deployment.receipt.txId, blockHeight: String(deployment.receipt.blockHeight),
     distinctRandomRoleKeys: true, fullGate1Complete: false, checkedAt: new Date().toISOString() };
-  await writeFile(project + '/evidence/gate1/midnight-live-deployment.json', JSON.stringify(report, null, 2) + '\n');
+  await mkdir(evidenceDirectory, { recursive: true });
+  await writeFile(evidenceDirectory + '/midnight-live-deployment.json', JSON.stringify(report, null, 2) + '\n');
   console.log(JSON.stringify(report));
 } finally { await rt.close(); }

@@ -1,6 +1,15 @@
 import assert from 'node:assert/strict';
 import { randomBytes } from 'node:crypto';
 
+export async function runBoundJob({ network, execute, prepare, ...options }) {
+  let executed = false;
+  const binding = await prepareJobBinding({ ...options, prepare: async name => {
+    if (network === 'preprod') { await execute(name, true); executed = true; }
+    else await prepare(name);
+  } });
+  if (!executed) await execute(binding, false);
+}
+
 export async function prepareJobBinding({ job, resume = false, persist, isReady, prepare }) {
   if (job.bindingName) {
     assert.match(job.bindingName, /^binding-[a-f0-9]{16}$/);

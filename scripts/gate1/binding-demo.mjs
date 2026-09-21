@@ -13,6 +13,8 @@ import { readMasterState } from '../../src/binding/xrpl-state.mjs';
 import { issueFixture, createOpenDidVerifier } from '../../src/binding/opendid.mjs';
 import { encodeBinding, sha256 } from '../../src/protocol.mjs';
 import { key, DEVNET_GENESIS } from '../gate0/solana-client.mjs';
+import { networkProfile } from '../../src/midnight/network.mjs';
+const profile = networkProfile(process.env.PROOFPASS_MIDNIGHT_NETWORK ?? 'undeployed');
 const started = Date.now();
 const bindingName = process.env.PROOFPASS_BINDING_NAME ?? 'binding-' + randomBytes(8).toString('hex');
 assert.match(bindingName, /^binding-[a-f0-9]{16}$/);
@@ -44,7 +46,7 @@ assert.equal(result.verificationMode, 'opendid-zkp');
 await writeFile(join(directory, 'attestation.json'), JSON.stringify(result), { mode: 0o600, flag: 'wx' });
 await writeFile(join(directory, 'policy.json'), JSON.stringify(policy), { mode: 0o600, flag: 'wx' });
 await assert.rejects(store.complete(session.sessionId, proofs), /consumed/);
-await mkdir('evidence/gate1', { recursive: true });
+await mkdir(profile.evidenceDirectory, { recursive: true });
 const report = { stage: 'Gate1 protocol and session binding', status: 'passed',
   mode: 'actual-opendid-zkp-and-wallet-signatures-with-live-xrpl-account-state',
   issuer: 'synthetic-test-issuer', xrplNetwork: 'Testnet', solanaNetwork: 'Devnet',
@@ -54,7 +56,7 @@ const report = { stage: 'Gate1 protocol and session binding', status: 'passed',
   disclosure: 'Proof, private keys, commitment, transcript and linked wallet addresses remain in .local only',
   newOnChainTransactions: 0, elapsedMs: Date.now() - started, completedAt: new Date().toISOString(),
   fullGate1Complete: false };
-await writeFile('evidence/gate1/binding.json', JSON.stringify(report, null, 2) + '\n');
+await writeFile(join(profile.evidenceDirectory, 'binding.json'), JSON.stringify(report, null, 2) + '\n');
 await writeFile(join(directory, 'binding-ready.json'), JSON.stringify({ status: 'passed' }), { mode: 0o600, flag: 'wx' });
 await writeFile('.local/gate1/latest-binding.json', JSON.stringify({ directory }), { mode: 0o600 });
 console.log(JSON.stringify(report, null, 2));

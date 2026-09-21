@@ -1,8 +1,9 @@
 const $ = id => document.getElementById(id);
 let token;
+let midnightNetwork;
 const time = value => value ? new Date(value).toLocaleString('ko-KR', { hour12: false }) : '기록 없음';
 const seconds = value => Number.isFinite(value) ? (value / 1000).toFixed(1) + ' s' : '—';
-const labels = { ready: '실행 준비', identity: '신원·지갑 바인딩 검증 중', 'xrpl-and-mandate': 'XRPL 자격과 사용자 위임 준비 중',
+const labels = { ready: '실행 준비', 'wallet-warmup': '공개망 지갑 복원·동기화 중', identity: '신원·지갑 바인딩 검증 중', 'xrpl-and-mandate': 'XRPL 자격과 사용자 위임 준비 중',
   'midnight-payment': 'Midnight 승인 증명 중', 'payment-confirmed': '0.05 SOL 지급 확인 · 거절 시나리오 진행 중',
   'mandate-revocation': '사용자 위임 취소 검증 중', 'source-revocation': 'XRPL 삭제 후 지급 차단 검증 중',
   reconciliation: '기존 거래 영수증 대조 중', complete: '실제 실행 완료', 'resume-required': '실행 중단 · 기존 기록 재개 필요' };
@@ -22,19 +23,25 @@ function receipt(label, hash, chain) {
     const a = document.createElement('a'); a.textContent = 'Explorer ↗'; a.target = '_blank'; a.rel = 'noopener noreferrer';
     a.href = chain === 'solana' ? 'https://explorer.solana.com/tx/' + hash + '?cluster=devnet' : 'https://testnet.xrpl.org/transactions/' + hash;
     element.append(a);
-  } else { const tag = document.createElement('span'); tag.textContent = chain === 'midnight' ? 'Local chain' : '기록 없음'; element.append(tag); }
+  } else { const tag = document.createElement('span'); tag.textContent = chain === 'midnight' ? (midnightNetwork === 'preprod' ? 'Midnight Preprod' : 'Local chain') : '기록 없음'; element.append(tag); }
   return element;
 }
 async function refresh() {
   try {
     const response = await fetch('/api/status'); if (!response.ok) throw Error('status');
     const state = await response.json(); token = state.token;
-    const { evidence: e, job } = state;
+    midnightNetwork = state.network;
+    if (!['preprod', 'undeployed'].includes(midnightNetwork)) throw Error('Unknown network');
+    const preprod = midnightNetwork === 'preprod';
+    $('midnight-network').textContent = preprod ? 'Midnight Preprod · 공개 테스트넷' : '실제 로컬 체인 · public testnet 아님';
+    $('network-disclosure').textContent = preprod ? 'Midnight Preprod를 사용하며 어댑터·relay를 신뢰합니다.' : 'Midnight는 로컬 네트워크이고 어댑터·relay를 신뢰합니다.';
+    const { job } = state;
+    const e = state.evidence?.midnightNetwork === (preprod ? 'preprod' : 'undeployed-local') ? state.evidence : null;
     if (state.operatorPolicy) $('operator-policy').textContent = '사용자 위임 · 거래당 최대 ' + (Number(state.operatorPolicy.maxPerTxLamports) / 1e9).toFixed(2) + ' SOL · 한도는 이 로컬 화면에만 표시됩니다.';
     $('job-label').textContent = labels[job.stage] || '실행 준비';
     $('job-detail').textContent = job.status === 'running' ? '실제 SDK와 체인에 요청 중입니다. 아래에는 마지막 완료 기록을 표시합니다.'
       : ['failed', 'interrupted'].includes(job.status) ? '실패를 자격 부재로 처리하지 않습니다. 기존 실행 재개로 영수증부터 대조합니다.'
-      : '새 실행은 테스트 지갑으로 서명하고 0.05 test SOL을 지급합니다. 약 3–5분 소요됩니다.';
+      : '새 실행은 테스트 지갑으로 서명하고 0.05 test SOL을 지급합니다. 네트워크 상황에 따라 수 분 이상 걸릴 수 있습니다.';
     const busy = job.status === 'running' || state.externalBusy || state.readOnly;
     $('run').disabled = busy || ['failed', 'interrupted'].includes(job.status);
     $('resume').disabled = busy || job.status === 'idle';
@@ -57,7 +64,7 @@ async function refresh() {
     for (const denial of e?.rejectedPayments || []) checks.push(row({ 'consumed-replay': '동일 승인 재사용', 'mandate-revoked': '사용자 위임 취소 후 지급', 'source-deleted': 'XRPL 자격 삭제·반영 후 지급' }[denial.name] || denial.name, '거절 · 추가 지급 0'));
     if (e?.overLimit?.noSubmission) checks.push(row('위임 한도 초과 요청', '승인 생성 거절'));
     if (e?.newRequestAfterDelete) checks.push(row('삭제 이후 신규 승인', '증명 전 거절'));
-    if (checks.length) $('checks').replaceChildren(...checks);
+    $('checks').replaceChildren(...(checks.length ? checks : [row('확정된 실행 기록', '없음')]));
     const receipts = [];
     for (const [key, label] of [['create', 'XRPL 자격 발급'], ['accept', 'XRPL 자격 수락'], ['delete', 'XRPL 자격 삭제']]) {
       const value = e?.xrpl?.[key]; if (value) receipts.push(receipt(label, value.hash || value.txHash || value.transactionHash, 'xrpl'));
@@ -65,7 +72,7 @@ async function refresh() {
     for (const value of e?.midnight || []) receipts.push(receipt('Midnight · ' + value.name, value.txId, 'midnight'));
     if (e?.payment) receipts.push(receipt('Solana · 0.05 SOL 지급', e.payment.signature, 'solana'));
     for (const value of e?.rejectedPayments || []) receipts.push(receipt('Solana · ' + value.name, value.signature, 'solana'));
-    if (receipts.length) $('receipts').replaceChildren(...receipts);
+    $('receipts').replaceChildren(...(receipts.length ? receipts : [row('거래 기록', '없음')]));
   } catch {
     $('job-label').textContent = '서버 상태 확인 불가';
     $('job-detail').textContent = '연결을 확인해 주세요. 표시된 기록은 현재 자격 상태를 보증하지 않습니다.';

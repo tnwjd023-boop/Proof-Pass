@@ -3,10 +3,12 @@ import { randomBytes } from 'node:crypto';
 import { readFile, mkdir, open, unlink } from 'node:fs/promises';
 import { join } from 'node:path';
 import { loadJson, saveJson } from './xrpl/lifecycle.mjs';
+import { networkProfile } from './midnight/network.mjs';
 
-export async function createDemoServer({ project, runJob, readOnly = false }) {
+export async function createDemoServer({ project, runJob, readOnly = false, network = 'undeployed' }) {
+  const profile = networkProfile(network);
   const token = randomBytes(32).toString('hex');
-  const directory = join(project, '.local/demo');
+  const directory = join(project, network === 'undeployed' ? '.local/demo' : '.local/demo-preprod');
   if (!readOnly) await mkdir(directory, { recursive: true });
   const jobPath = join(directory, 'job.json');
   const lockPath = join(directory, 'run.lock');
@@ -30,17 +32,17 @@ export async function createDemoServer({ project, runJob, readOnly = false }) {
       if (!['127.0.0.1:' + port, 'localhost:' + port].includes(req.headers.host)) return send(403, { error: 'Invalid host' });
       const route = new URL(req.url, 'http://' + req.headers.host).pathname;
       if (req.method === 'GET' && route === '/api/status') {
-        const evidence = await loadJson(join(project, 'evidence/gate1/live-flow.json'));
+        const evidence = await loadJson(join(project, profile.evidenceDirectory, 'live-flow.json'));
         const externalBusy = !!await loadJson(join(project, '.local/gate1/credential-demo.lock')) || (!busy && !!await loadJson(lockPath));
         const latest = await loadJson(join(project, '.local/gate1/latest-binding.json'));
         const base = latest?.directory?.replaceAll('\\', '/').split('/').at(-1);
         let operatorPolicy = null;
         if (/^binding-[a-f0-9]{16}$/.test(base)) {
-          const view = await loadJson(join(project, '.local/gate1', base, 'live/operator-view.json'));
+          const view = await loadJson(join(project, '.local/gate1', base, profile.intentDirectory, 'operator-view.json'));
           if (/^[0-9]{1,20}$/.test(view?.maxPerTxLamports)) operatorPolicy = { maxPerTxLamports: view.maxPerTxLamports };
         }
         const publicJob = Object.fromEntries(['status', 'stage', 'startedAt', 'completedAt'].filter(k => job[k] !== undefined).map(k => [k, job[k]]));
-        return send(200, { token, job: publicJob, readOnly, evidence, operatorPolicy, externalBusy, now: new Date().toISOString(),
+        return send(200, { token, job: publicJob, readOnly, network, evidence, operatorPolicy, externalBusy, now: new Date().toISOString(),
           observation: { kind: 'historical', currentStatus: 'unknown', last: evidence?.lastSourceObservation ?? null } });
       }
       if (req.method === 'GET' && assets.has(route)) {

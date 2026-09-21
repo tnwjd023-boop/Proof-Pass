@@ -1,8 +1,10 @@
 import assert from 'node:assert/strict';
 import { randomBytes } from 'node:crypto';
-import { readFile, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { pathToFileURL } from 'node:url';
-import { runtime, project, loadPrivate, savePrivate, fromHex, digest } from './live-runtime.mjs';
+import { execFile } from 'node:child_process';
+import { promisify } from 'node:util';
+import { runtime, project, loadPrivate, savePrivate, fromHex, digest, config, evidenceDirectory } from './live-runtime.mjs';
 import { pureCircuits as p, ledger } from './managed/policy/contract/index.js';
 import { sign } from './signing.mjs';
 
@@ -16,7 +18,14 @@ let service;
 let stage = 'binding';
 const startedAt = new Date().toISOString();
 try {
-  service = await services();
+  if (process.env.PROOFPASS_CREATE_BINDING === '1') {
+    assert.equal(config.networkId, 'preprod');
+    assert.match(process.env.PROOFPASS_BINDING_NAME ?? '', /^binding-[a-f0-9]{16}$/);
+    console.log('Preprod wallet ready; preparing fresh OpenDID binding');
+    await promisify(execFile)(process.execPath, [project + '/scripts/gate1/binding-demo.mjs'], { cwd: project, env: process.env, timeout: 120000, maxBuffer: 1000000 });
+  }
+  await mkdir(evidenceDirectory, { recursive: true });
+  service = await services({ network: config.networkId });
   const s = service;
   const deployment = await loadPrivate('deployment');
   const policy = deployment.policy;
@@ -249,10 +258,10 @@ try {
         confirmedLedger.authorizations.lookup(commitment), p.paymentCommitment);
     }
     await writeFile(s.runDirectory + '/operator-view.json', JSON.stringify({ maxPerTxLamports: String(run.mandates['initial-mandate'].maxPerTx) }));
-    const report = run.report ?? JSON.parse(await readFile(project + '/evidence/gate1/live-flow.json', 'utf8'));
+    const report = run.report ?? JSON.parse(await readFile(evidenceDirectory + '/live-flow.json', 'utf8'));
     assert.equal(report.payment.signature, paid.signature, 'Historical report belongs to another run');
-    await writeFile(project + '/evidence/gate1/live-flow.json', JSON.stringify(report, null, 2) + '\n');
-    await writeFile(project + '/evidence/gate1/live-recovery.json', JSON.stringify({ status: 'passed',
+    await writeFile(evidenceDirectory + '/live-flow.json', JSON.stringify(report, null, 2) + '\n');
+    await writeFile(evidenceDirectory + '/live-recovery.json', JSON.stringify({ status: 'passed',
       paymentSignature: paid.signature, newPayments: 0, verifiedSolanaReceipts: run.solana.length,
       verifiedMidnightAuthorizations: Object.keys(run.authorizations).length, bindingWasExpired: now() >= Number(s.session.expiresAt),
       recoveredAt: new Date().toISOString() }, null, 2) + '\n');
@@ -320,11 +329,11 @@ try {
   const finalizedSource = await solana.account(s.connection, solana.sourceAddress(removed.sourceStatusHandle), 'SourceStatus', 'finalized');
   assert.equal(finalizedSource.active, false);
   assert.equal(finalizedSource.epoch, BigInt(removed.sourceEpoch));
-  const bindingReport = JSON.parse(await readFile(project + '/evidence/gate1/binding.json', 'utf8'));
+  const bindingReport = JSON.parse(await readFile(evidenceDirectory + '/binding.json', 'utf8'));
   run.metrics.identityBindingMs = bindingReport.elapsedMs;
   run.metrics.flowMsExcludingWalletStartup ??= Date.now() - Date.parse(run.startedAt);
-  const report = { status: 'passed', mode: 'actual-OpenDID-ZKP-XRPL-Testnet-Midnight-local-Solana-Devnet',
-    syntheticIdentityIssuer: true, liveAdapters: true, midnightNetwork: 'undeployed-local',
+  const report = { status: 'passed', mode: 'actual-OpenDID-ZKP-XRPL-Testnet-Midnight-' + config.networkId + '-Solana-Devnet',
+    syntheticIdentityIssuer: true, liveAdapters: true, midnightNetwork: config.networkId === 'undeployed' ? 'undeployed-local' : config.networkId,
     midnightContract: deployment.address, solanaProgram: solana.PROGRAM_ID.toBase58(),
     xrpl: run.xrpl, midnight: run.midnight, solana: run.solana.map(({ name, signature, error }) => ({ name, signature, error, finalized: true })),
     payment: { lamports: 50_000_000, signature: paid.signature, vaultDelta: -50_000_000, recipientDelta: 50_000_000, consumed: true },
@@ -337,9 +346,9 @@ try {
   run.report ??= report;
   run.completed = true;
   await persist();
-  await writeFile(project + '/evidence/gate1/live-flow.json', JSON.stringify(run.report, null, 2) + '\n');
+  await writeFile(evidenceDirectory + '/live-flow.json', JSON.stringify(run.report, null, 2) + '\n');
   console.log(JSON.stringify({ status: report.status, fullGate1Complete: true, paymentLamports: 50_000_000,
-    denied: run.denials.map(x => x.name), evidence: 'evidence/gate1/live-flow.json' }));
+    denied: run.denials.map(x => x.name), evidence: config.evidenceDirectory + '/live-flow.json' }));
   }
 } catch (error) {
   await savePrivate('last-failure', { stage, name: error.name, message: error.message, stack: error.stack, at: new Date().toISOString() });
