@@ -6,7 +6,8 @@ import { createDemoServer } from '../src/demo-server.mjs';
 import { networkProfile } from '../src/midnight/network.mjs';
 const project = fileURLToPath(new URL('../', import.meta.url));
 const profile = networkProfile(process.env.PROOFPASS_MIDNIGHT_NETWORK ?? 'undeployed');
-const output = project + '/' + (profile.networkId === 'preprod' ? 'evidence/preprod/browser' : 'evidence/demo');
+// UI checks are new artifacts, never replacements for historical chain evidence.
+const output = project + '/artifacts/zk-demo-ui/' + profile.networkId;
 const server = await createDemoServer({ project, readOnly: true, network: profile.networkId });
 await new Promise(r => server.listen(0, '127.0.0.1', r));
 const url = 'http://127.0.0.1:' + server.address().port;
@@ -30,12 +31,79 @@ try {
     if (completed) assert(await page.getByText('위임 한도 초과 요청', { exact: true }).isVisible());
     else assert.equal(await page.getByText('최근 실행 통과', { exact: true }).count(), 0);
     assert(await page.getByText('현재 자격 상태: 확인 불가 · 과거 기록', { exact: true }).isVisible());
+    assert(await page.locator('#run').isDisabled());
+    assert(await page.locator('#resume').isDisabled());
+    assert.equal(await page.locator('.operator-details').getAttribute('open'), null);
+    if (completed) {
+      assert.equal(await page.locator('#result-link').getAttribute('href'), 'https://explorer.solana.com/tx/' + state.evidence.payment.signature + '?cluster=devnet');
+      assert.match(await page.locator('#result-amount').textContent(), /0\.05 SOL/);
+      assert.match(await page.locator('#result-consumed').textContent(), /소비됨/);
+    }
     assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false, name + ' horizontal overflow');
     await page.screenshot({ path: output + '/' + name + '.png', fullPage: true });
     results.push({ name, viewport, fourStages: true, actualExplorerLinks: explorerLinks, historicalStateClearlyLabeled: true, horizontalOverflow: false });
     await page.close();
   }
+  // Intercept all actions: these exercise UI behavior, never the chain runner.
+  const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
+  page.on('pageerror', e => errors.push(e.message));
+  let mock = { ...state, readOnly: false, externalBusy: false, job: { status: 'idle', stage: 'ready' } };
+  let unavailable = false;
+  const actions = [];
+  await page.route('**/api/status', route => unavailable
+    ? route.fulfill({ status: 503, body: '{}' })
+    : route.fulfill({ json: mock }));
+  for (const action of ['run', 'resume']) await page.route('**/api/' + action, async route => {
+    assert.equal(route.request().method(), 'POST');
+    assert.equal(route.request().postData(), '{}');
+    assert.equal(route.request().headers()['x-proofpass-token'], state.token);
+    actions.push(action);
+    mock = { ...mock, job: { status: 'running', stage: action === 'run' ? 'midnight-payment' : 'reconciliation' } };
+    await route.fulfill({ status: 202, json: { status: 'running' } });
+  });
+  await page.goto(url, { waitUntil: 'networkidle' });
+  assert(await page.locator('#resume').isDisabled());
+  await page.locator('#run').click();
+  await page.waitForFunction(() => document.getElementById('job-label').textContent.includes('증명 중'));
+  assert(await page.locator('#run').isDisabled());
+  assert(await page.locator('#resume').isDisabled());
+  assert.match(await page.locator('#job-detail').textContent(), /마지막 완료 기록/);
+  const recorded = await page.locator('#result-amount').textContent();
+  await page.screenshot({ path: output + '/running-mobile.png', fullPage: true });
+  mock = { ...mock, job: { status: 'failed', stage: 'resume-required' } };
+  await page.evaluate(() => refresh());
+  assert(await page.locator('#run').isDisabled());
+  assert(await page.locator('#resume').isEnabled());
+  await page.locator('#resume').click();
+  await page.waitForFunction(() => document.getElementById('job-label').textContent.includes('대조 중'));
+  assert.deepEqual(actions, ['run', 'resume']);
+  unavailable = true;
+  await page.evaluate(() => refresh());
+  assert.match(await page.locator('#job-label').textContent(), /확인 불가/);
+  assert.match(await page.locator('#result-time').textContent(), /과거 기록/);
+  assert.equal(await page.locator('#result-amount').textContent(), recorded);
+  assert(await page.locator('#run').isDisabled());
+  assert(await page.locator('#resume').isDisabled());
+  await page.screenshot({ path: output + '/unavailable-mobile.png', fullPage: true });
+  unavailable = false;
+  for (const evidence of [null, { ...state.evidence, status: 'running' }, { ...state.evidence, midnightNetwork: 'wrong-network' }]) {
+    mock = { ...mock, evidence };
+    await page.evaluate(() => refresh());
+    assert.equal(await page.locator('#result-amount').textContent(), '—');
+    assert(await page.locator('#result-link').isHidden());
+    assert.equal(await page.locator('.badge.good').count(), 0);
+  }
+  await page.screenshot({ path: output + '/no-evidence-mobile.png', fullPage: true });
+  // A changed record must drive the display, not the illustrative 0.05 SOL.
+  mock = { ...mock, evidence: { ...state.evidence, status: 'passed', midnightNetwork: profile.networkId === 'preprod' ? 'preprod' : 'undeployed-local', payment: { lamports: 25000000, vaultDelta: -25000000, recipientDelta: 25000000, consumed: false, signature: 'invalid' } } };
+  await page.evaluate(() => refresh());
+  assert.equal(await page.locator('#result-amount').textContent(), '0.025 SOL');
+  assert.match(await page.locator('#result-consumed').textContent(), /미소비/);
+  assert(await page.locator('#result-link').isHidden());
+  await page.setViewportSize({ width: 320, height: 740 });
+  assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false, '320px horizontal overflow');
+  await page.close();
   assert.deepEqual(errors, []);
-  await writeFile(output + '/browser-check.json', JSON.stringify({ status: 'passed', checkScope: 'dashboard-rendering', network: profile.networkId, completedChainRunPresent: completed, browser: 'Microsoft Edge via Playwright', results, pageErrors: errors, checkedAt: new Date().toISOString() }, null, 2) + '\n');
+  await writeFile(output + '/browser-check.json', JSON.stringify({ status: 'passed', checkScope: 'read-only evidence rendering and mocked UI transitions; no chain submission', network: profile.networkId, completedChainRunPresent: completed, browser: 'Microsoft Edge via Playwright', results, mockChecks: ['run and resume POST/token', 'running retains historical result', 'failed allows resume only', '503 disables actions and labels cached record', 'missing/incomplete/wrong-network evidence has no success badge', 'amount and consumption follow record', 'invalid transaction link hidden', '320px no overflow'], pageErrors: errors, checkedAt: new Date().toISOString() }, null, 2) + '\n');
   console.log(JSON.stringify({ status: 'passed', viewports: results.map(x => x.name), pageErrors: 0 }));
 } finally { await browser.close(); await new Promise(r => server.close(r)); }

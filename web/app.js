@@ -3,6 +3,7 @@ let token;
 let midnightNetwork;
 const time = value => value ? new Date(value).toLocaleString('ko-KR', { hour12: false }) : '기록 없음';
 const seconds = value => Number.isFinite(value) ? (value / 1000).toFixed(1) + ' s' : '—';
+const sol = value => Number.isSafeInteger(value) && value > 0 ? (value / 1e9).toLocaleString('en-US', { maximumFractionDigits: 9 }) + ' SOL' : '금액 확인 불가';
 const labels = { ready: '실행 준비', 'wallet-warmup': '공개망 지갑 복원·동기화 중', identity: '신원·지갑 바인딩 검증 중', 'xrpl-and-mandate': 'XRPL 자격과 사용자 위임 준비 중',
   'midnight-payment': 'Midnight 승인 증명 중', 'payment-confirmed': '0.05 SOL 지급 확인 · 거절 시나리오 진행 중',
   'mandate-revocation': '사용자 위임 취소 검증 중', 'source-revocation': 'XRPL 삭제 후 지급 차단 검증 중',
@@ -36,8 +37,8 @@ async function refresh() {
     $('midnight-network').textContent = preprod ? 'Midnight Preprod · 공개 테스트넷' : '실제 로컬 체인 · public testnet 아님';
     $('network-disclosure').textContent = preprod ? 'Midnight Preprod를 사용하며 어댑터·relay를 신뢰합니다.' : 'Midnight는 로컬 네트워크이고 어댑터·relay를 신뢰합니다.';
     const { job } = state;
-    const e = state.evidence?.midnightNetwork === (preprod ? 'preprod' : 'undeployed-local') ? state.evidence : null;
-    if (state.operatorPolicy) $('operator-policy').textContent = '사용자 위임 · 거래당 최대 ' + (Number(state.operatorPolicy.maxPerTxLamports) / 1e9).toFixed(2) + ' SOL · 한도는 이 로컬 화면에만 표시됩니다.';
+    const e = state.evidence?.midnightNetwork === (preprod ? 'preprod' : 'undeployed-local') && state.evidence.status === 'passed' ? state.evidence : null;
+    $('operator-policy').textContent = state.operatorPolicy ? '최신 로컬 위임 · 거래당 최대 ' + (Number(state.operatorPolicy.maxPerTxLamports) / 1e9).toFixed(2) + ' SOL · 운영자에게 공개된 값' : '로컬 위임 설정 확인 불가';
     $('job-label').textContent = labels[job.stage] || '실행 준비';
     $('job-detail').textContent = job.status === 'running' ? '실제 SDK와 체인에 요청 중입니다. 아래에는 마지막 완료 기록을 표시합니다.'
       : ['failed', 'interrupted'].includes(job.status) ? '실패를 자격 부재로 처리하지 않습니다. 기존 실행 재개로 영수증부터 대조합니다.'
@@ -46,7 +47,21 @@ async function refresh() {
     $('run').disabled = busy || ['failed', 'interrupted'].includes(job.status);
     $('resume').disabled = busy || job.status === 'idle';
     if (state.externalBusy) $('job-label').textContent = 'CLI에서 실제 데모 실행 중';
+    if (state.readOnly) {
+      $('job-label').textContent = '저장 기록 미리보기 · 읽기 전용';
+      $('job-detail').textContent = '새 지급을 실행하지 않는 화면입니다. 아래 결과는 마지막 완료 기록이며 현재 자격은 확인하지 않습니다.';
+    }
     const passed = e?.status === 'passed';
+    const payment = e?.payment;
+    const paid = Number.isSafeInteger(payment?.lamports) && payment.lamports > 0
+      && payment.vaultDelta === -payment.lamports && payment.recipientDelta === payment.lamports;
+    const amount = sol(payment?.lamports);
+    $('result-amount').textContent = payment ? amount : '—';
+    $('result-payment').textContent = paid ? '해당 요청 지급 성공 · 저장된 잔액 변화 확인' : '확인 가능한 지급 결과 없음';
+    $('result-consumed').textContent = payment?.consumed === true ? '해당 승인 소비됨 · 저장 기록' : payment?.consumed === false ? '해당 승인 미소비 · 저장 기록' : '승인 소비 확인 불가';
+    $('result-time').textContent = e ? '완료 · ' + time(e.completedAt) : '확정된 실행 기록 없음';
+    $('result-link').hidden = !paid || !/^[1-9A-HJ-NP-Za-km-z]{80,90}$/.test(payment?.signature);
+    $('result-link').href = $('result-link').hidden ? '' : 'https://explorer.solana.com/tx/' + payment.signature + '?cluster=devnet';
     for (const id of ['identity-badge', 'midnight-badge', 'solana-badge']) badge(id, passed ? '최근 실행 통과' : '기록 없음', passed ? 'good' : 'muted');
     badge('xrpl-badge', passed ? '실행 후 삭제됨' : '확인 불가', 'muted');
     $('record-time').textContent = passed ? '기록된 실행 · ' + time(e.completedAt) : '확정된 실행 기록 없음';
@@ -54,14 +69,14 @@ async function refresh() {
     $('observed-at').textContent = time(e?.lastSourceObservation?.observedAt ? e.lastSourceObservation.observedAt * 1000 : e?.metrics?.deleteValidatedAt);
     $('midnight-address').textContent = e?.midnightContract || '—';
     $('solana-address').textContent = e?.solanaProgram || '—';
-    $('payment-status').textContent = passed ? '0.05 SOL · 지급 1회 · 재지급 0회' : '—';
+    $('payment-status').textContent = paid ? amount + ' · 저장된 지급 확인' : '지급 확인 불가';
     $('binding-time').textContent = seconds(e?.metrics?.identityBindingMs);
     $('proof-time').textContent = seconds(e?.metrics?.authorizations?.payment?.contractProofMs);
     $('authorization-time').textContent = seconds(e?.metrics?.authorizations?.payment?.endToEndAuthorizationMs);
     $('revocation-time').textContent = seconds(e?.metrics?.deletionToDestinationInvalidationMs);
     const checks = [];
-    if (passed) checks.push(row('승인된 0.05 SOL 요청', '지급 확정'));
-    for (const denial of e?.rejectedPayments || []) checks.push(row({ 'consumed-replay': '동일 승인 재사용', 'mandate-revoked': '사용자 위임 취소 후 지급', 'source-deleted': 'XRPL 자격 삭제·반영 후 지급' }[denial.name] || denial.name, '거절 · 추가 지급 0'));
+    if (paid) checks.push(row('승인된 ' + amount + ' 요청', '지급 확정'));
+    for (const denial of e?.rejectedPayments || []) checks.push(row({ 'consumed-replay': '동일 승인 재사용', 'mandate-revoked': '사용자 위임 취소 후 지급', 'source-deleted': 'XRPL 자격 삭제·반영 후 지급' }[denial.name] || denial.name, denial.programError && denial.balancesUnchanged === true ? '거절 · 추가 지급 0' : '거절 근거 확인 불가'));
     if (e?.overLimit?.noSubmission) checks.push(row('위임 한도 초과 요청', '승인 생성 거절'));
     if (e?.newRequestAfterDelete) checks.push(row('삭제 이후 신규 승인', '증명 전 거절'));
     $('checks').replaceChildren(...(checks.length ? checks : [row('확정된 실행 기록', '없음')]));
@@ -70,12 +85,14 @@ async function refresh() {
       const value = e?.xrpl?.[key]; if (value) receipts.push(receipt(label, value.hash || value.txHash || value.transactionHash, 'xrpl'));
     }
     for (const value of e?.midnight || []) receipts.push(receipt('Midnight · ' + value.name, value.txId, 'midnight'));
-    if (e?.payment) receipts.push(receipt('Solana · 0.05 SOL 지급', e.payment.signature, 'solana'));
+    if (payment) receipts.push(receipt('Solana · ' + amount + ' 요청', payment.signature, 'solana'));
     for (const value of e?.rejectedPayments || []) receipts.push(receipt('Solana · ' + value.name, value.signature, 'solana'));
     $('receipts').replaceChildren(...(receipts.length ? receipts : [row('거래 기록', '없음')]));
   } catch {
     $('job-label').textContent = '서버 상태 확인 불가';
     $('job-detail').textContent = '연결을 확인해 주세요. 표시된 기록은 현재 자격 상태를 보증하지 않습니다.';
+    $('result-time').textContent = '현재 서버 상태 확인 불가 · 남아 있는 값은 이전에 불러온 과거 기록';
+    $('operator-policy').textContent = '현재 로컬 위임 설정 확인 불가';
     $('run').disabled = true; $('resume').disabled = true;
   }
 }
