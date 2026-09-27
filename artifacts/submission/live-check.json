@@ -1,0 +1,26 @@
+{
+  "status": "passed",
+  "url": "https://tnwjd023-boop.github.io/Proof-Pass/",
+  "results": [
+    {
+      "name": "desktop",
+      "durationSeconds": 163.32,
+      "paid": true,
+      "revokedZero": true,
+      "readOnly": true,
+      "videoSeekAndPlay": true,
+      "overflow": false
+    },
+    {
+      "name": "mobile",
+      "durationSeconds": 163.32,
+      "paid": true,
+      "revokedZero": true,
+      "readOnly": true,
+      "videoSeekAndPlay": true,
+      "overflow": false
+    }
+  ],
+  "pageErrors": [],
+  "checkedAt": "2026-09-27T05:58:25.055Z"
+}

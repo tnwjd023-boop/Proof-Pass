@@ -11,3 +11,10 @@ dist/
 **/private/
 *.pem
 *.key
+artifacts/submission/audio/
+artifacts/submission/recordings/
+artifacts/submission/slides/
+artifacts/submission/recorded-ui.webm
+artifacts/submission/native-deck-update.json
+artifacts/submission/public-*.png
+artifacts/submission/live-*.png

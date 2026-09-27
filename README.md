@@ -2,6 +2,10 @@
 
 ### Prove permission privately. Enforce it at execution.
 
+[Public demo](https://tnwjd023-boop.github.io/Proof-Pass/) · [2:43 demo video](https://tnwjd023-boop.github.io/Proof-Pass/watch.html) · [Project deck](https://tnwjd023-boop.github.io/Proof-Pass/deck.html)
+
+The public demo and video walk through saved testnet execution evidence; opening them does not submit new transactions.
+
 **Private policy → Authorization → Actual payment → Revocation → Old authorization rejected**
 
 에이전트나 외부 실행자에게 지급을 맡길 때, 원본 신원정보와 전체 spending limit까지 지급 체인에 공개할 필요는 없습니다. 하지만 특정 요청이 정책 안에 있는지는 검증해야 합니다. **승인 이후 권한이 회수됐다면, 이미 발급된 미사용 승인도 막아야 합니다.**
