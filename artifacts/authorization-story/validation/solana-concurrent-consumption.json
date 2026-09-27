@@ -1,0 +1,26 @@
+{
+  "status": "passed",
+  "mode": "real-local-validator",
+  "unrecordedDirectCall": "rejected-with-balances-unchanged",
+  "distinctTransactions": [
+    {
+      "signature": "4peg5hTKEbdDjmGaFpFfDzoTohg3xsN93h55AuzPFtbz1D7s6wABQ5FK7J5h3xQ7cHnyLjbzJDqhe8LkNpB1mqyv",
+      "error": {
+        "InstructionError": [
+          1,
+          {
+            "Custom": 6007
+          }
+        ]
+      }
+    },
+    {
+      "signature": "5Aij9jz1qNzVL7hHvjUysoo47mDQ42J5CcFJtUPVbRCTs3tpeCFSj3ZKQNPPMgCdPWYvwZgaQjiCAAFqnQqsAb38",
+      "error": null
+    }
+  ],
+  "successfulPayments": 1,
+  "duplicatePayments": 0,
+  "amountLamports": 50000000,
+  "completedAt": "2026-09-27T02:51:21.940Z"
+}

@@ -1,0 +1,42 @@
+{
+  "checkedAt": "2026-09-27T02:51:24.168Z",
+  "receiptIdsMatch": true,
+  "scope": "Explorer HTTP availability only; historical transactions are not re-executed or re-verified by this check",
+  "results": [
+    {
+      "url": "https://testnet.xrpl.org/transactions/EE03BFAFF600EE3AE97F7FA9FE3251FA4E82491870B8952E5F7BDFC2DBAF0158",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "url": "https://testnet.xrpl.org/transactions/779270C686F1B06E6F36B733BFB02EE7294501777A2C4A9DF102076481DF961A",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "url": "https://testnet.xrpl.org/transactions/4C2CEDF8DA35ED19E4FDCC22763DFA5BFA1D2360D3B8622A51C5188EC6196981",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "url": "https://explorer.solana.com/tx/4SnYCGG7QwaR4sdCcypVoytk3agMHbY7dteMSoNQ3P67iMxnZ2xrmRMtf24xbruhZLd2ZXDAZL7TvGV9A61oVpia?cluster=devnet",
+      "status": 429,
+      "ok": false
+    },
+    {
+      "url": "https://explorer.solana.com/tx/5L37fvuauYSKEfN5DFLFxnfhzjkzoPsrcvrj1A7C1DspFyJdbQCfkFeEhpUfXeMjpChFkVj5mGsEePZZ6krBtHiA?cluster=devnet",
+      "status": 429,
+      "ok": false
+    },
+    {
+      "url": "https://explorer.solana.com/tx/61sz4GtXtAQ6e9E5btGfmYq2UkUj8jDyPCVqxucKxtoXs4D8gtx1zjia4DNsgUG2PcA58UyByQTm6oQoT2bKabBr?cluster=devnet",
+      "status": 429,
+      "ok": false
+    },
+    {
+      "url": "https://explorer.solana.com/tx/4DQsSZei8gPRWHuD2GSUWo6ijgY1kCjCtPTKWkT9Gufib9CUEuxEietPr9tamxCECxKhpNLcxsx9qm6dG29jf8k4?cluster=devnet",
+      "status": 429,
+      "ok": false
+    }
+  ]
+}

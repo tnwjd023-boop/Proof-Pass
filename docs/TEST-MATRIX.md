@@ -24,4 +24,21 @@
 | 잘못된 작업 재개·저장 오류·읽기 검사 변경 방지 | `test/demo-recovery.test.mjs` | 실패 회귀를 먼저 재현, 파일 I/O/실제 HTTP |
 | 화면과 실제 버튼 연결 | `browser-check.json`, `ui-live-run.json` | Edge 데스크톱/모바일 및 실제 전체 실행 |
 
-현재 Node 36개, Compact 9개, Rust 2개 테스트와 Solana 로컬 50개 작업/검사가 통과했습니다. 숫자는 서로 다른 단위이며 합산한 보안 점수로 사용하지 않습니다. 독립 검토는 각 범위의 코드 검토이며 정식 보안 감사가 아닙니다.
+Gate 1 당시 Node 36개, Compact 9개, Rust 2개 테스트와 Solana 로컬 50개 작업/검사가 통과했습니다. 숫자는 서로 다른 단위이며 합산한 보안 점수로 사용하지 않습니다. 독립 검토는 각 범위의 코드 검토이며 정식 보안 감사가 아닙니다.
+
+## 2026-09-27 메시지·데모 UI 변경 검증
+
+핵심 회로·Solana 프로그램·서버 실행 경로 변경 없이 검증했습니다. 아래는 새 로컬 검사이며 기존 Preprod 실행을 다시 수행한 결과가 아닙니다.
+
+| 검사 | 결과 |
+|---|---|
+| 기존 Node tests | 45/45 통과 |
+| 기존 생성 Compact 회로 tests | 9/9 통과 |
+| Rust 요청 벡터·lease 경계 | 2/2 통과 |
+| Solana SBF build | 성공 |
+| 격리된 Solana local validator | 기존 통합 50개 작업/검사 통과 |
+| 같은 승인 동시 실행 | 지급 1회, 중복 지급 0, 나머지 Consumed 6007 |
+| Edge / Playwright | PC 1440px, 모바일 390px, 320px overflow 검사 통과 |
+| UI 부정 기록 | 누락·진행 중·다른 네트워크·잘못된 거절 코드·잔액 불일치·만료 실패를 취소 차단 성공으로 표시하지 않음 |
+
+[새 검증 자료와 범위](../artifacts/authorization-story/README.md). 기존 통합 테스트의 복사본에서 import와 결과 출력 경로만 변경해 과거 `evidence/gate1` 파일을 보존했습니다.

@@ -1,4 +1,81 @@
-# ProofPass · 신원정보와 한도를 숨기고, 이 지급이 허용됨을 증명합니다
+# ProofPass
+
+### Prove permission privately. Enforce it at execution.
+
+**Private policy → Authorization → Actual payment → Revocation → Old authorization rejected**
+
+에이전트나 외부 실행자에게 지급을 맡길 때, 원본 신원정보와 전체 spending limit까지 지급 체인에 공개할 필요는 없습니다. 하지만 특정 요청이 정책 안에 있는지는 검증해야 합니다. **승인 이후 권한이 회수됐다면, 이미 발급된 미사용 승인도 막아야 합니다.**
+
+ProofPass는 신원·자격·위임·비공개 한도 조건을 만족하는 요청을 Midnight에서 증명하고, Solana의 해당 vault 지급 직전에 취소 가능한 상태를 다시 검사합니다.
+
+> ProofPass does not only prove that an action was authorized. It checks whether that authority is still valid when the action is executed.
+
+```text
+PRIVATE INPUTS                      PUBLIC PAYMENT REQUEST
+Identity · Credential evidence      Agent · Recipient · 0.05 SOL
+Full mandate · Spending limit                  │
+              └──────────────┬─────────────────┘
+                             ▼
+                    Midnight Preprod
+                    Private policy proof
+                             │
+                    AUTHORIZATION CREATED
+                             │ trusted relay
+                             ▼
+                       Solana Devnet
+                    Execution-time checks
+                             ▼
+                      0.05 SOL PAID
+                  50,000,000 lamports moved
+```
+
+```text
+Separate unused authorization already issued
+                    │
+XRPL Credential: ACTIVE → DELETED
+                    │ observer updates Solana state
+                    ▼
+Old authorization executed BEFORE expiry
+                    ▼
+                ✕ REJECTED
+                0 SOL moved
+```
+
+**증명 당시 유효했던 권한이 실행 전에 사라졌기 때문에 지급이 차단됩니다.** 취소는 목적지 상태에 반영된 뒤 적용됩니다. 이미 완료된 지급을 되돌리는 기능은 아닙니다.
+
+## Live testnet evidence · 실제 지급과 차단
+
+**2026-09-21 09:04:08 UTC에 완료한 저장 실행**입니다. 새 실행이나 현재 자격 상태를 뜻하지 않습니다.
+
+| 실제 실행 | 결과 | 증거 |
+|---|---|---|
+| OpenDID SDK | 신원 proof + 지갑 바인딩 검증 | [SDK 검증](evidence/gate1/opendid-binding.json) · [통합 실행](evidence/preprod/live-flow.json) |
+| XRPL Testnet | Credential create / accept / delete ✓ | [발급](https://testnet.xrpl.org/transactions/EE03BFAFF600EE3AE97F7FA9FE3251FA4E82491870B8952E5F7BDFC2DBAF0158) · [수락](https://testnet.xrpl.org/transactions/779270C686F1B06E6F36B733BFB02EE7294501777A2C4A9DF102076481DF961A) · [삭제](https://testnet.xrpl.org/transactions/4C2CEDF8DA35ED19E4FDCC22763DFA5BFA1D2360D3B8622A51C5188EC6196981) |
+| Midnight Preprod | Private authorization ✓ | [승인 3건·거래 ID·블록 높이](evidence/preprod/live-flow.json) |
+| Solana Devnet | **0.05 SOL PAID** · 승인 소비 | [지급 거래](https://explorer.solana.com/tx/4SnYCGG7QwaR4sdCcypVoytk3agMHbY7dteMSoNQ3P67iMxnZ2xrmRMtf24xbruhZLd2ZXDAZL7TvGV9A61oVpia?cluster=devnet) |
+| Same authorization reused | **REJECTED · 추가 지급 0** | [재사용 거절](https://explorer.solana.com/tx/5L37fvuauYSKEfN5DFLFxnfhzjkzoPsrcvrj1A7C1DspFyJdbQCfkFeEhpUfXeMjpChFkVj5mGsEePZZ6krBtHiA?cluster=devnet) |
+| Mandate revoked | **Old authorization REJECTED · 지급 0** | [위임 취소 후 거절](https://explorer.solana.com/tx/61sz4GtXtAQ6e9E5btGfmYq2UkUj8jDyPCVqxucKxtoXs4D8gtx1zjia4DNsgUG2PcA58UyByQTm6oQoT2bKabBr?cluster=devnet) |
+| Credential deleted | **Old authorization REJECTED · 지급 0** | [자격 삭제 후 거절](https://explorer.solana.com/tx/4DQsSZei8gPRWHuD2GSUWo6ijgY1kCjCtPTKWkT9Gufib9CUEuxEietPr9tamxCECxKhpNLcxsx9qm6dG29jf8k4?cluster=devnet) |
+
+[전체 잔액·오류 코드·시간](evidence/preprod/live-flow.json) · [동일 지급의 dashboard 기록](evidence/preprod/dashboard-run.json) · [3분 발표 흐름](docs/DEMO-SCRIPT.md)
+
+새 지급 없이 데모 보기: `node scripts/preview-demo.mjs` → [localhost:4175](http://127.0.0.1:4175). 자세한 준비는 아래 [데모 실행](#데모-실행)을 참고하세요.
+
+## Why ZK? · 값을 공개하지 않고 비교 결과를 증명
+
+```text
+Payment request = 0.05 SOL     Private maxPerTx = [HIDDEN]
+Proof: payment.amount <= mandate.maxPerTx       ✓ TRUE
+                                              → AUTHORIZATION
+
+Payment request = 0.15 SOL     Same private limit
+Authorization generation                      ✕ REJECTED
+                                              → no chain submission
+```
+
+`maxPerTx`는 [회로의 private witness](midnight/contract/src/policy.compact)입니다. 목적지에는 전체 한도 원문 대신 salted mandate commitment가 전달됩니다. **0.10 SOL은 설명을 위해 공개한 데모 설정**이며, 로컬 운영자·prover는 그 값을 처리합니다. 공개 XRPL Credential 자체나 Solana 지급 금액·주소까지 숨기는 것은 아닙니다.
+
+## Architecture · 정책 증명에서 실행 시점 재검사까지
 
 원본 신원정보와 전체 위임 한도를 **목적지 체인에 전달하지 않고**, 특정 에이전트의 지급 요청이 자격·위임 조건을 만족함을 Midnight에서 증명합니다. 신뢰하는 릴레이가 그 결과를 전달하면 Solana 프로그램이 실행 조건을 검사하고 vault에서 지급합니다.
 
@@ -10,19 +87,7 @@
 | 전체 위임 내용 중 거래당 한도·salt | 요청의 에이전트·수신자·자산 등이 위임 범위와 일치하고 요청 금액 ≤ 비공개 한도 | Solana의 해당 거래 금액·주소, 위임 commitment·버전 |
 | 서명 근거와 비공개 witness 원문 | 시각·근거 유효기간과 정확한 요청의 결합 | Midnight의 요청 commitment·승인 메타데이터, Solana 지급·승인 소비 |
 
-## 대표 사례: 한도는 전달하지 않고 0.05 SOL 지급
-
-사용자가 지정한 에이전트에게 **거래당 0.10 SOL**까지 지급을 위임합니다. 에이전트의 **0.05 SOL** 요청이 한도와 다른 자격·위임 조건을 함께 만족하면 하나의 정책 승인이 생성됩니다. **0.10 SOL은 설명을 위해 공개한 데모 설정**입니다. 프라이버시 목표는 목적지에 사용자의 전체 한도 원문을 전달하지 않는 것이며, 누적 예산을 증명하는 기능은 아닙니다.
-
-2026-09-21 저장 실행은 vault에서 **50,000,000 lamports 지급과 승인 소비**를 기록합니다. 같은 승인 재사용은 거절됐고, 별도로 준비한 미사용 승인도 위임 취소 또는 자격 삭제가 목적지에 반영된 뒤 만료 전에 거절됐습니다. 세 거절 거래 모두 추가 지급은 0입니다. 0.15 SOL 한도 초과 요청은 승인 생성 단계에서 거절됐으며 온체인 실패 proof는 없습니다.
-
-## 확인 가능한 실제 실행 증거
-
-[전체 실행·잔액 변화·거절 코드](evidence/preprod/live-flow.json) · [동일 지급의 대시보드 실행 기록](evidence/preprod/dashboard-run.json) · [0.05 SOL 지급 거래](https://explorer.solana.com/tx/4SnYCGG7QwaR4sdCcypVoytk3agMHbY7dteMSoNQ3P67iMxnZ2xrmRMtf24xbruhZLd2ZXDAZL7TvGV9A61oVpia?cluster=devnet)
-
-기록의 흐름 완료 시각은 **2026-09-21 09:04:08 UTC**입니다. 실제 OpenDID SDK·XRPL Testnet·Midnight Preprod·Solana Devnet을 사용했고 신원 발급자는 합성 신원의 테스트 발급자입니다. 이는 과거 실행 증거이며 현재 자격이나 지금 생성한 proof를 뜻하지 않습니다. 아래 측정값과 증거는 해당 실행의 기록으로 유지합니다.
-
-## ZK의 정책 검증과 목적지의 실행 제어
+### ZK의 정책 검증과 목적지의 실행 제어
 
 | 역할 | 코드에서 확인하는 범위 |
 |---|---|
@@ -31,6 +96,22 @@
 | **신뢰하는 운영자 구성요소** | 신원·위임 어댑터, XRPL 상태 관측자, 시각 제공자, 목적지 릴레이. 어댑터는 등록된 위임도 대조하고 릴레이는 Midnight commitment를 정확한 요청에 매핑. [위임 대조](src/midnight/mandate-adapter.mjs) · [전달 경로](midnight/contract/src/live-flow.mjs) |
 
 **Solana는 Midnight proof나 XRPL 합의를 직접 검증하지 않습니다.** 릴레이가 등록한 승인과 관측자가 등록한 상태를 검사합니다. 자격 취소의 반영에는 관측·전달 지연이 있고, 유효 근거가 없으면 지급을 중단합니다. 원본 근거와 승인 lease는 최대 60초입니다. 재사용·취소 후 지급 차단을 모두 ZK 자체의 기능으로 주장하지 않습니다.
+
+## Security / Enforcement Evidence
+
+같은 승인 재사용은 **Consumed 6007**, 위임 취소 후 별도 미사용 승인은 **Mandate 6001**, 자격 삭제 반영 후 별도 미사용 승인은 **Source 6003**으로 거절됐습니다. 세 시도 모두 승인 만료 전이며 보호된 vault·수신자의 잔액 변화는 0입니다. 실패 거래 수수료까지 0이라는 의미는 아닙니다.
+
+자격 삭제 시나리오의 실제 순서 (2026-09-21 UTC):
+
+| 사건 | 기록 시각 |
+|---|---|
+| 미사용 승인 Midnight 확정 | 09:03:47.202 |
+| XRPL Credential 삭제 확정 | 09:03:59.806 |
+| Solana source 상태 무효화 확정 | 09:04:01.954 |
+| 기존 승인 실행 시도 | 09:04:01.955 · 만료까지 7.045초 |
+| 결과 | **REJECTED · 0 SOL moved** |
+
+[원본 실행 기록](evidence/preprod/live-flow.json)에서 순서·오류·잔액을 함께 확인할 수 있습니다. 0.15 SOL 요청은 별도로 승인 생성 단계에서 거절됐고 체인에 제출되지 않았습니다.
 
 ## 정보 흐름과 신뢰 경계
 
@@ -89,9 +170,9 @@ $env:PROOFPASS_MIDNIGHT_NETWORK = 'preprod'
 
 첫 DUST 지갑 동기화는 공개망 이력을 읽어 상당한 시간이 걸릴 수 있습니다. 저장된 상태 복원에도 몇 분이 걸릴 수 있으며, 아래 실측 시간은 지갑 준비를 제외합니다. faucet 사람 확인은 직접 수행하고 시드·비밀번호를 공유하지 않습니다.
 
-[![ZK 가치 중심 UI · 과거 Preprod 기록 표시](artifacts/zk-demo-ui/preprod/desktop.png)](artifacts/zk-demo-ui/preprod/desktop.png)
+[![Private policy → payment → revocation UI · 과거 Preprod 기록 표시](artifacts/authorization-story/preprod/desktop.png)](artifacts/authorization-story/preprod/desktop.png)
 
-[모바일 캡처](artifacts/zk-demo-ui/preprod/mobile.png) · [이번 UI 브라우저 검사](artifacts/zk-demo-ui/preprod/browser-check.json). 과거 체인 실행·측정 증거는 아래 원래 경로에 보존합니다.
+[모바일 캡처](artifacts/authorization-story/preprod/mobile.png) · [이번 UI 브라우저 검사](artifacts/authorization-story/preprod/browser-check.json). 과거 체인 실행·측정 증거는 아래 원래 경로에 보존합니다.
 
 ## 실제 측정값과 증거
 
@@ -127,7 +208,17 @@ $env:PROOFPASS_MIDNIGHT_NETWORK = 'preprod'
 
 통제 범위는 **해당 프로그램의 vault 지급 경로**입니다. 모든 지갑 송금이나 여러 체인의 공통 누적 예산을 통제하지 않습니다. 에이전트 역할의 키로 요청·서명하는 데모이며 자율 AI의 구매 판단이나 사기 탐지를 검증한 것은 아닙니다. Solana 프로그램의 업그레이드 권한은 프로젝트 운영자에게 남아 있습니다. 합성 신원과 프로젝트 테스트 지갑을 사용하는 해커톤 프로토타입이며, 운영용 지갑이나 전체 SDK에 대한 보안 감사 결과를 제공하지 않습니다.
 
-## 기존 기술과의 관계 · 미구현 방향
+## Roadmap / Next experiment · 기업에서 AI Agent까지
+
+> The boundary of a company is extending to AI Agents.
+
+```text
+Organization → Officer → AI Agent → External service
+```
+
+**If an employee's authority is revoked, should an AI Agent delegated by that employee still be able to spend company funds?**
+
+이 질문은 현재의 실행 시점 취소 검사를 상위 조직 권한으로 확장하는 다음 실험입니다. **기업 권한 기능은 아직 구현·배포하지 않았습니다.**
 
 위임·선택적 공개·ZK 자격 검증·일회용 승인 자체의 발명을 주장하지 않습니다. 이 저장소의 기여는 비공개 정책 승인과 실제 목적지 지급·차단을 연결한 검토 가능한 구현과 실행 기록입니다. T54·AP2·Verifiable Intent·Privado ID와의 호환성, 비용·보안 우위는 검증하지 않았습니다. 기존 기술의 관계는 [2026-09-21 비교 검토](docs/POSITIONING.md)에 보존합니다.
 

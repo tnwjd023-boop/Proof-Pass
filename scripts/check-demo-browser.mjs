@@ -7,7 +7,7 @@ import { networkProfile } from '../src/midnight/network.mjs';
 const project = fileURLToPath(new URL('../', import.meta.url));
 const profile = networkProfile(process.env.PROOFPASS_MIDNIGHT_NETWORK ?? 'undeployed');
 // UI checks are new artifacts, never replacements for historical chain evidence.
-const output = project + '/artifacts/zk-demo-ui/' + profile.networkId;
+const output = project + '/artifacts/authorization-story/' + profile.networkId;
 const server = await createDemoServer({ project, readOnly: true, network: profile.networkId });
 await new Promise(r => server.listen(0, '127.0.0.1', r));
 const url = 'http://127.0.0.1:' + server.address().port;
@@ -28,7 +28,7 @@ try {
     assert.equal(await page.locator('.stage').count(), 4);
     const explorerLinks = await page.getByRole('link', { name: 'Explorer ↗' }).count();
     assert.equal(explorerLinks, completed ? 7 : 0);
-    if (completed) assert(await page.getByText('위임 한도 초과 요청', { exact: true }).isVisible());
+    if (completed) assert.match(await page.locator('#limit-outcome').textContent(), /승인 생성 거절 확인/);
     else assert.equal(await page.getByText('최근 실행 통과', { exact: true }).count(), 0);
     assert(await page.getByText('현재 자격 상태: 확인 불가 · 과거 기록', { exact: true }).isVisible());
     assert(await page.locator('#run').isDisabled());
@@ -38,6 +38,13 @@ try {
       assert.equal(await page.locator('#result-link').getAttribute('href'), 'https://explorer.solana.com/tx/' + state.evidence.payment.signature + '?cluster=devnet');
       assert.match(await page.locator('#result-amount').textContent(), /0\.05 SOL/);
       assert.match(await page.locator('#result-consumed').textContent(), /소비됨/);
+      assert.match(await page.locator('#result-lamports').textContent(), /50,000,000 lamports moved/);
+      assert.match(await page.locator('#policy-outcome').textContent(), /AUTHORIZATION CREATED/);
+      assert.match(await page.locator('#revoke-outcome').textContent(), /REJECTED/);
+      assert.match(await page.locator('#revoke-balance').textContent(), /0 SOL moved/);
+      const denial = state.evidence.rejectedPayments.find(x => x.name === 'source-deleted');
+      assert.equal(await page.locator('#revoke-link').getAttribute('href'), 'https://explorer.solana.com/tx/' + denial.signature + '?cluster=devnet');
+      assert.equal(await page.locator('#checks .check-row').count(), 4);
     }
     assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false, name + ' horizontal overflow');
     await page.screenshot({ path: output + '/' + name + '.png', fullPage: true });
@@ -92,8 +99,19 @@ try {
     assert.equal(await page.locator('#result-amount').textContent(), '—');
     assert(await page.locator('#result-link').isHidden());
     assert.equal(await page.locator('.badge.good').count(), 0);
+    assert.match(await page.locator('#revoke-outcome').textContent(), /확인 불가/);
+    assert(await page.locator('#revoke-link').isHidden());
+    assert.equal(await page.locator('.policy-checks.verified').count(), 0);
   }
   await page.screenshot({ path: output + '/no-evidence-mobile.png', fullPage: true });
+  // Never infer execution-time revocation from a generic failure or expiry.
+  for (const change of [{ programError: 6002 }, { balancesUnchanged: false }, { liveAtAttempt: false }, { remainingLeaseMs: 0 }]) {
+    mock = { ...mock, evidence: { ...state.evidence, rejectedPayments: state.evidence.rejectedPayments.map(x => x.name === 'source-deleted' ? { ...x, ...change } : x) } };
+    await page.evaluate(() => refresh());
+    assert.match(await page.locator('#revoke-outcome').textContent(), /확인 불가/);
+    assert.doesNotMatch(await page.locator('#revoke-balance').textContent(), /0 SOL moved/);
+    assert(await page.locator('#revoke-link').isHidden());
+  }
   // A changed record must drive the display, not the illustrative 0.05 SOL.
   mock = { ...mock, evidence: { ...state.evidence, status: 'passed', midnightNetwork: profile.networkId === 'preprod' ? 'preprod' : 'undeployed-local', payment: { lamports: 25000000, vaultDelta: -25000000, recipientDelta: 25000000, consumed: false, signature: 'invalid' } } };
   await page.evaluate(() => refresh());

@@ -8,9 +8,11 @@
 & './.tools/node-v22.23.2-win-x64/node.exe' scripts/preview-demo.mjs
 ```
 
-[http://127.0.0.1:4175](http://127.0.0.1:4175)를 엽니다. 첫 화면의 설명용 0.10 SOL 설정, 저장된 과거 지급, 새 실행 상태, 현재 상태 확인 불가를 구분합니다. 운영자용 한도 상세는 접기 영역에 있고 최신 로컬 설정이므로 과거 실행 설정과 혼동하지 않습니다.
+[http://127.0.0.1:4175](http://127.0.0.1:4175)를 엽니다. Scene A의 비공개 정책, Scene B의 실제 지급, Scene C의 자격 삭제 후 기존 승인 거절을 순서대로 보여줍니다. C는 B와 별도로 준비한 미사용 승인입니다. 과거 기록 표시와 완료 날짜를 먼저 짚고, 거절 시점에 남은 유효기간과 0 SOL moved를 강조합니다. WHY ZK의 0.10 SOL은 설명용 설정이며, 접힌 운영자 상세는 최신 로컬 설정이므로 과거 실행과 혼동하지 않습니다.
 
 브라우저 검사는 `scripts/check-demo-browser.mjs`로 실행합니다. 아래 명령은 기존 체인 증거와 캡처를 덮어쓰지 않고 UI 검토 결과를 별도 경로에 저장합니다.
+
+현재 출력: `artifacts/authorization-story/preprod/`. 이전 `artifacts/zk-demo-ui/`와 `evidence/` 캡처는 과거 자료로 유지합니다. 발표용 화면은 [새 PC 캡처](../artifacts/authorization-story/preprod/desktop.png), [모바일 캡처](../artifacts/authorization-story/preprod/mobile.png)를 사용합니다.
 
 ```powershell
 $env:PROOFPASS_MIDNIGHT_NETWORK = 'preprod'

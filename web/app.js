@@ -57,7 +57,31 @@ async function refresh() {
       && payment.vaultDelta === -payment.lamports && payment.recipientDelta === payment.lamports;
     const amount = sol(payment?.lamports);
     $('result-amount').textContent = payment ? amount : '—';
-    $('result-payment').textContent = paid ? '해당 요청 지급 성공 · 저장된 잔액 변화 확인' : '확인 가능한 지급 결과 없음';
+    $('result-payment').textContent = paid ? 'PAID · 저장된 잔액 변화 확인' : '확인 가능한 지급 결과 없음';
+    $('result-lamports').textContent = paid ? payment.lamports.toLocaleString('en-US') + ' lamports moved' : '잔액 변화 확인 불가';
+    $('story-record').textContent = e ? '저장된 과거 실행 · ' + time(e.completedAt) + ' · 현재 자격 상태가 아닙니다.' : '확정된 실행 기록 없음 · 아래 흐름은 설명이며 성공 증거가 아닙니다.';
+    const authorized = e?.midnight?.some(x => x.name === 'payment' && (x.txId || x.recoveredCommitment));
+    $('policy-amount').textContent = payment ? amount : '지급 요청 기록 없음';
+    $('policy-outcome').textContent = authorized ? '✓ AUTHORIZATION CREATED' : '승인 기록 없음';
+    $('policy-checks').className = 'policy-checks' + (authorized ? ' verified' : '');
+    const denial = e?.rejectedPayments?.find(x => x.name === 'source-deleted');
+    const issuedAt = e?.metrics?.authorizations?.['pending-source']?.confirmedAt;
+    const deletedAt = e?.metrics?.deleteValidatedAt;
+    const syncedAt = e?.metrics?.sourceInvalidationConfirmedAt;
+    const revoked = denial?.programError === 6003 && denial.balancesUnchanged === true
+      && denial.liveAtAttempt === true && denial.remainingLeaseMs > 0
+      && e?.xrpl?.delete?.result === 'tesSUCCESS'
+      && e?.midnight?.some(x => x.name === 'pending-source' && (x.txId || x.recoveredCommitment))
+      && Date.parse(issuedAt) < Date.parse(deletedAt) && Date.parse(deletedAt) <= Date.parse(syncedAt)
+      && Date.parse(syncedAt) <= Date.parse(denial.attemptedAt);
+    $('revoke-issued').textContent = time(issuedAt);
+    $('revoke-deleted').textContent = time(deletedAt);
+    $('revoke-synced').textContent = time(syncedAt);
+    $('revoke-attempt').textContent = revoked ? time(denial.attemptedAt) + ' · 만료 ' + seconds(denial.remainingLeaseMs) + ' 전' : '만료 전 거절 근거 확인 불가';
+    $('revoke-outcome').textContent = revoked ? '✕ REJECTED · Source 6003' : '거절 근거 확인 불가';
+    $('revoke-balance').textContent = revoked ? '0 SOL moved · Balance change: 0' : '잔액 변화 확인 불가';
+    $('revoke-link').hidden = !revoked || !/^[1-9A-HJ-NP-Za-km-z]{80,90}$/.test(denial?.signature);
+    $('revoke-link').href = $('revoke-link').hidden ? '' : 'https://explorer.solana.com/tx/' + denial.signature + '?cluster=devnet';
     $('result-consumed').textContent = payment?.consumed === true ? '해당 승인 소비됨 · 저장 기록' : payment?.consumed === false ? '해당 승인 미소비 · 저장 기록' : '승인 소비 확인 불가';
     $('result-time').textContent = e ? '완료 · ' + time(e.completedAt) : '확정된 실행 기록 없음';
     $('result-link').hidden = !paid || !/^[1-9A-HJ-NP-Za-km-z]{80,90}$/.test(payment?.signature);
@@ -75,10 +99,10 @@ async function refresh() {
     $('authorization-time').textContent = seconds(e?.metrics?.authorizations?.payment?.endToEndAuthorizationMs);
     $('revocation-time').textContent = seconds(e?.metrics?.deletionToDestinationInvalidationMs);
     const checks = [];
-    if (paid) checks.push(row('승인된 ' + amount + ' 요청', '지급 확정'));
-    for (const denial of e?.rejectedPayments || []) checks.push(row({ 'consumed-replay': '동일 승인 재사용', 'mandate-revoked': '사용자 위임 취소 후 지급', 'source-deleted': 'XRPL 자격 삭제·반영 후 지급' }[denial.name] || denial.name, denial.programError && denial.balancesUnchanged === true ? '거절 · 추가 지급 0' : '거절 근거 확인 불가'));
-    if (e?.overLimit?.noSubmission) checks.push(row('위임 한도 초과 요청', '승인 생성 거절'));
-    if (e?.newRequestAfterDelete) checks.push(row('삭제 이후 신규 승인', '증명 전 거절'));
+    if (paid) checks.push(row(amount + ' valid request', 'PAID'));
+    for (const denial of e?.rejectedPayments || []) checks.push(row({ 'consumed-replay': 'Same authorization reused', 'mandate-revoked': 'Mandate revoked → old authorization', 'source-deleted': 'Credential deleted → old authorization' }[denial.name] || denial.name, denial.programError === ({ 'consumed-replay': 6007, 'mandate-revoked': 6001, 'source-deleted': 6003 })[denial.name] && denial.balancesUnchanged === true ? 'REJECTED · 0 SOL moved' : '거절 근거 확인 불가'));
+    const overLimit = e?.overLimit?.noSubmission === true && e.overLimit.result === 'approval-generation-rejected' && e.overLimit.reason === 'amount-over-limit';
+    $('limit-outcome').textContent = overLimit ? '위임 한도 초과 요청 · 승인 생성 거절 확인 · 체인 미제출 / 온체인 실패 proof 없음' : '설명용 예시 · 한도 초과 거절 증거 없음';
     $('checks').replaceChildren(...(checks.length ? checks : [row('확정된 실행 기록', '없음')]));
     const receipts = [];
     for (const [key, label] of [['create', 'XRPL 자격 발급'], ['accept', 'XRPL 자격 수락'], ['delete', 'XRPL 자격 삭제']]) {
@@ -92,6 +116,7 @@ async function refresh() {
     $('job-label').textContent = '서버 상태 확인 불가';
     $('job-detail').textContent = '연결을 확인해 주세요. 표시된 기록은 현재 자격 상태를 보증하지 않습니다.';
     $('result-time').textContent = '현재 서버 상태 확인 불가 · 남아 있는 값은 이전에 불러온 과거 기록';
+    $('story-record').textContent = '서버 상태 확인 불가 · 아래 값은 이전에 불러온 과거 기록입니다.';
     $('operator-policy').textContent = '현재 로컬 위임 설정 확인 불가';
     $('run').disabled = true; $('resume').disabled = true;
   }

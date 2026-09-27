@@ -1,0 +1,43 @@
+{
+  "status": "passed",
+  "checkScope": "read-only evidence rendering and mocked UI transitions; no chain submission",
+  "network": "preprod",
+  "completedChainRunPresent": true,
+  "browser": "Microsoft Edge via Playwright",
+  "results": [
+    {
+      "name": "desktop",
+      "viewport": {
+        "width": 1440,
+        "height": 1080
+      },
+      "fourStages": true,
+      "actualExplorerLinks": 7,
+      "historicalStateClearlyLabeled": true,
+      "horizontalOverflow": false
+    },
+    {
+      "name": "mobile",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fourStages": true,
+      "actualExplorerLinks": 7,
+      "historicalStateClearlyLabeled": true,
+      "horizontalOverflow": false
+    }
+  ],
+  "mockChecks": [
+    "run and resume POST/token",
+    "running retains historical result",
+    "failed allows resume only",
+    "503 disables actions and labels cached record",
+    "missing/incomplete/wrong-network evidence has no success badge",
+    "amount and consumption follow record",
+    "invalid transaction link hidden",
+    "320px no overflow"
+  ],
+  "pageErrors": [],
+  "checkedAt": "2026-09-27T02:48:17.224Z"
+}

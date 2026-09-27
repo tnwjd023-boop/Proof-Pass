@@ -4,6 +4,12 @@
 
 ## 1. 문제와 현재 기여
 
+메인 메시지: **Prove permission privately. Enforce it at execution.**
+
+ProofPass privately proves that a payment request satisfies identity, credential, delegation and limit conditions, then re-checks revocable state before the destination program executes the payment.
+
+발표의 중심은 **Private policy → Authorization → Actual payment → Revocation → Old authorization rejected**다. 0.05 SOL 지급과 별도 미사용 승인 차단을 함께 보여준다. 취소 적용은 trusted observer가 목적지 상태에 반영한 이후이며, 이미 지급된 자금을 되돌리지 않는다. 아래 2026-09-21 비교 검토의 범위와 근거는 유지한다.
+
 **외부 자격을 근거로 지급을 승인한 뒤 그 자격이 회수됐다면, 다른 체인의 지급 프로그램에서도 미사용 승인을 거절하도록 연결해야 한다.** 원본 신원정보와 전체 위임 한도를 공개하지 않고 이 흐름을 구현하고 검증하는 것이 현재 ProofPass의 범위다.
 
 에이전트는 이 경로의 실행 주체다. 에이전트의 추론 품질, 구매 판단, 프롬프트 인젝션 탐지, 신용 평가를 구현하지 않는다. 데모에서 에이전트 역할의 키로 요청·서명하는 것과 자율 AI 구매 제품을 제공하는 것은 구별한다.
