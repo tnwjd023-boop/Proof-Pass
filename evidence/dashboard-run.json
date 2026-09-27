@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "driver": "loopback-dashboard-api",
+  "network": "preprod",
+  "job": {
+    "status": "passed",
+    "stage": "complete",
+    "startedAt": "2026-09-21T08:57:03.305Z",
+    "completedAt": "2026-09-21T09:04:09.915Z"
+  },
+  "paymentSignature": "4SnYCGG7QwaR4sdCcypVoytk3agMHbY7dteMSoNQ3P67iMxnZ2xrmRMtf24xbruhZLd2ZXDAZL7TvGV9A61oVpia",
+  "checkedAt": "2026-09-21T09:04:37.987Z"
+}
