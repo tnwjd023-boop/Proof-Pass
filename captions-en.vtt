@@ -1,0 +1,115 @@
+WEBVTT
+
+00:00:01.680 --> 00:00:04.320
+You gave an agent permission to pay.
+
+00:00:04.320 --> 00:00:06.741
+Then you revoked that permission.
+
+00:00:06.741 --> 00:00:10.701
+Can an approval issued earlier still spend your funds?
+
+00:00:10.701 --> 00:00:15.982
+ProofPass combines private authorization with execution-time revocation.
+
+00:00:15.982 --> 00:00:18.842
+This demo shows a recorded testnet run.
+
+00:00:20.643 --> 00:00:22.778
+First, the private policy.
+
+00:00:22.778 --> 00:00:29.181
+Identity details and the full delegation limit stay off the destination chain.
+
+00:00:29.181 --> 00:00:34.354
+The public request identifies the agent, recipient, and amount.
+
+00:00:34.354 --> 00:00:44.205
+Midnight checks identity evidence from the Open D I D SDK, credential status, wallet binding, and delegation conditions.
+
+00:00:45.963 --> 00:00:48.596
+Here is why zero knowledge matters.
+
+00:00:48.596 --> 00:00:55.142
+The proof shows that zero point zero five SOL is within a hidden per-transaction limit.
+
+00:00:55.142 --> 00:01:00.033
+The demo discloses a limit of zero point one SOL for explanation.
+
+00:01:00.033 --> 00:01:05.450
+A request for zero point one five fails before authorization is created.
+
+00:01:07.200 --> 00:01:08.977
+Now, an actual payment.
+
+00:01:08.977 --> 00:01:14.229
+A trusted relay registers the request-bound authorization on Solana.
+
+00:01:14.229 --> 00:01:21.181
+The program checks the request, current state, expiry, and whether the approval is unused.
+
+00:01:21.181 --> 00:01:25.816
+Fifty million lamports move from the vault to the recipient.
+
+00:01:25.816 --> 00:01:28.751
+That is zero point zero five test SOL.
+
+00:01:30.587 --> 00:01:32.606
+Here is the critical case.
+
+00:01:32.606 --> 00:01:36.332
+A separate, unused authorization already exists.
+
+00:01:36.332 --> 00:01:42.544
+Then the X R P L credential is deleted, and the observer updates Solana's state.
+
+00:01:42.544 --> 00:01:47.979
+Executing the old approval fails with source error six thousand three.
+
+00:01:47.979 --> 00:01:51.162
+About seven seconds remain before expiry.
+
+00:01:51.162 --> 00:01:54.967
+Authority was revoked, so the payment is blocked.
+
+00:01:54.967 --> 00:01:58.538
+No funds move from the vault to the recipient.
+
+00:02:00.328 --> 00:02:02.301
+Compare all four outcomes.
+
+00:02:02.301 --> 00:02:04.123
+A valid request is paid.
+
+00:02:04.123 --> 00:02:07.007
+Reusing the same approval is rejected.
+
+00:02:07.007 --> 00:02:10.347
+Revoking the mandate blocks an old approval.
+
+00:02:10.347 --> 00:02:16.647
+Deleting the credential also blocks an old approval once the update reaches Solana.
+
+00:02:16.647 --> 00:02:22.036
+Both successful payments and rejected attempts have execution evidence.
+
+00:02:23.801 --> 00:02:26.452
+The trust boundaries are explicit.
+
+00:02:26.452 --> 00:02:30.195
+Solana does not verify Midnight proofs directly.
+
+00:02:30.195 --> 00:02:35.498
+The system trusts adapters, a relay, an observer, and supplied time.
+
+00:02:35.498 --> 00:02:42.048
+Revocation propagation takes time, and enforcement covers this vault's payment path.
+
+00:02:42.048 --> 00:02:45.947
+Corporate agent delegation is a future experiment.
+
+00:02:45.947 --> 00:02:48.052
+Prove permission privately.
+
+00:02:48.052 --> 00:02:49.923
+Enforce it at execution.
