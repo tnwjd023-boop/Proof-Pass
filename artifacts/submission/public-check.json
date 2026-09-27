@@ -1,10 +1,10 @@
 {
   "status": "passed",
-  "url": "http://127.0.0.1:64700/",
+  "url": "http://127.0.0.1:64065/",
   "results": [
     {
       "name": "desktop",
-      "durationSeconds": 163.32,
+      "durationSeconds": 171.24,
       "paid": true,
       "revokedZero": true,
       "readOnly": true,
@@ -13,7 +13,7 @@
     },
     {
       "name": "mobile",
-      "durationSeconds": 163.32,
+      "durationSeconds": 171.24,
       "paid": true,
       "revokedZero": true,
       "readOnly": true,
@@ -22,5 +22,5 @@
     }
   ],
   "pageErrors": [],
-  "checkedAt": "2026-09-27T05:55:44.179Z"
+  "checkedAt": "2026-09-27T06:11:47.826Z"
 }

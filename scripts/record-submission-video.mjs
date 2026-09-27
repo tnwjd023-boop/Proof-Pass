@@ -4,7 +4,7 @@ import { createRequire } from 'node:module';
 import { execFileSync } from 'node:child_process';
 import { resolve } from 'node:path';
 import assert from 'node:assert/strict';
-import { narration } from './submission-content.mjs';
+import { narration } from './submission-narration-en.mjs';
 import { submissionServer } from './submission-server.mjs';
 const require=createRequire(import.meta.url);
 const ffmpeg=require('../.local/submission-tools/node_modules/ffmpeg-static');
@@ -53,7 +53,7 @@ try {
       window.scrollTo({top:Math.max(0,top),behavior:'smooth'});
     },{selector,heading:sections[i][0],caption:sections[i][1]});
     await page.waitForTimeout(850);
-    const audioPath=out+'/audio/'+segment.id+'.wav';
+    const audioPath=out+'/audio/en-'+i+'.mp3';
     const seconds=duration(audioPath);
     const start=(Date.now()-started)/1000;
     timeline.push({id:segment.id,start,duration:seconds,caption:sections[i][1],text:segment.text});
@@ -73,7 +73,7 @@ try {
 const rawDuration=duration(out+'/recorded-ui.webm');
 assert(rawDuration<180,'Recording exceeds three minutes');
 const inputs=['-i',out+'/recorded-ui.webm'];
-for(const part of timeline) inputs.push('-i',out+'/audio/'+part.id+'.wav');
+for(let i=0;i<timeline.length;i++) inputs.push('-i',out+'/audio/en-'+i+'.mp3');
 const filters=timeline.map((s,i)=>`[${i+1}:a]adelay=${Math.round(s.start*1000)}:all=1[a${i}]`);
 filters.push(timeline.map((_,i)=>`[a${i}]`).join('')+`amix=inputs=${timeline.length}:duration=longest:normalize=0,apad[audio]`);
 run([...inputs,'-filter_complex',filters.join(';'),'-map','0:v','-map','[audio]','-t',String(rawDuration),'-c:v','libx264','-preset','medium','-crf','23','-pix_fmt','yuv420p','-c:a','aac','-b:a','128k','-movflags','+faststart',out+'/ProofPass-Demo.mp4']);
@@ -83,7 +83,7 @@ assert(finalDuration<180);assert(streams.some(x=>x.codec_type==='audio'));assert
 const stamp=s=>{const ms=Math.round(s*1000);return String(Math.floor(ms/3600000)).padStart(2,'0')+':'+String(Math.floor(ms/60000)%60).padStart(2,'0')+':'+String(Math.floor(ms/1000)%60).padStart(2,'0')+'.'+String(ms%1000).padStart(3,'0')};
 let vtt='WEBVTT\n\n';
 for(const s of timeline){const sentences=s.text.match(/[^.!?]+[.!?]?/g).map(s=>s.trim()).filter(Boolean);const chars=sentences.reduce((n,s)=>n+s.length,0);let at=s.start;for(const sentence of sentences){const end=at+s.duration*sentence.length/chars;vtt+=`${stamp(at)} --> ${stamp(end)}\n${sentence}\n\n`;at=end;}}
-await writeFile(out+'/captions-ko.vtt',vtt.trimEnd()+'\n');
-await writeFile(out+'/video-check.json',JSON.stringify({status:'passed',durationSeconds:finalDuration,width:1440,height:900,audio:'Korean synthetic narration / Microsoft Heami Desktop',historicalRun:'2026-09-21',newChainTransactions:false,readOnly:true,timeline,pageErrors:errors,bytes:(await stat(out+'/ProofPass-Demo.mp4')).size,checkedAt:new Date().toISOString()},null,2)+'\n');
-for(const name of ['ProofPass-Demo.mp4','video-poster.png','captions-ko.vtt'])await copyFile(out+'/'+name,'dist/submission/'+name);
+await writeFile(out+'/captions-en.vtt',vtt.trimEnd()+'\n');
+await writeFile(out+'/video-check.json',JSON.stringify({status:'passed',durationSeconds:finalDuration,width:1440,height:900,audio:'English male synthetic narration / Cillian / ElevenLabs via Higgsfield',historicalRun:'2026-09-21',newChainTransactions:false,readOnly:true,timeline,pageErrors:errors,bytes:(await stat(out+'/ProofPass-Demo.mp4')).size,checkedAt:new Date().toISOString()},null,2)+'\n');
+for(const name of ['ProofPass-Demo.mp4','video-poster.png','captions-en.vtt'])await copyFile(out+'/'+name,'dist/submission/'+name);
 console.log(JSON.stringify({status:'passed',durationSeconds:finalDuration,video:resolve(out+'/ProofPass-Demo.mp4')}));

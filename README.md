@@ -2,7 +2,7 @@
 
 ### Prove permission privately. Enforce it at execution.
 
-[Public demo](https://tnwjd023-boop.github.io/Proof-Pass/) · [2:43 demo video](https://tnwjd023-boop.github.io/Proof-Pass/watch.html) · [Project deck](https://tnwjd023-boop.github.io/Proof-Pass/deck.html)
+[Public demo](https://tnwjd023-boop.github.io/Proof-Pass/) · [English demo video](https://tnwjd023-boop.github.io/Proof-Pass/watch.html) · [Project deck](https://tnwjd023-boop.github.io/Proof-Pass/deck.html)
 
 The public demo and video walk through saved testnet execution evidence; opening them does not submit new transactions.
 

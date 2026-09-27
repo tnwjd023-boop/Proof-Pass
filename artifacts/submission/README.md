@@ -7,15 +7,15 @@
 
 The seven-slide deck uses Noto Sans KR, deep green execution states, and rust-colored rejection states. Native Google Slides text is editable. Before submission, the owner must set the Google deck's General access to **Anyone with the link / Viewer**; the connected API does not expose this permission type. The public HTML deck and downloads do not require Google access.
 
-The 2:43 video records the actual read-only evidence UI with Korean synthetic narration (Microsoft Heami Desktop). It explains the saved September 21 testnet run; it is not a new network execution. The public site exposes no payment controls, wallet secrets, or operator server. Historical evidence files are unchanged.
+The video records the actual read-only evidence UI with English male synthetic narration (Cillian, ElevenLabs via Higgsfield). It explains the saved September 21 testnet run; it is not a new network execution. The public site exposes no payment controls, wallet secrets, or operator server. Historical evidence files are unchanged.
 
 ## Build and verification
 
-Use Node 22.23.2 and the repository's installed Playwright dependency. The deck builder additionally expects `pptxgenjs` under `.local/submission-tools/node_modules` and the official Google Fonts Noto Sans KR variable font at `.local/submission-tools/NotoSansKR.ttf`. The video builder expects local `ffmpeg-static`, `ffprobe-static`, and the seven narration WAV files described by `narration.json`. These are production tools, not application dependencies.
+Use Node 22.23.2 and the repository's installed Playwright dependency. The deck builder additionally expects `pptxgenjs` under `.local/submission-tools/node_modules` and the official Google Fonts Noto Sans KR variable font at `.local/submission-tools/NotoSansKR.ttf`. The video builder expects local `ffmpeg-static`, `ffprobe-static`, and seven English narration MP3 files (`audio/en-0.mp3` through `audio/en-6.mp3`), generated from `scripts/submission-narration-en.mjs`; voice settings and generation IDs are recorded in `english-voice.json`. These are production tools, not application dependencies.
 
 1. `node scripts/build-public-demo.mjs`
 2. `node scripts/build-submission-deck.mjs`
-3. `node scripts/record-submission-video.mjs` (requires narration WAV inputs)
+3. `node scripts/record-submission-video.mjs` (requires English narration MP3 inputs)
 4. `node scripts/build-submission-pages.mjs`
 5. `node scripts/check-public-submission.mjs`
 

@@ -4,7 +4,7 @@
   "results": [
     {
       "name": "desktop",
-      "durationSeconds": 163.32,
+      "durationSeconds": 171.24,
       "paid": true,
       "revokedZero": true,
       "readOnly": true,
@@ -13,7 +13,7 @@
     },
     {
       "name": "mobile",
-      "durationSeconds": 163.32,
+      "durationSeconds": 171.24,
       "paid": true,
       "revokedZero": true,
       "readOnly": true,
@@ -22,5 +22,5 @@
     }
   ],
   "pageErrors": [],
-  "checkedAt": "2026-09-27T05:58:25.055Z"
+  "checkedAt": "2026-09-27T06:16:02.721Z"
 }

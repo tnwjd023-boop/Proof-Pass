@@ -1,0 +1,40 @@
+{
+  "language": "en",
+  "gender": "male",
+  "voice": "Cillian",
+  "voice_id": "d8ba9f14-8a24-44db-932b-99e16c45bd32",
+  "voice_type": "preset",
+  "model": "text2speech_v2",
+  "variant": "elevenlabs",
+  "jobs": [
+    {
+      "index": 0,
+      "job_id": "5a7e0f7d-79bb-4d0b-8139-44f36c805ca3"
+    },
+    {
+      "index": 1,
+      "job_id": "4fc8bdee-75aa-4da0-9ac0-424998720ae5"
+    },
+    {
+      "index": 2,
+      "job_id": "37fe1146-0330-4642-9db1-36012c5394aa"
+    },
+    {
+      "index": 3,
+      "job_id": "3dc20ec5-6535-4f6f-a93d-727865d40772"
+    },
+    {
+      "index": 4,
+      "job_id": "5af432d4-e066-497b-92e9-13f30a52c1e4"
+    },
+    {
+      "index": 5,
+      "job_id": "9b47b37e-dbd1-4562-a6e0-342ea54287d5"
+    },
+    {
+      "index": 6,
+      "job_id": "66ec783c-4bc9-4f49-97bd-b4913c267819"
+    }
+  ],
+  "speechSeconds": 157.544489
+}

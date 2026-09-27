@@ -20,16 +20,18 @@ try {
     assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
     await page.screenshot({path:'artifacts/submission/'+(remote?'live-':'public-')+name+'.png',fullPage:true});
     await page.goto(new URL('watch.html',base).href,{waitUntil:'networkidle'});
+    assert.equal(await page.locator('track').getAttribute('srclang'),'en');
+    assert.match(await page.locator('source').getAttribute('src'),/english-male-1/);
     await page.waitForFunction(()=>Number.isFinite(document.querySelector('video').duration));
     const seconds=await page.locator('video').evaluate(v=>v.duration);assert(seconds>120&&seconds<180);
     await page.locator('[data-time]').nth(4).click();
-    await page.waitForFunction(()=>document.querySelector('video').currentTime>80&&!document.querySelector('video').paused);
+    await page.waitForFunction(()=>document.querySelector('video').currentTime>60&&!document.querySelector('video').paused);
     await page.screenshot({path:'artifacts/submission/'+(remote?'live-':'public-')+'video-'+name+'.png',fullPage:true});
     assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
     results.push({name,durationSeconds:seconds,paid:true,revokedZero:true,readOnly:true,videoSeekAndPlay:true,overflow:false});
     await page.close();
   }
-  for(const path of ['deck.html','ProofPass-Project-Deck.pptx','ProofPass-Project-Deck.pdf','evidence/live-flow.json','captions-ko.vtt']){
+  for(const path of ['deck.html','ProofPass-Project-Deck.pptx','ProofPass-Project-Deck.pdf','evidence/live-flow.json','captions-en.vtt']){
     const response=await fetch(new URL(path,base));assert.equal(response.status,200,path);await response.body?.cancel();
   }
   assert.deepEqual(errors,[]);
