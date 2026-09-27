@@ -1,115 +1,277 @@
 WEBVTT
 
-00:00:01.680 --> 00:00:04.320
-You gave an agent permission to pay.
+00:00:01.360 --> 00:00:02.880
+You gave an agent permission
 
-00:00:04.320 --> 00:00:06.741
-Then you revoked that permission.
+00:00:02.880 --> 00:00:03.480
+to pay.
 
-00:00:06.741 --> 00:00:10.701
-Can an approval issued earlier still spend your funds?
+00:00:03.900 --> 00:00:05.360
+Then you revoked that
 
-00:00:10.701 --> 00:00:15.982
-ProofPass combines private authorization with execution-time revocation.
+00:00:05.360 --> 00:00:05.840
+permission.
 
-00:00:15.982 --> 00:00:18.842
-This demo shows a recorded testnet run.
+00:00:06.440 --> 00:00:08.140
+Can an approval issued earlier
 
-00:00:20.643 --> 00:00:22.778
-First, the private policy.
+00:00:08.140 --> 00:00:09.420
+still spend your funds?
 
-00:00:22.778 --> 00:00:29.181
-Identity details and the full delegation limit stay off the destination chain.
+00:00:10.120 --> 00:00:11.760
+ProofPass combines private
 
-00:00:29.181 --> 00:00:34.354
-The public request identifies the agent, recipient, and amount.
+00:00:11.760 --> 00:00:13.180
+authorization with
 
-00:00:34.354 --> 00:00:44.205
-Midnight checks identity evidence from the Open D I D SDK, credential status, wallet binding, and delegation conditions.
+00:00:13.180 --> 00:00:15.020
+execution-time revocation.
 
-00:00:45.963 --> 00:00:48.596
-Here is why zero knowledge matters.
+00:00:15.840 --> 00:00:17.600
+This demo shows a recorded
 
-00:00:48.596 --> 00:00:55.142
-The proof shows that zero point zero five SOL is within a hidden per-transaction limit.
+00:00:17.600 --> 00:00:18.700
+testnet run.
 
-00:00:55.142 --> 00:01:00.033
-The demo discloses a limit of zero point one SOL for explanation.
+00:00:20.100 --> 00:00:20.940
+First,
 
-00:01:00.033 --> 00:01:05.450
-A request for zero point one five fails before authorization is created.
+00:00:21.460 --> 00:00:22.380
+the private policy.
 
-00:01:07.200 --> 00:01:08.977
+00:00:23.260 --> 00:00:25.140
+Identity details and the full
+
+00:00:25.140 --> 00:00:27.200
+delegation limit stay off the
+
+00:00:27.200 --> 00:00:28.200
+destination chain.
+
+00:00:28.200 --> 00:00:31.020
+The public request identifies
+
+00:00:31.020 --> 00:00:33.180
+the agent, recipient, and
+
+00:00:33.180 --> 00:00:33.580
+amount.
+
+00:00:34.520 --> 00:00:35.780
+Midnight checks identity
+
+00:00:35.780 --> 00:00:37.470
+evidence from the Open D
+
+00:00:37.470 --> 00:00:39.160
+I D SDK,
+
+00:00:39.820 --> 00:00:40.720
+credential status,
+
+00:00:41.300 --> 00:00:43.020
+wallet binding, and delegation
+
+00:00:43.020 --> 00:00:43.800
+conditions.
+
+00:00:45.280 --> 00:00:47.300
+Here is why zero knowledge
+
+00:00:47.300 --> 00:00:47.680
+matters.
+
+00:00:48.580 --> 00:00:50.120
+The proof shows that zero
+
+00:00:50.120 --> 00:00:52.320
+point zero five SOL is
+
+00:00:52.320 --> 00:00:53.780
+within a hidden per-transaction
+
+00:00:53.780 --> 00:00:54.340
+limit.
+
+00:00:54.920 --> 00:00:56.880
+The demo discloses a limit
+
+00:00:56.880 --> 00:00:58.600
+of zero point one SOL
+
+00:00:58.600 --> 00:00:59.480
+for explanation.
+
+00:01:00.540 --> 00:01:01.880
+A request for zero point
+
+00:01:01.880 --> 00:01:03.760
+one five fails before
+
+00:01:03.760 --> 00:01:05.240
+authorization is created.
+
+00:01:06.740 --> 00:01:08.660
 Now, an actual payment.
 
-00:01:08.977 --> 00:01:14.229
-A trusted relay registers the request-bound authorization on Solana.
+00:01:09.420 --> 00:01:11.540
+A trusted relay registers the
 
-00:01:14.229 --> 00:01:21.181
-The program checks the request, current state, expiry, and whether the approval is unused.
+00:01:11.540 --> 00:01:13.440
+request-bound authorization on
 
-00:01:21.181 --> 00:01:25.816
-Fifty million lamports move from the vault to the recipient.
+00:01:13.440 --> 00:01:13.940
+Solana.
 
-00:01:25.816 --> 00:01:28.751
-That is zero point zero five test SOL.
+00:01:14.700 --> 00:01:16.260
+The program checks the request,
 
-00:01:30.587 --> 00:01:32.606
+00:01:16.660 --> 00:01:17.260
+current state,
+
+00:01:17.720 --> 00:01:19.700
+expiry, and whether the approval
+
+00:01:19.700 --> 00:01:20.480
+is unused.
+
+00:01:21.380 --> 00:01:23.520
+Fifty million lamports move from
+
+00:01:23.520 --> 00:01:24.760
+the vault to the recipient.
+
+00:01:25.460 --> 00:01:25.840
+That is
+
+00:01:26.260 --> 00:01:28.290
+zero point zero five test
+
+00:01:28.290 --> 00:01:28.580
+SOL.
+
+00:01:30.520 --> 00:01:31.960
 Here is the critical case.
 
-00:01:32.606 --> 00:01:36.332
-A separate, unused authorization already exists.
+00:01:32.820 --> 00:01:34.920
+A separate, unused authorization
 
-00:01:36.332 --> 00:01:42.544
-Then the X R P L credential is deleted, and the observer updates Solana's state.
+00:01:34.920 --> 00:01:36.280
+already exists.
 
-00:01:42.544 --> 00:01:47.979
-Executing the old approval fails with source error six thousand three.
+00:01:37.000 --> 00:01:38.120
+Then the X R P
 
-00:01:47.979 --> 00:01:51.162
-About seven seconds remain before expiry.
+00:01:38.120 --> 00:01:40.260
+L credential is deleted, and
 
-00:01:51.162 --> 00:01:54.967
-Authority was revoked, so the payment is blocked.
+00:01:40.260 --> 00:01:42.000
+the observer updates Solana's
 
-00:01:54.967 --> 00:01:58.538
-No funds move from the vault to the recipient.
+00:01:42.000 --> 00:01:42.260
+state.
 
-00:02:00.328 --> 00:02:02.301
+00:01:43.220 --> 00:01:45.360
+Executing the old approval fails
+
+00:01:45.360 --> 00:01:47.320
+with source error six thousand
+
+00:01:47.320 --> 00:01:47.760
+three.
+
+00:01:48.700 --> 00:01:50.240
+About seven seconds remain
+
+00:01:50.240 --> 00:01:51.340
+before expiry.
+
+00:01:52.080 --> 00:01:54.100
+Authority was revoked, so the
+
+00:01:54.100 --> 00:01:54.960
+payment is blocked.
+
+00:01:55.800 --> 00:01:57.160
+No funds move from the
+
+00:01:57.160 --> 00:01:58.280
+vault to the recipient.
+
+00:02:00.040 --> 00:02:01.860
 Compare all four outcomes.
 
-00:02:02.301 --> 00:02:04.123
+00:02:02.740 --> 00:02:04.160
 A valid request is paid.
 
-00:02:04.123 --> 00:02:07.007
-Reusing the same approval is rejected.
+00:02:04.960 --> 00:02:06.660
+Reusing the same approval is
 
-00:02:07.007 --> 00:02:10.347
-Revoking the mandate blocks an old approval.
+00:02:06.660 --> 00:02:07.120
+rejected.
 
-00:02:10.347 --> 00:02:16.647
-Deleting the credential also blocks an old approval once the update reaches Solana.
+00:02:07.920 --> 00:02:09.840
+Revoking the mandate blocks an
 
-00:02:16.647 --> 00:02:22.036
-Both successful payments and rejected attempts have execution evidence.
+00:02:09.840 --> 00:02:10.420
+old approval.
 
-00:02:23.801 --> 00:02:26.452
-The trust boundaries are explicit.
+00:02:11.140 --> 00:02:12.980
+Deleting the credential also
 
-00:02:26.452 --> 00:02:30.195
-Solana does not verify Midnight proofs directly.
+00:02:12.980 --> 00:02:14.780
+blocks an old approval once
 
-00:02:30.195 --> 00:02:35.498
-The system trusts adapters, a relay, an observer, and supplied time.
+00:02:14.780 --> 00:02:16.340
+the update reaches Solana.
 
-00:02:35.498 --> 00:02:42.048
-Revocation propagation takes time, and enforcement covers this vault's payment path.
+00:02:17.120 --> 00:02:19.140
+Both successful payments and
 
-00:02:42.048 --> 00:02:45.947
-Corporate agent delegation is a future experiment.
+00:02:19.140 --> 00:02:21.120
+rejected attempts have execution
 
-00:02:45.947 --> 00:02:48.052
+00:02:21.120 --> 00:02:21.740
+evidence.
+
+00:02:23.060 --> 00:02:25.060
+The trust boundaries are
+
+00:02:25.060 --> 00:02:25.520
+explicit.
+
+00:02:26.260 --> 00:02:28.060
+Solana does not verify Midnight
+
+00:02:28.060 --> 00:02:29.120
+proofs directly.
+
+00:02:29.920 --> 00:02:31.540
+The system trusts adapters,
+
+00:02:32.080 --> 00:02:32.440
+a relay,
+
+00:02:32.920 --> 00:02:34.900
+an observer, and supplied time.
+
+00:02:35.820 --> 00:02:37.500
+Revocation propagation takes
+
+00:02:37.500 --> 00:02:39.580
+time, and enforcement covers
+
+00:02:39.580 --> 00:02:41.100
+this vault's payment path.
+
+00:02:41.860 --> 00:02:44.260
+Corporate agent delegation is a
+
+00:02:44.260 --> 00:02:45.200
+future experiment.
+
+00:02:45.920 --> 00:02:47.520
 Prove permission privately.
 
-00:02:48.052 --> 00:02:49.923
+00:02:48.140 --> 00:02:49.620
 Enforce it at execution.
