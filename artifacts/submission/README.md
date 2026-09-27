@@ -9,6 +9,8 @@ The seven-slide deck uses Noto Sans KR, deep green execution states, and rust-co
 
 The video records the actual read-only evidence UI with English male synthetic narration (Cillian, ElevenLabs via Higgsfield). It explains the saved September 21 testnet run; it is not a new network execution. The public site exposes no payment controls, wallet secrets, or operator server. Historical evidence files are unchanged.
 
+The public player uses `ProofPass-Demo-Captioned.mp4`, with English captions burned into the picture. `ProofPass-Demo.mp4` remains the clean English master. Caption timing is derived from Whisper on the finished audio and wording is checked against `scripts/submission-narration-en.mjs`. The Higgsfield subtitles workflow renders small natural-case white text with a thin black outline above the existing scene summary.
+
 ## Build and verification
 
 Use Node 22.23.2 and the repository's installed Playwright dependency. The deck builder additionally expects `pptxgenjs` under `.local/submission-tools/node_modules` and the official Google Fonts Noto Sans KR variable font at `.local/submission-tools/NotoSansKR.ttf`. The video builder expects local `ffmpeg-static`, `ffprobe-static`, and seven English narration MP3 files (`audio/en-0.mp3` through `audio/en-6.mp3`), generated from `scripts/submission-narration-en.mjs`; voice settings and generation IDs are recorded in `english-voice.json`. These are production tools, not application dependencies.
@@ -16,8 +18,9 @@ Use Node 22.23.2 and the repository's installed Playwright dependency. The deck 
 1. `node scripts/build-public-demo.mjs`
 2. `node scripts/build-submission-deck.mjs`
 3. `node scripts/record-submission-video.mjs` (requires English narration MP3 inputs)
-4. `node scripts/build-submission-pages.mjs`
-5. `node scripts/check-public-submission.mjs`
+4. Transcribe and verify the clean master, then burn `captions-en.srt` using the Higgsfield subtitles workflow's `burn_caps_clean.sh` (`--no-caps --fontsize 10 --marginv 42 --outline 1 --shadow 1`). Copy the verified captioned MP4 into `dist/submission`.
+5. `node scripts/build-submission-pages.mjs`
+6. `node scripts/check-public-submission.mjs`
 
 Keep the font's OFL license alongside the deployed font. The generated `dist/submission` is deployed from the separate `gh-pages` branch. The local static server is for preview and QA only.
 

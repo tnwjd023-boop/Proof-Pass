@@ -19,9 +19,9 @@ try {
     assert.equal(state.readOnly,true);assert.equal(state.token,undefined);assert.equal(state.operatorPolicy,null);
     assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
     await page.screenshot({path:'artifacts/submission/'+(remote?'live-':'public-')+name+'.png',fullPage:true});
-    await page.goto(new URL('watch.html',base).href,{waitUntil:'networkidle'});
-    assert.equal(await page.locator('track').getAttribute('srclang'),'en');
-    assert.match(await page.locator('source').getAttribute('src'),/english-male-1/);
+    await page.goto(new URL('watch.html?v=english-captions-1',base).href,{waitUntil:'networkidle'});
+    assert.equal(await page.locator('video').getAttribute('data-captions'),'burned-en');
+    assert.match(await page.locator('source').getAttribute('src'),/ProofPass-Demo-Captioned.mp4/);
     await page.waitForFunction(()=>Number.isFinite(document.querySelector('video').duration));
     const seconds=await page.locator('video').evaluate(v=>v.duration);assert(seconds>120&&seconds<180);
     await page.locator('[data-time]').nth(4).click();

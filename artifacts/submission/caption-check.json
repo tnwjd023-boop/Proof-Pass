@@ -1,0 +1,23 @@
+{
+  "status": "passed",
+  "durationSeconds": 171.24,
+  "captions": 92,
+  "scriptCoverage": "complete",
+  "timingProvider": "faster-whisper",
+  "alignmentSimilarity": 0.9128367670364501,
+  "audioUnchanged": true,
+  "visualChecksSeconds": [
+    5,
+    105,
+    168.8
+  ],
+  "style": {
+    "font": "TikTok Sans",
+    "naturalCase": true,
+    "fontSize": 10,
+    "marginV": 42,
+    "outline": 1,
+    "shadow": 1
+  },
+  "checkedAt": "2026-09-27T06:53:25.146Z"
+}
